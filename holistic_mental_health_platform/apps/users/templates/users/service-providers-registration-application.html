@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Service Provider Registration Application Form</h1>
+
+<div>
+  <form method="POST" action="">
+    {% csrf_token %}  <!-- prevent against malicious attacks -->
+    {{ serviceProviderApplicationForm.as_p }} <!-- wraps p tag around every paragraph-->
+    <input type="submit" value="Submit" />
+  </form>
+</div>
+{% if messages %}
+{% for message in messages %}
+  <div class="alert alert-{{ message.tags}}">
+    {{ message }}
+  </div>
+{% endfor %}
+{% endif %}
+
+{% endblock content %}
