@@ -7,7 +7,7 @@ from .models import *
 from django.db import transaction
 
 class ClientUserCreationForm(UserCreationForm):
-  # email = forms.EmailField()
+  email = forms.EmailField()
   agree = forms.BooleanField()
   
   class Meta(UserCreationForm.Meta):

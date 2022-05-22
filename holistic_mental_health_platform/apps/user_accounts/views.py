@@ -29,7 +29,9 @@ def clientsRegistration(request):
       messages.success(request, 'Account was created for ' + username)
       login(request, user) # log user in immediately
       messages.success(request, 'You are now  logged in as' + username)
-      #return redirect(to profile page)
+      current_user = request.user
+      #return redirect('client-profile', pk=current_user.id)    
+      return redirect('home')
   
       
   context = {'client_registration_form': client_registration_form }
@@ -37,8 +39,10 @@ def clientsRegistration(request):
 
 # https://www.youtube.com/watch?v=3aVqWaLjqS4&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=7
 def clientsLogin(request):
+  current_user = request.user
   if request.user.is_authenticated:  # cant go to login page
-    return redirect('client-profile')
+    return redirect('home')
+    #return redirect('client-profile', pk=current_user.id)
   if request.method == 'POST': # if user sent info
     username = request.POST.get('username').lower()  # populated with the data that the user sent
     password = request.POST.get('password')
@@ -50,16 +54,18 @@ def clientsLogin(request):
     except:
       messages.error(request, 'User does not exist - Please create an account')  # flash messages
 
-    if user.is_client or user.is_superuser:  # only service providers can use the service provider login
-      user = authenticate(request, username=username, password=password)
-      if user is not None:
-        login(request, user)
-        messages.success(request, 'You are successfully logged in as' + username)
-        return redirect('client-profile')
-      else:
-        messages.info(request, 'Username or password is incorrect')
+    #if user.is_client or user.is_superuser:  # only service providers can use the service provider login
+    user = authenticate(request, username=username, password=password)
+    current_user = request.user
+    if user is not None:
+      login(request, user)
+      messages.success(request, 'You are successfully logged in as' + username)
+      return redirect('home')
+      #return redirect('client-profile', pk=current_user.id) 
     else:
-       messages.error(request, 'You are not authorized to login as a client user')  # flash messages
+      messages.info(request, 'Username or password is incorrect')
+  else:
+      messages.error(request, 'You are not authorized to login as a client user')  # flash messages
 
   
   context = {}
@@ -107,7 +113,7 @@ def serviceProviderLogin(request):
       if user is not None:
         login(request, user)
         messages.success(request, 'You are successfully logged in as' + username)
-        return redirect('service-provider-profile')
+        return redirect('home')
       else:
         messages.info(request, 'Username or password is incorrect')
     else:

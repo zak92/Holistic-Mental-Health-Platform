@@ -6,8 +6,8 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
    
-    path('client', views.clientProfile, name='client-profile'),
-    path('service-provider', views.serviceProviderProfile, name='service-provider-profile'),
+    path('client/<str:username>/', views.clientProfile, name='client-profile'),
+    path('service-provider/<str:username>/', views.serviceProviderProfile, name='service-provider-profile'),
   
    
 
