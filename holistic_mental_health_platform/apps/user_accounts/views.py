@@ -4,12 +4,12 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
 from apps.user_profiles import views
+
+from apps.main import views
 # Create your views here.
 # https://www.youtube.com/watch?v=bTFRbAuU5Uo##############################
 
-def home(request):
- context = {'title': 'HOME'}
- return render(request, 'users/home.html', context)
+
 
 def clientsRegistration(request):
 
