@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Article List</h1>
+<div class="articles">
+  {% for article in articles %}
+    <div class="article">
+      <a href="{{ article.get_absolute_url }}"><img src="{{ article.thumb.url }}" ></a>
+      <h2><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h2>
+      <p>{{ article.date_created }}</p>
+      <p>{{ article.author }}</p>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

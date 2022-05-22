@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Create a blog post</h1>
+<div>
+  <form method="POST" action="", enctype="multipart/form-data">
+    {% csrf_token %}  <!-- prevent against malicious attacks -->
+    {{ form.as_p }} <!-- wraps p tag around every paragraph-->
+    <input type="submit" value="Submit" />
+  </form>
+</div>
+<script src="/static/slugify.js"></script>
+{% endblock content %}
