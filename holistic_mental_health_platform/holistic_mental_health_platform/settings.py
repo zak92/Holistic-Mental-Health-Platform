@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Add our new applications
     'crispy_forms',
-    'apps.users',
+    'apps.user_accounts',
     'apps.blog',
-    'apps.user_profiles'
+    'apps.user_profiles',
 
 ]
 
@@ -138,7 +138,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'user_accounts.User'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

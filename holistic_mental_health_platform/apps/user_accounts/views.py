@@ -3,6 +3,7 @@ from .forms import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
+from apps.user_profiles import views
 # Create your views here.
 # https://www.youtube.com/watch?v=bTFRbAuU5Uo##############################
 
@@ -37,7 +38,7 @@ def clientsRegistration(request):
 # https://www.youtube.com/watch?v=3aVqWaLjqS4&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=7
 def clientsLogin(request):
   if request.user.is_authenticated:  # cant go to login page
-    return redirect('home')
+    return redirect('client-profile')
   if request.method == 'POST': # if user sent info
     username = request.POST.get('username').lower()  # populated with the data that the user sent
     password = request.POST.get('password')
@@ -54,7 +55,7 @@ def clientsLogin(request):
       if user is not None:
         login(request, user)
         messages.success(request, 'You are successfully logged in as' + username)
-        return redirect('home')
+        return redirect('client-profile')
       else:
         messages.info(request, 'Username or password is incorrect')
     else:
@@ -89,7 +90,7 @@ def serviceProviderApplication(request):
 
 def serviceProviderLogin(request):
   if request.user.is_authenticated:  # cant go to login page
-    return redirect('home')
+    return redirect('service-provider-profile')
   if request.method == 'POST': # if user sent info
     username = request.POST.get('username').lower()  # populated with the data that the user sent
     password = request.POST.get('password')
@@ -106,7 +107,7 @@ def serviceProviderLogin(request):
       if user is not None:
         login(request, user)
         messages.success(request, 'You are successfully logged in as' + username)
-        return redirect('home')
+        return redirect('service-provider-profile')
       else:
         messages.info(request, 'Username or password is incorrect')
     else:

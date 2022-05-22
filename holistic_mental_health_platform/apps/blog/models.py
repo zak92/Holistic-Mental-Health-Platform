@@ -2,7 +2,7 @@ from email.quoprimime import body_check
 from django.db import models
 from django.forms import CharField, SlugField
 from django.urls import reverse
-from ..users.models import *
+from ..user_accounts.models import *
 # Create your models here.
 
 

@@ -1,6 +1,6 @@
 from re import template
 from django.urls import path
-from apps.users import views
+from apps.user_accounts import views
 
 from django.contrib.auth import views as auth_views
 
