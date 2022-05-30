@@ -34,8 +34,8 @@
   <a href="{% url 'logout' %}">Logout</a>
   {% elif request.user.is_authenticated and request.user.is_staff or request.user.is_superuser %}
   <h4>{{request.user}}</h4>
-  <a href="{% url 'service-provider-profile' request.user.username %}">My Profile</a>
-  <a href="{% url 'client-profile' request.user.username %}">My Profile</a><br>
+  <a href="{% url 'service-provider-profile' request.user.username %}">My SP Profile</a>
+  <a href="{% url 'client-profile' request.user.username %}">My Client Profile</a><br>
   <a href="{% url 'logout' %}">Logout</a>
   {% else %}
 

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.user_accounts',
     'apps.blog',
     'apps.user_profiles',
+    'apps.bookings',
     'apps.main',
 
 ]

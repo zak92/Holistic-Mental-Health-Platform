@@ -5,11 +5,12 @@
 <h1>Service Providers</h1>
 
 {% for service_provider in service_providers %}
+
 <div>
   <ul>
     <li>
       <a href="{% url 'service-provider-profile' service_provider %}">{{ service_provider.first_name }} {{ service_provider.last_name }}</a><br>
-      <a href="">Book Now</a>
+      <a href="{%  url 'client-booking' service_provider %}">Book Now</a>
       <br></li>
   </ul>
 </div>

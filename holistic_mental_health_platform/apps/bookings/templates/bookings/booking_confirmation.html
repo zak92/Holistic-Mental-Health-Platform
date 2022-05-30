@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Confirmation of Booking page</h1>
+
+
+
+<h2>For clients</h2>
+<p>You have made an appointment with {{ booking.service_provider.first_name }} {{ booking.service_provider.last_name }}</p>
+<p>Date {{booking.date }}</p>
+<p>Time {{booking.time}}</p>
+
+<form method="POST" action="">
+  {% csrf_token %}
+  {{ booking_form.as_p }}
+  <input type="submit" value="Confirm Booking with service provider" />
+</form>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}

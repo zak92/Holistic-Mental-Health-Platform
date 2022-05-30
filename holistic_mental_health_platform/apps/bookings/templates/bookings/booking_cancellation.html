@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Cancellation of Booking page</h1>
+
+
+<h2>For Clients</h2>
+<h3> Cancel booking with {{ booking.service_provider.first_name }} {{ booking.service_provider.last_name }}</h3></h3>
+  <p>Date {{booking.date }}</p>
+  <p>Time {{booking.time}}</p>
+
+<form method="POST" action="">
+  {% csrf_token %}
+  {{ client_booking_form.as_p }}
+  <input type="submit" value="Cancel Booking with SP" />
+</form>
+
+{% endblock content %}

@@ -77,3 +77,5 @@ class ServiceProviderRegistrationApplicationForm(ModelForm):
     service_provider.phone_no = self.cleaned_data.get('phone_no')
     service_provider.save()
     return user
+
+

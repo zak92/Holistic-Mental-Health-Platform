@@ -20,8 +20,7 @@ class User(AbstractUser):
 
 class ServiceProvider(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-  #first_name = models.CharField(max_length=500, null=True)
-  #last_name = models.CharField(max_length=500, null=True) in User model
+  
   phone_no = models.CharField(max_length=10, null=True)
   about = models.CharField(max_length=10000, null=True)
   # USERNAME_FIELD = 'email'

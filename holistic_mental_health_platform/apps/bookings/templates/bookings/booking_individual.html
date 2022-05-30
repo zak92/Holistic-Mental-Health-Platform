@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Individual Bookings page</h1>
+
+<a href="{% url 'service-provider-profile' user %}">{{ user.first_name }} {{ user.last_name }}</a><br>
+
+<table class="table">
+  <thead>
+    <tr>
+      
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th>Book an appointment</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+   
+      {% for available_booking in available_bookings %}
+        {% if current_date < available_booking.date or current_date == available_booking.date and current_time < available_booking.time %}
+          {% if available_booking.booked == False %}
+          <tr>
+            <td>{{ available_booking.date }}</td>
+            <td>{{ available_booking.time }}</td>
+            <td>
+              <a href="{% url 'confirm-booking' available_booking.id %}">Book</a></td>
+          </tr>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    
+  </tbody>
+  
+</table>
+
+{% endblock content %}

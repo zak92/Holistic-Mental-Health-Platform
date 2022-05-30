@@ -4,9 +4,121 @@
 
 <h1>Service Provider Profile page</h1>
 
-<h1>{{user.first_name}}  {{user.last_name}}</h1>
-<a href="">Book Now</a>
-<h2>{{user.email}}</h2>
+<h4>{{user.first_name}}  {{user.last_name}}</h4>
+
+
+<h4>{{user.email}}</h4>
+<h2></h2>
+
+
+<h4><a href="{%  url 'client-booking' user %}">Book Now</a></h4>
+
+<div>
+{% if request.user == user %}
+<h3>Schedule Available Bookings</h3>
+
+<div>
+  <form method="POST" action="">
+    {% csrf_token %}  <!-- prevent against malicious attacks -->
+    
+    {{ form.as_p }} <!-- wraps p tag around every paragraph-->
+    <input type="submit" value="Submit" />
+  </form>
+</div>
+
+<h2>Available Appointments</h2>
+<table class="table">
+  <thead>
+    <tr>
+      
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      
+      <th scope="col">Availability Status</th>
+      <th scope="col">Confirmation Status</th>
+      <th scope="col">Client</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    {% for available_booking in available_bookings %}
+      {% if current_date < available_booking.date or current_date == available_booking.date and current_time < available_booking.time %}
+    <tr>
+      <td>{{ available_booking.date }}</td>
+      <td>{{ available_booking.time }}</td>
+      
+     
+      {% if available_booking.booked == True %}
+      <td>Booked</td>
+      {% else %}
+      <td>Available</td>
+      {% endif %}
+
+      {% if available_booking.confirmed == True %}
+      <td>Confirmed</td>
+      {% else %}
+      <td>Pending</td>
+      {% endif %}
+
+      {% if available_booking.cancelled == True or available_booking.client == null %}
+      <td></td>
+      {% else %}
+        <td> @<a href="{% url 'client-profile'  available_booking.client %}">{{ available_booking.client }}</a></td>
+      {% endif %}
+
+    
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+  
+</table>
+
+<hr>
+
+  <h2>Booked Appointments</h2>
+  {% for available_booking in available_bookings %}
+  <div>
+    {% if current_date < available_booking.date or current_date == available_booking.date and current_time < available_booking.time %}
+      {% if available_booking.booked == True %}
+      <a href="{% url 'confirm-booking-sp' available_booking.id %}">Confirm</a>
+      <a href="{% url 'cancel-booking-sp' available_booking.id %}">Cancel</a>
+      <p>Confirmation Status: {{ available_booking.confirmed }}</p>
+      
+      <p>Date: {{ available_booking.date }}</p>
+      <p>Time: {{ available_booking.time }}</p>
+      <p>Client: @<a href="{% url 'client-profile'  available_booking.client %}">{{ available_booking.client }}</a></p>
+      {% if available_booking.confirmed == True %}
+        <p>Confirmed</p>
+      {% else %}
+        <p>Pending</p>
+      {% endif %}
+      <hr>
+    {% endif %}
+    
+  </div>
+  {% endif %}
+  {% endfor %}
+
+
+
+<h2>Cancelled Appointments</h2>
+  {% for available_booking in available_bookings %}
+  {% if current_date < available_booking.date or current_date == available_booking.date and current_time < available_booking.time %}
+  <div>
+    {% if available_booking.cancelled == True %}
+      <p>Date: {{ available_booking.date }}</p>
+      <p>Time: {{ available_booking.time }}</p>
+      <p>Client: <a href="{% url 'client-profile'  available_booking.client %}">{{ available_booking.client }}</a></p>
+      <hr>
+    {% endif %}
+    
+  </div>
+  {% endif %}
+  {% endfor %}
+
+  
+{% endif %}
 
 
 
@@ -18,5 +130,8 @@
   </div>
 {% endfor %}
 {% endif %}
+
+
+
 
 {% endblock content %}
