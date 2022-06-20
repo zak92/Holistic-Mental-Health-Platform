@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm ,AuthenticationForm
 from .models import *
 from django.db import transaction
 
+# styling forms - https://medium.com/swlh/how-to-style-your-django-forms-7e8463aae4fa
 class ClientUserCreationForm(UserCreationForm):
   email = forms.EmailField()
   agree = forms.BooleanField()

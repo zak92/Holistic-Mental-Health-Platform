@@ -29,7 +29,7 @@ urlpatterns = [
     path('blog/', include('apps.blog.urls')),
     path('profiles/', include('apps.user_profiles.urls')),
     path('bookings/', include('apps.bookings.urls')),
-   
+    path('video-calling/', include('apps.video_calling.urls')),
 
 ]
 

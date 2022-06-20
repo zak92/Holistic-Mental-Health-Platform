@@ -38,7 +38,7 @@ def clientsRegistration(request):
   return render(request, 'users/clients-registration.html', context)
 
 # https://www.youtube.com/watch?v=3aVqWaLjqS4&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=7
-def clientsLogin(request):
+def userLogin(request):
   current_user = request.user
   if request.user.is_authenticated:  # cant go to login page
     return redirect('home')
@@ -64,14 +64,13 @@ def clientsLogin(request):
       #return redirect('client-profile', pk=current_user.id) 
     else:
       messages.info(request, 'Username or password is incorrect')
-  else:
-      messages.error(request, 'You are not authorized to login as a client user')  # flash messages
+  
 
   
   context = {}
-  return render(request, 'users/clients-login.html', context)
+  return render(request, 'users/login.html', context)
 
-def clientsLogout(request):
+def userLogout(request):
 	logout(request)
 	return redirect('login')
 
@@ -94,32 +93,5 @@ def serviceProviderApplication(request):
   context = {'serviceProviderApplicationForm': serviceProviderApplicationForm }
   return render(request, 'users/service-providers-registration-application.html', context)
 
-def serviceProviderLogin(request):
-  if request.user.is_authenticated:  # cant go to login page
-    return redirect('service-provider-profile')
-  if request.method == 'POST': # if user sent info
-    username = request.POST.get('username').lower()  # populated with the data that the user sent
-    password = request.POST.get('password')
 
-
-    
-    try:
-      user = User.objects.get(username=username)
-    except:
-      messages.error(request, 'User does not exist - Please create an account')  # flash messages
-
-    if user.is_service_provider or user.is_superuser:  # only service providers can use the service provider login
-      user = authenticate(request, username=username, password=password)
-      if user is not None:
-        login(request, user)
-        messages.success(request, 'You are successfully logged in as' + username)
-        return redirect('home')
-      else:
-        messages.info(request, 'Username or password is incorrect')
-    else:
-       messages.error(request, 'You are not authorized to login as a service provider')  # flash messages
-
-  
-  context = {}
-  return render(request, 'users/service-provider-login.html', context)
 
