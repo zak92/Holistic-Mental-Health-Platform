@@ -98,3 +98,72 @@ def bookingCancellation(request, pk):
              'sp_booking_form':  client_booking_form
              }
   return render(request, 'bookings/booking_cancellation.html', context)
+
+
+# @login_required(login_url='/accounts/login/client')  UNCOMMENT LATER
+def clientAppointments(request, username):
+   # get user object
+  user = User.objects.get(username=username)
+  client = Client.objects.get(user=user.id)
+
+  current_date = datetime.now().date()  
+  current_time = datetime.now().time()  
+  my_bookings = Booking.objects.filter(client=request.user)
+  context = {'user':user, 'client':client,
+            'current_date': current_date,
+            'current_time': current_time,
+            'my_bookings': my_bookings,
+            }
+
+
+  return render(request, 'bookings/client_appointments.html', context)
+
+
+
+def serviceProviderScheduleAppointments(request, username):
+  user = User.objects.get(username=username)
+  form = BookingForm()
+
+  current_date = datetime.now().date()  
+  current_time = datetime.now().time()  
+
+  if request.method == 'POST': # if user sent info
+    form = BookingForm(request.POST)
+    if form.is_valid():
+      booking = form.save(commit=False)
+      booking.service_provider = request.user
+      booking.save()
+
+      return redirect('service-provider-profile', username)
+
+  available_bookings = Booking.objects.filter(service_provider=request.user)
+
+
+    
+  context = {'user':user, 
+          'form':form,
+          'available_bookings': available_bookings,
+          'current_date': current_date,
+          'current_time': current_time,
+          
+          }
+
+  return render(request, 'bookings/sp_schedule_appointments.html', context)
+
+def serviceProviderBookedAppointments(request, username):
+  user = User.objects.get(username=username)
+  current_date = datetime.now().date()  
+  current_time = datetime.now().time()  
+  
+  available_bookings = Booking.objects.filter(service_provider=request.user)
+
+  context = {'user':user, 
+      
+        'available_bookings': available_bookings,
+        'current_date': current_date,
+        'current_time': current_time,
+        
+        }
+
+  return render(request, 'bookings/sp_booked_appointments.html', context)
+ 

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<a href="{% url 'client-profile' request.user.username %}">Profile</a>
+<a href="{% url 'client-group-sessions' request.user.username %}">Live Group Sessions</a>
+<a href="{% url 'client-appointments' request.user.username %}">My Appointments</a>
+
+<h1>My Live Group Sessions</h1>
+
+{% for client_group_session in client_group_sessions %}
+{% if current_date < client_group_session.date or current_date == client_group_session.date and current_time < client_group_session.time %}
+  {% if client_group_session.cancelled == False %}
+    <h2>Category: {{ client_group_session.category }}</h2>
+    <h3>Group Name</h3>
+    <p>{{ client_group_session.group_name }}</p>
+    <h3>Host</h3>
+    <p>{{ client_group_session.service_provider }}</p>
+    <h3>Description</h3>
+    <p>{{ client_group_session.description }}</p>
+    <p>Maximum number of members: {{ client_group_session.max_members }}</p>
+    <p>{{ client_group_session.date }}</p>
+    <p>{{ client_group_session.time }}</p>
+    <p>{{ client_group_session.duration }} min</p>
+    <p>Current members joined: {{ client_group_session.total_members }}</p>
+    <a href="{% url 'leave-group' client_group_session.id %}">Leave Group Session</a>
+  <hr>
+  {% endif %}
+  
+{% endif %}
+{% endfor %}
+
+
+
+
+
+
+
+<h2>Cancelled Group Sessions (Cancelled by the Host)</h2>
+{% for client_group_session in client_group_sessions %}
+{% if current_date < client_group_session.date or current_date == client_group_session.date and current_time < client_group_session.time %}
+  {% if client_group_session.cancelled == True %}
+    <h2>Category: {{ client_group_session.category }}</h2>
+    <h3>Group Name</h3>
+    <p>{{ client_group_session.group_name }}</p>
+    <h3>Host</h3>
+    <p>{{ client_group_session.service_provider }}</p>
+    <h3>Description</h3>
+    <p>{{ client_group_session.description }}</p>
+    <p>Maximum number of members: {{ client_group_session.max_members }}</p>
+    <p>{{ client_group_session.date }}</p>
+    <p>{{ client_group_session.time }}</p>
+    <p>{{ client_group_session.duration }} min</p>
+    <p>Current members joined: {{ client_group_session.total_members }}</p>
+  <hr>
+ {% endif %}
+{% endif %}
+{% endfor %}
+
+
+
+
+{% endblock content %}

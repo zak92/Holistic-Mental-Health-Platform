@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Service Provider Profile page</h1>
+
+<h4>{{user.first_name}}  {{user.last_name}}</h4>
+
+<a href="{% url 'service-provider-profile' request.user.username %}">Profile</a>
+<a href="{% url 'schedule-appointments' request.user.username %}">Schedule Appointments</a>
+<a href="{% url 'booked-appointments' request.user.username %}">Booked Appointments</a>
+<a href="{% url 'schedule-group-sessions' request.user.username %}">Schedule Live Group Sessions</a>
+<a href="{% url 'available-group-sessions' request.user.username %}">Live Group Sessions</a>
+
+
+{% if request.user == user %}
+<div>
+
+
+  <h2>Booked Appointments</h2>
+  {% for available_booking in available_bookings %}
+  <div>
+    {% if current_date < available_booking.date or current_date == available_booking.date and current_time < available_booking.time %}
+      {% if available_booking.booked == True %}
+      <a href="{% url 'confirm-booking-sp' available_booking.id %}">Confirm</a>
+      <a href="{% url 'cancel-booking-sp' available_booking.id %}">Cancel</a>
+      <p>Confirmation Status: {{ available_booking.confirmed }}</p>
+      
+      <p>Date: {{ available_booking.date }}</p>
+      <p>Time: {{ available_booking.time }}</p>
+      <p>Client: @<a href="{% url 'client-profile'  available_booking.client %}">{{ available_booking.client }}</a></p>
+      {% if available_booking.confirmed == True %}
+        <p>Confirmed</p>
+      {% else %}
+        <p>Pending</p>
+      {% endif %}
+      <hr>
+    {% endif %}
+    
+  </div>
+  {% endif %}
+  {% endfor %}
+
+
+
+<h2>Cancelled Appointments</h2>
+  {% for available_booking in available_bookings %}
+  {% if current_date < available_booking.date or current_date == available_booking.date and current_time < available_booking.time %}
+  <div>
+    {% if available_booking.cancelled == True %}
+      <p>Date: {{ available_booking.date }}</p>
+      <p>Time: {{ available_booking.time }}</p>
+      <p>Client: <a href="{% url 'client-profile'  available_booking.client %}">{{ available_booking.client }}</a></p>
+      <hr>
+    {% endif %}
+    
+  </div>
+  {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% endblock content %}

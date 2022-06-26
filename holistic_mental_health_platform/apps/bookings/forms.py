@@ -7,6 +7,24 @@ from .models import *
 
 from django.db import transaction
 
+class DatePickerInput(forms.DateInput):
+    input_type = 'date'
+
+class TimePickerInput(forms.TimeInput):
+    input_type = 'time'
+
+class DateTimePickerInput(forms.DateTimeInput):
+    input_type = 'datetime'
+
+class BookingForm(ModelForm):
+  class Meta:
+    model = Booking
+    fields = ['date', 'time']
+    widgets = {
+      'date': DatePickerInput(),
+      'time':  TimePickerInput(),
+    }
+
 class ClientBookingForm(ModelForm):
   
   class Meta:

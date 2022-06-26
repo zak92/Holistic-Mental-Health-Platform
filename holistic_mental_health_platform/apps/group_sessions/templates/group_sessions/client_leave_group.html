@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Cancellation of Group Session By SP</h1>
+
+
+<h3> Are you sure you want to leave the group  - {{ client_leave_group.group_name }}</h3>
+  <p>Date {{client_leave_group.date }}</p>
+  <p>Time {{client_leave_group.time}}</p>
+
+<form method="POST" action="">
+  {% csrf_token %}
+  <input type="submit" value="Yes" />
+</form>
+
+{% endblock content %}

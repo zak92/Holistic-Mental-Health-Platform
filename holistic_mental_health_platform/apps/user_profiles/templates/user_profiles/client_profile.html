@@ -6,54 +6,15 @@
 
 <h4>{{user.username}}</h4>
 
+<a href="{% url 'client-profile' request.user.username %}">Profile</a>
+<a href="{% url 'client-appointments' request.user.username %}">My Appointments</a>
+<a href="{% url 'client-group-sessions' request.user.username %}">Live Group Sessions</a>
+
 <h4>{{user.email}}</h4>
 
 <h3>Bio</h3>
 <p>{{ client.bio }}</p>
 
-
-{% if request.user == user %}
-<h2>My Bookings</h2>
-{% for my_booking in my_bookings %}
-<div>
-  {% if current_date < my_booking.date or current_date == my_booking.date and current_time < my_booking.time %}
-  {% if my_booking.booked == True %}
-  <a href="{% url 'cancel-booking' my_booking.id %}">Cancel</a>
-  <p>Confirmation Status: {{ my_booking.confirmed }}</p>
-      
-      <p>Date: {{ my_booking.date }}</p>
-      <p>Time: {{ my_booking.time }}</p>
-      <p>Service provider: <a href="{% url 'service-provider-profile' my_booking.service_provider %}">{{ my_booking.service_provider.first_name }} {{ my_booking.service_provider.last_name }}</a></p>
-      {% if my_booking.confirmed == True %}
-        <p>Confirmed</p>
-      {% else %}
-        <p>Pending</p>
-      {% endif %}
-      <hr>
-      {% endif %}
-  {% endif %}
-</div>
-{% endfor %}
-
-
-<h2>Cancelled Appointments</h2>
-  {% for my_booking in my_bookings %}
-    {% if current_date < my_booking.date or current_date == my_booking.date and current_time < my_booking.time %}
-  <div>
-    {% if my_booking.cancelled == True %}
-      <p>Date: {{ my_booking.date }}</p>
-      <p>Time: {{ my_booking.time }}</p>
-      <p> Service provider: <a href="{% url 'service-provider-profile' my_booking.service_provider %}">{{ my_booking.service_provider.first_name }} {{ my_booking.service_provider.last_name }}</a></p>
-      
-      <hr>
-    {% endif %}
-    
-    
-  </div>
-  {% endif %}
-  {% endfor %}
-
-{% endif %}
 
 {% if messages %}
 {% for message in messages %}

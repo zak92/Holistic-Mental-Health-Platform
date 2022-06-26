@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'apps.bookings',
     'apps.main',
     'apps.video_calling',
+    'apps.group_sessions',
 
 ]
 

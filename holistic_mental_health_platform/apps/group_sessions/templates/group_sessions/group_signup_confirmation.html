@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>Confirm Group Sign Up</h1>
+
+<h3> Confirm Group Session with {{ group_signup.group_name }}</h3>
+  <p>Date {{group_signup.date }}</p>
+  <p>Time {{group_signup.time}}</p>
+
+<form method="POST" action="">
+  {% csrf_token %}
+ 
+  <input type="submit" value="Confirm" />
+</form>
+
+{% endblock content %}

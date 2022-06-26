@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>All Live Group Sessions</h1>
+
+{% for available_group_session in available_group_sessions %}
+{% if current_date < available_group_session.date or current_date == available_group_session.date and current_time < available_group_session.time %}
+{% if available_group_session.cancelled == False %}
+  <h2>Category: {{ available_group_session.category }}</h2>
+
+  <h3>Group Name</h3>
+  <p>{{ available_group_session.group_name }}</p>
+  <h3>Host</h3>
+  <p>{{ available_group_session.service_provider }}</p>
+  <h3>Description</h3>
+  <p>{{ available_group_session.description }}</p>
+  <p>Maximum number of members: {{ available_group_session.max_members }}</p>
+  <p>{{ available_group_session.date }}</p>
+  <p>{{ available_group_session.time }}</p>
+  <p>{{ available_group_session.duration }} min</p>
+  <p>Current members joined: {{ available_group_session.total_members }}</p>
+  {% if available_group_session.total_members < available_group_session.max_members %}
+  <a href="{% url 'group-signup-confirmation' available_group_session.id %}">Join This Session</a>
+  {% else %}
+  <p>This group is full!</p>
+  {% endif %}
+ <hr>
+
+
+ {% endif %}
+{% endif %}
+{% endfor %}
+
+{% endblock content %}

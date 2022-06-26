@@ -10,7 +10,11 @@ urlpatterns = [
    
     path('client/<str:username>/', views.clientProfile, name='client-profile'),
     path('service-provider/<str:username>/', views.serviceProviderProfile, name='service-provider-profile'),
- 
+
+   
+
+    
+    
    
 
 ]

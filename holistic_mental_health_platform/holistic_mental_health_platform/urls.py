@@ -30,6 +30,7 @@ urlpatterns = [
     path('profiles/', include('apps.user_profiles.urls')),
     path('bookings/', include('apps.bookings.urls')),
     path('video-calling/', include('apps.video_calling.urls')),
+    path('group-sessions/', include('apps.group_sessions.urls')),
 
 ]
 
