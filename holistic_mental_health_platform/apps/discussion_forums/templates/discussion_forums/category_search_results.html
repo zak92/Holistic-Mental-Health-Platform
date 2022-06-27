@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Discussions</h1>
+<a href="{% url 'create-discussion-post' %}"><h5>Start New Discussion</h5></a>
+
+<form method="GET" action="{% url 'discussion-post-text-search' %}">
+  {% csrf_token %}  <!-- prevent against malicious attacks -->
+ 
+  <input type="text"  name="q" placeholder="Search "/>
+  <input type="submit" value="Search">
+
+</form>
+
+<h4>Categories</h4>
+<ul>
+  <a href="{% url 'forum-home' %}"><li>All</li></a>
+</ul>
+{% for category in categories %}
+<ul>
+  <a href="{{ category.get_url }}"><li>{{ category.title }}</li></a>
+</ul>
+{% endfor %}
+
+
+<h5>{{ category }}</h5>
+
+{% if discussion_list %}
+  {% for discussion in discussion_list %}
+  <div>
+    <a href="{{ discussion.get_url }}"><h5>{{discussion.title }}</h5></a>
+    <p>{{ discussion.date_updated }}</p>
+    <p>{{ discussion.author.username }}</p>
+  
+    <p>{{ discussion.category.title }}</p>  
+  </div>
+  {% endfor %}
+{% else %}
+  <p>No results for {{ category }}</p>
+{% endif %}
+
+{% endblock content %}

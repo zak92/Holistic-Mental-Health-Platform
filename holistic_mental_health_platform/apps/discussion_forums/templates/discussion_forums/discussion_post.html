@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Discussions</h1>
+<a href="{% url 'create-discussion-post' %}"><h5>Start New Discussion</h5></a>
+<form method="GET" action="{% url 'discussion-post-text-search' %}">
+  {% csrf_token %}  <!-- prevent against malicious attacks -->
+ 
+  <input type="text"  name="q" placeholder="Search "/>
+  <input type="submit" value="Search">
+
+</form>
+
+
+<h4>Categories</h4>
+<ul>
+  <a href="{% url 'forum-home' %}"><li>All</li></a>
+</ul>
+{% for category in categories %}
+<ul>
+  <a href="{{ category.get_url }}"><li>{{ category.title }}</li></a>
+</ul>
+{% endfor %}
+
+<div>
+  <h5>{{post.title }}</h5>
+  <p>{{ post.date_updated }}</p>
+  <p>{{ post.author.username }}</p>
+  <p>{{ post.category.title }}</p>
+  <div>
+    {{ post.discussion_post|safe}}
+  </div>
+  <form method="POST" action="">
+    {% csrf_token %}
+    {{ flag_discussion_post_form.as_p }}
+    <input type="submit" value="Flag" />
+  </form>
+</div>
+
+<h4>Replies</h4>
+
+{% if request.user.is_authenticated %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="comment-area hide" id="comment-area">
+        <textarea name="comment" id=""></textarea>
+        <input type="submit" value="REPLY" name="comment-form">
+    </div>
+</form>
+{% endif %}
+
+<div>
+  {% for comment in post.comments.all %}
+  <div class="username"><a href="">{{comment.author.username}}</a></div>
+    <p>{{ comment.comment|safe }}</p>
+    <p>{{ comment.date|date }}</p>
+    <form method="POST" action="">
+      {% csrf_token %}
+      {{ flag_comment_form.as_p }}
+      <input type="submit" value="Flag" />
+    </form>
+  {% endfor %}
+</div>
+
+
+{% endblock content %}

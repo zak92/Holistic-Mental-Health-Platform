@@ -1,6 +1,6 @@
 from django.db import models
 
-from django.db import models
+
 from django.forms import DateField
 
 from ..user_accounts.models import *

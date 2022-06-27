@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'ckeditor',
+
     # Add our new applications
     'crispy_forms',
     'apps.user_accounts',
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
     'apps.main',
     'apps.video_calling',
     'apps.group_sessions',
+    'apps.discussion_forums',
 
 ]
 

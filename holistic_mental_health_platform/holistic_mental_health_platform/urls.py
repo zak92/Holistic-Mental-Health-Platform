@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+   
     path('', include('apps.main.urls')),
     path('accounts/', include('apps.user_accounts.urls')),
     path('blog/', include('apps.blog.urls')),
@@ -31,6 +32,7 @@ urlpatterns = [
     path('bookings/', include('apps.bookings.urls')),
     path('video-calling/', include('apps.video_calling.urls')),
     path('group-sessions/', include('apps.group_sessions.urls')),
+    path('forums/', include('apps.discussion_forums.urls')),
 
 ]
 
