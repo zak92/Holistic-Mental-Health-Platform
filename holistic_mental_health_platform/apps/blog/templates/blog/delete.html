@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>Delete Article</h1>
+
+<p>Are you sure you want to delete your article?</p>
+
+<form method="POST" action="">
+  {% csrf_token %}
+  <a href="{{request.META.HTTP_REFERER}}">Cancel</a>
+  <input type="submit" value="Yes" />
+</form>
+
+{% endblock content %}

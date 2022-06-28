@@ -4,6 +4,7 @@ from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.http import HttpResponse, HttpResponseRedirect
 # Create your views here.
 # https://github.com/SelmiAbderrahim/Django-Community-Forum-Website/tree/main/main
 def forumHome(request):
@@ -27,26 +28,30 @@ def discussionPost(request, slug):
   post = get_object_or_404(DiscussionForumPost, slug=slug)
 
   if "comment-form" in request.POST:
-      comment = request.POST.get("comment")
-      new_comment, created = Comment.objects.get_or_create(author=request.user, comment=comment)
-      post.comments.add(new_comment.id)
-
+    comment = request.POST.get("comment")
+    new_comment, created = Comment.objects.get_or_create(author=request.user, comment=comment)
+    post.comments.add(new_comment.id)
+    return redirect('discussion-post', slug)
+  
+  flag_discussion_post_form = FlagDiscussionPostForm(instance=post)
+  if "flag-discussion-post-form" in request.POST:
+    flag_discussion_post_form = FlagDiscussionPostForm(request.POST, instance=post)
+    if flag_discussion_post_form.is_valid():
+      flag_discussion = flag_discussion_post_form.save()
+      flag_discussion.save()
       return redirect('discussion-post', slug)
 
 
+  if "flag-comment-form" in request.POST:
+      comment_id = Comment.objects.get(pk=request.POST.get('comment_id'))
+      comment_id.flagged = True
+      comment_id.save()
+      return redirect('discussion-post', slug)
   
+  context = { 'post': post, 'categories': categories,
+              'flag_discussion_post_form':flag_discussion_post_form,
 
-
-  # sp_booking_form = CancelBookingForm(instance=post)
-  # if request.method == 'POST': # if user sent info
-  #   sp_booking_form = CancelBookingForm(request.POST, instance=booking)
-  #   if sp_booking_form.is_valid():
-  #     sp_book = sp_booking_form.save()
-  #     sp_book.save()
-  #     return redirect('service-provider-profile', booking.service_provider)
-      
-  
-  context = { 'post': post, 'categories': categories,}
+            } 
   return render(request, 'discussion_forums/discussion_post.html', context)
 
 
@@ -69,10 +74,9 @@ def createDiscussionPost(request):
 
 def searchByCategory(request, slug):
   # get post with unique slug
-  categories = Category.objects.all()
+  categories = Category.objects.all() 
   category = get_object_or_404(Category, slug=slug)
-  #discussion_list_by_category = DiscussionForumPost.objects.filter(category=category)
-  #discussion_list = DiscussionForumPost.objects.all().order_by('date_updated')
+
   discussion_list = DiscussionForumPost.objects.filter(category=category)
 
   context = {
@@ -102,3 +106,44 @@ def searchByText(request):
 
   }
   return render(request, 'discussion_forums/text_search_results.html', context)
+
+def deleteDiscussionPost(request, pk):
+  post = DiscussionForumPost.objects.get(id=pk)
+  if request.user != post.author:  # if user is not the creator of message - they cannot delete it
+    return HttpResponse('You cannot delete since you did not create the post')
+  if request.method == 'POST':
+    post.delete()
+    return redirect('forum-home')
+
+  context = {'post': post, 'type': 'discussion post'}
+  return render(request, 'discussion_forums/delete.html', context )
+
+
+def updateDiscussionPost(request, pk):
+  post = DiscussionForumPost.objects.get(id=pk)
+  create_discussion_post_form = CreateDiscussionPostForm(instance=post) # the form will be pre-filled with data
+  if request.user != post.author:  # if user is not the creator - they cannot update it
+    return HttpResponse('You cannot update since you did not create the post')
+  if request.method == 'POST': # if user sent info
+    create_discussion_post_form = CreateDiscussionPostForm(request.POST, instance=post)  # populated with the data that the user sent - update a group, do not create a new one
+    if create_discussion_post_form.is_valid(): # validate the data
+      create_discussion_post_form.save()
+      return redirect('forum-home')
+  context = {'create_discussion_post_form': create_discussion_post_form, 'post':post}
+  return render(request, 'discussion_forums/create_discussion_post.html', context)
+
+
+
+def deleteComment(request, pk):
+  comment = Comment.objects.get(id=pk)
+  
+  if request.user != comment.author:  # if user is not the creator of message - they cannot delete it
+    return HttpResponse('You cannot delete since you did not create the comment')
+  if request.method == 'POST':
+    comment.delete()
+    next = request.POST.get('next', '/')
+    return HttpResponseRedirect(next)
+    
+
+  context = {'comment': comment, 'type': 'comment'}
+  return render(request, 'discussion_forums/delete.html', context )

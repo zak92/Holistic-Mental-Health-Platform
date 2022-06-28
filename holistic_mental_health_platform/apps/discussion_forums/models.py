@@ -11,6 +11,9 @@ class Category(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=400, unique=True, blank=True)
 
+    class Meta:
+        verbose_name_plural = "categories"
+
     def __str__(self):
         return self.title
     def save(self, *args, **kwargs):
@@ -18,21 +21,23 @@ class Category(models.Model):
             self.slug = slugify(self.title)
         super(Category, self).save(*args, **kwargs)
 
-    def get_url(self):
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Category, self).save(*args, **kwargs)
+
+    def get_url_forums(self):
         return reverse("discussion-post-category-search", kwargs={
             "slug":self.slug
         })
+    def get_url_blog(self):
+        return reverse("blog-category-search", kwargs={
+            "slug":self.slug
+        })
+  
+  
 
-    @property
-    def num_posts(self):
-        return  DiscussionForumPost.objects.filter(categories=self).count()
-    
-    @property
-    def last_post(self):
-        return  DiscussionForumPost.objects.filter(categories=self).latest("date_updated")
-
-    class Meta:
-      verbose_name_plural = "categories"
+  
     
 
 class Comment(models.Model):
@@ -55,7 +60,7 @@ class DiscussionForumPost(models.Model):
   discussion_post = RichTextField(blank=True, null=True)
   comments = models.ManyToManyField(Comment, related_name="comments", blank=True)
   flagged = models.BooleanField(default=False)
-  date_updated = models.DateTimeField(auto_now_add=True)
+  date_created = models.DateTimeField(auto_now_add=True)
   
   def __str__(self):
     return self.title
@@ -73,4 +78,4 @@ class DiscussionForumPost(models.Model):
       })
 
   class Meta:
-    ordering = ['-date_updated']
+    ordering = ['-date_created']

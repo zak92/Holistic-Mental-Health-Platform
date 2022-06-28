@@ -18,7 +18,7 @@
   <a href="{% url 'registration' %}">Client Sign Up</a>
   <a href="{% url 'application' %}">Apply to become a service provider</a>
   <a href="{% url 'forum-home' %}">Discussion Forums</a>
-
+  <a href="{% url 'blog-home' %}">Blog</a>
 
   {% if request.user.is_authenticated and request.user.is_client %}
   <h4>{{request.user}}</h4>

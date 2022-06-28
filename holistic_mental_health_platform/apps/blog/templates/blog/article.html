@@ -2,11 +2,34 @@
 
 {% block content %}
 
+<form method="GET" action="{% url 'blog-text-search' %}">
+  {% csrf_token %}  
+ 
+  <input type="text"  name="q" placeholder="Search "/>
+  <input type="submit" value="Search">
+
+</form>
+
+<h4>Categories</h4>
+<ul>
+  <a href="{% url 'blog-home' %}"><li>All</li></a>
+</ul>
+{% for category in categories %}
+<ul>
+  <a href="{{ category.get_url_blog }}"><li>{{ category.title }}</li></a>
+</ul>
+{% endfor %}
+
+
 <h1>{{ article.title }}</h1>
-<img src="{{ article.thumb.url }}" >
-<p>{{ article.body }}</p>
+<p>{{ article.category }}</p>
+<img src="{{ article.thumbnail_image.url }}" alt="blog thumbnail image" width="400" height="400">
+<p>{{ article.body | safe }}</p>
 <p>{{ article.author }}</p>
 <p>{{ article.date_created }}</p>
 
-
+{% if request.user == article.author %}
+    <a href="{% url 'delete-blog-post' article.id %}">Delete</a>
+    <a href="{% url 'update-blog-post' article.id %}">Edit</a>
+{% endif %}
 {% endblock content %}

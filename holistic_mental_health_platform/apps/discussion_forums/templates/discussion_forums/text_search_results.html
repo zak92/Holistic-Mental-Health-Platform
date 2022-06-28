@@ -4,8 +4,9 @@
 
 <h1>Discussions</h1>
 <a href="{% url 'create-discussion-post' %}"><h5>Start New Discussion</h5></a>
+
 <form method="GET" action="{% url 'discussion-post-text-search' %}">
-  {% csrf_token %}  <!-- prevent against malicious attacks -->
+  {% csrf_token %}  
  
   <input type="text"  name="q" placeholder="Search "/>
   <input type="submit" value="Search">
@@ -18,7 +19,7 @@
 </ul>
 {% for category in categories %}
 <ul>
-  <a href="{{ category.get_url }}"><li>{{ category.title }}</li></a>
+  <a href="{{ category.get_url_forums }}"><li>{{ category.title }}</li></a>
 </ul>
 {% endfor %}
 
@@ -26,7 +27,7 @@
   {% for discussion in discussion_list %}
   <div>
     <a href="{{ discussion.get_url }}"><h5>{{discussion.title }}</h5></a>
-    <p>{{ discussion.date_updated }}</p>
+    <p>{{ discussion.date_created }}</p>
     <p>{{ discussion.author.username }}</p>
   
     <p>{{ discussion.category.title }}</p>  

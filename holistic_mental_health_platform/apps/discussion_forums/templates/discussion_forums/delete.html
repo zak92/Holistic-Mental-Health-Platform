@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>Delete</h1>
+
+<p>Are you sure you want to delete your {{ type }} ?</p>
+
+<form method="POST" action="">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.path }}">
+  <a href="{{request.META.HTTP_REFERER}}">Cancel</a>
+  <input type="submit" value="Yes" />
+</form>
+
+{% endblock content %}

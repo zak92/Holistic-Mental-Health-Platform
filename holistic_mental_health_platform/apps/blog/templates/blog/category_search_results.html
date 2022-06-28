@@ -1,0 +1,45 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<form method="GET" action="{% url 'blog-text-search' %}">
+  {% csrf_token %}  
+ 
+  <input type="text"  name="q" placeholder="Search "/>
+  <input type="submit" value="Search">
+
+</form>
+
+<h1>Article List</h1>
+
+<h4>Categories</h4>
+<ul>
+  <a href="{% url 'blog-home' %}"><li>All</li></a>
+</ul>
+{% for category in categories %}
+<ul>
+  <a href="{{ category.get_url_blog }}"><li>{{ category.title }}</li></a>
+</ul>
+{% endfor %}
+
+<h3><a href="{% url 'create-blog-post' %}">Create Blog Post</a></h3>
+
+{{ category }}
+{% if article_list %}
+<div class="articles">
+  {% for article in article_list %}
+    <div class="article">
+      <a href="{{ article.get_url }}"><img src="{{ article.thumbnail_image.url }}" alt="blog thumbnail image" width="300" height="300"></a>
+      <h2><a href="{{ article.get_url }}">{{ article.title }}</a></h2>
+      <p>{{ article.category }}</p>
+      <p>{{ article.date_created }}</p>
+      <p>{{ article.author }}</p>
+    </div>
+  {% endfor %}
+  {% else %}
+  <p>No results for {{ category }} category search</p>
+{% endif %}
+</div>
+
+{% endblock content %}

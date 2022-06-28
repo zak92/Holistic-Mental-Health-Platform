@@ -3,8 +3,9 @@ from django.forms import ModelForm
 from .models import *
 
 
-class CreateArticle(ModelForm):
+class CreateArticleForm(ModelForm):
+  category = forms.ModelChoiceField(queryset = Category.objects.all())
   class Meta:
     model = Article
-    fields = ['title', 'body', 'slug', 'thumb']
-    widgets = {'slug': forms.HiddenInput()}
+    fields = [ 'title', 'category', 'thumbnail_image', 'body']
+  
