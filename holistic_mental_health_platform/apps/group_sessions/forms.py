@@ -9,7 +9,6 @@ from django.db import transaction
 
 
 
-from django.db.models import F
 
 class DatePickerInput(forms.DateInput):
     input_type = 'date'
@@ -20,21 +19,15 @@ class TimePickerInput(forms.TimeInput):
 class DateTimePickerInput(forms.DateTimeInput):
     input_type = 'datetime'
 
-    
-choices = [('Fitness', 'Fitness'), 
-           ('Meditation', 'Meditation'), 
-           ('Yoga', 'Yoga'), 
-           ('Nutrition', 'Nutrition'), 
-           ('Counselling and advice', 'Counselling and advice')
-           ]
+
 class GroupBookingForm(ModelForm):
+  category = forms.ModelChoiceField(queryset = Category.objects.all())
   class Meta:
     model = GroupBooking
     fields = ['group_name', 'description', 'category', 'date', 'time', 'duration', 'max_members']
     widgets = {
       'date': DatePickerInput(),
       'time':  TimePickerInput(),
-      'category': forms.Select(choices=choices, attrs={'class':'form-control'})
     }
 
 

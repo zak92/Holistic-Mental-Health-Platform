@@ -2,24 +2,32 @@
 
 {% block content %}
 
-<h1>Service Provider Profile page</h1>
+<h1>Service Provider Profile</h1>
+
 
 <h4>{{user.first_name}}  {{user.last_name}}</h4>
+<h6>@{{ user.username }}</h6>
+<img style="border-radius: 50%;" src="{{user.profile_picture.url}}" alt="profile picture" width="200" height="200"/>
 
 <a href="{% url 'service-provider-profile' request.user.username %}">Profile</a>
+
 <a href="{% url 'schedule-appointments' request.user.username %}">Schedule Appointments</a>
 <a href="{% url 'booked-appointments' request.user.username %}">Booked Appointments</a>
 <a href="{% url 'schedule-group-sessions' request.user.username %}">Schedule Live Group Sessions</a>
 <a href="{% url 'available-group-sessions' request.user.username %}">Live Group Sessions</a>
 
-<h4>{{user.email}}</h4>
-<h2></h2>
+<a href="{% url 'edit-service-provider-profile' request.user.username %}">Edit Profile</a>
 
+<h4>{{user.email}}</h4>
+
+<p>{{ user.city }}, {{ user.country.name }}</p>
 
 <h4><a href="{%  url 'client-booking' user %}">Book Now</a></h4>
-
-
-
+<!-- # https://pypi.org/project/django-countries/#installation -->
+<h3>About</h3>
+<p>{{ service_provider.about | safe }}</p>
+<h3>Announcements</h3>
+<p>{{ service_provider.announcements }}</p>
 
 
 

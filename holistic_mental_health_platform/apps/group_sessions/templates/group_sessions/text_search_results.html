@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<h1>All Live Group Sessions</h1>
+<h1>Live Group Sessions</h1>
 
 <form method="GET" action="{% url 'group-sessions-text-search' %}">
   {% csrf_token %}  <!-- prevent against malicious attacks -->
@@ -22,6 +22,7 @@
   <a href="{{ category.get_url_group_sessions }}"><li>{{ category.title }}</li></a>
 </ul>
 {% endfor %}
+
 
 {% if available_group_sessions %}
 {% for available_group_session in available_group_sessions %}
@@ -53,7 +54,8 @@
 {% endfor %}
 
 {% else %}
-  <p>No results for {{ category }}</p>
+  <p>No results</p>
 {% endif %}
+
 
 {% endblock content %}

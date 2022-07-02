@@ -9,8 +9,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 # https://github.com/SelmiAbderrahim/Django-Community-Forum-Website/tree/main/main
 def forumHome(request):
   categories = Category.objects.all()
-  #category = get_object_or_404(Category, slug=slug)
-  #discussion_list_by_category = DiscussionForumPost.objects.filter(category=category)
   discussion_list = DiscussionForumPost.objects.all()
   
   context = {

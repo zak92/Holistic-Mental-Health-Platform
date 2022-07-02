@@ -53,21 +53,13 @@ class ClientUserCreationForm(UserCreationForm):
         self.add_error('username', 'A user with that username already exists.')
     return cleaned_data
 
-# class ClientLoginForm(AuthenticationForm):
-#     def __init__(self,*args,**kwargs):
-#         super(ClientLoginForm,self).__init__(*args,**kwargs)
-#         self.fields["username"].label="Your Username"
-#         self.fields["username"].widget=forms.TextInput(attrs={"class":"form-control"})
 
-#         self.fields["password"].label="Your Password"
-#         self.fields["password"].widget=forms.PasswordInput(attrs={"class":"form-control"})
 
 
 class ServiceProviderRegistrationApplicationForm(ModelForm):
-  phone_no = forms.CharField()
   class Meta:
     model = User
-    fields = ['email', 'username' ,'first_name', 'last_name','phone_no']
+    fields = ['first_name', 'last_name', 'email', 'username', 'country', 'city']
 
   @transaction.atomic
   def save(self):
@@ -75,8 +67,8 @@ class ServiceProviderRegistrationApplicationForm(ModelForm):
     user.is_service_provider = True  
     user.save() 
     service_provider = ServiceProvider.objects.create(user=user)
-    service_provider.phone_no = self.cleaned_data.get('phone_no')
     service_provider.save()
     return user
+
 
 

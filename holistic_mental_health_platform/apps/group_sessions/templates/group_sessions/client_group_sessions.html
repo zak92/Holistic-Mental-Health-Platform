@@ -23,7 +23,9 @@
     <p>{{ client_group_session.time }}</p>
     <p>{{ client_group_session.duration }} min</p>
     <p>Current members joined: {{ client_group_session.total_members }}</p>
+    <p>Event ID: {{ client_group_session.id }}</p>
     <a href="{% url 'leave-group' client_group_session.id %}">Leave Group Session</a>
+    <a href="{% url 'lobby' %}">Join Call</a>
   <hr>
   {% endif %}
   

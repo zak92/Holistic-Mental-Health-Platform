@@ -10,9 +10,17 @@ class CustomUserAdmin(UserAdmin):
   model = User
   add_form = ClientUserCreationForm
 
-  
+  # To add your new fields to the detail view
   fieldsets = (
     *UserAdmin.fieldsets,
+    (
+      'Location', {
+            'fields': (
+                'city', 
+                'country'
+              )
+        }
+      ),
     (
       'User Role',
       {
@@ -21,7 +29,22 @@ class CustomUserAdmin(UserAdmin):
           'is_client' 
         )
       }
-    )
+    ),
+    (
+      'Blog Writing Permission', {
+            'fields': (
+                'is_approved_blogger', 
+              )
+        }
+    ),
+    (
+      'Profile Picture', {
+            'fields': (
+                'profile_picture', 
+              )
+        }
+    ),
+    
   )
 
 

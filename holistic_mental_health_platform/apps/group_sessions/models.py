@@ -1,10 +1,9 @@
 from django.db import models
-
-
 from django.forms import DateField
-
 from ..user_accounts.models import *
-
+from django.urls import reverse
+from ..discussion_forums.models import Category
+from django.utils.text import slugify
 # Create your models here.
 
 
@@ -13,7 +12,7 @@ class GroupBooking(models.Model):
   members = models.ManyToManyField(User, related_name="members")
   group_name = models.CharField(max_length=70, null=True)
   description = models.CharField(max_length=500, null=True) 
-  category = models.CharField(max_length=100, default='category')
+  category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
   date = models.DateField(null=True)
   time = models.TimeField(null=True)
   max_members = models.IntegerField(null=True)

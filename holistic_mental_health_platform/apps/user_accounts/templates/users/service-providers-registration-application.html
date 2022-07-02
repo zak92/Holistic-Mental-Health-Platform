@@ -5,10 +5,10 @@
 <h1>Service Provider Registration Application Form</h1>
 
 <div>
-  <form method="POST" action="">
+  <form method="POST" action="" enctype="multipart/form-data">
     {% csrf_token %}  <!-- prevent against malicious attacks -->
-    {{ serviceProviderApplicationForm.as_p }} <!-- wraps p tag around every paragraph-->
-    <input type="submit" value="Submit" />
+    {{ service_provider_application_form.as_p }} <!-- wraps p tag around every paragraph-->
+    <input type="submit" value="APPLY" />
   </form>
 </div>
 {% if messages %}

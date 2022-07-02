@@ -6,8 +6,8 @@ urlpatterns = [
    
 
     path('group-signup/', views.liveSessionsList, name='group-signup'), 
-     path('group-signup-confirmation/<str:pk>/', views.groupSignUpConfirmation, name='group-signup-confirmation'), 
-     path('group-session-cancellation/<str:pk>/', views.groupBookingCancellation, name='group-session-cancellation'), 
+    path('group-signup-confirmation/<str:pk>/', views.groupSignUpConfirmation, name='group-signup-confirmation'), 
+    path('group-session-cancellation/<str:pk>/', views.groupBookingCancellation, name='group-session-cancellation'), 
       
 
      path('leave-group/<str:pk>/', views.clientLeaveGroup, name='leave-group'),
@@ -19,6 +19,7 @@ urlpatterns = [
  
     path('client/client-group-sessions/<str:username>/', views.clientGroupSessions, name='client-group-sessions'), 
    
-   
+    path('group-sessions-category-search/<slug>/', views.searchByCategory, name='group-sessions-category-search'), 
+    path('group-sessions-text-search', views.searchByText, name='group-sessions-text-search'), 
 
 ]

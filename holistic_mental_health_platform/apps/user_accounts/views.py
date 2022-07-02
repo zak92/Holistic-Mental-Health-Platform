@@ -30,7 +30,7 @@ def clientsRegistration(request):
       login(request, user) # log user in immediately
       messages.success(request, 'You are now  logged in as' + username)
       current_user = request.user
-      #return redirect('client-profile', pk=current_user.id)    
+      
       return redirect('home')
   
       
@@ -74,23 +74,27 @@ def userLogout(request):
 	logout(request)
 	return redirect('login')
 
-
+# https://stackoverflow.com/questions/27968417/django-form-with-fields-from-two-different-models
 def serviceProviderApplication(request):
-  serviceProviderApplicationForm = ServiceProviderRegistrationApplicationForm()
+  service_provider_application_form = ServiceProviderRegistrationApplicationForm()
+ 
   if request.method == 'POST': # if user sent info
-    serviceProviderApplicationForm = ServiceProviderRegistrationApplicationForm(request.POST)
-    if serviceProviderApplicationForm.is_valid():
+    service_provider_application_form = ServiceProviderRegistrationApplicationForm(request.POST)
+  
 
-      user = serviceProviderApplicationForm.save()
-      username = serviceProviderApplicationForm.cleaned_data.get('username')
-      
+    if service_provider_application_form.is_valid():
+      user = service_provider_application_form.save()
+      username = service_provider_application_form.cleaned_data.get('username')
       user.username = user.username.lower() # username must be in lowercase
       user.save()
-      
+
+     
       messages.success(request, 'Application Form Sent!')
       return redirect('home')
 
-  context = {'serviceProviderApplicationForm': serviceProviderApplicationForm }
+  context = {'service_provider_application_form': service_provider_application_form
+            
+            }
   return render(request, 'users/service-providers-registration-application.html', context)
 
 

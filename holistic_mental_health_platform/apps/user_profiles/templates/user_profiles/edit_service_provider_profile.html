@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Service Provider Profile</h1>
+
+
+<a href="{% url 'service-provider-profile' request.user.username %}">Profile</a>
+<a href="{% url 'change-password'  %}">Password and Security</a>
+
+
+<form method="POST" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ update_user_profile_form.as_p }}
+  {{ update_service_provider_profile_form.as_p }}
+  {{ update_service_provider_profile_form.media }}
+  <input type="submit" value="Save" />
+</form>
+
+{% endblock content %}

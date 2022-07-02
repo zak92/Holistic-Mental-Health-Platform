@@ -9,6 +9,7 @@ from datetime import datetime
 from django.db.models import F
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.db.models import Q
 # Create your views here.
 
 
@@ -17,7 +18,7 @@ def scheduleGroupSessions(request, username):
   user = User.objects.get(username=username)
  
 
-  group_booking_form = GroupBookingForm()
+  group_booking_form = GroupBookingForm(initial = {'category': 1 })
 
   if request.method == 'POST': # if user sent info
     group_booking_form = GroupBookingForm(request.POST)
@@ -95,6 +96,7 @@ def clientGroupSessions(request, username):
 
   
 def liveSessionsList(request):
+  categories = Category.objects.all() 
   available_group_sessions = GroupBooking.objects.all()
   current_date = datetime.now().date()  
   current_time = datetime.now().time()  
@@ -102,6 +104,7 @@ def liveSessionsList(request):
   context = {'available_group_sessions': available_group_sessions,
             'current_date': current_date,
             'current_time': current_time,
+            'categories': categories
             }
   return render(request, 'group_sessions/group_signup.html', context)
 
@@ -155,4 +158,49 @@ def groupBookingCancellation(request, pk):
              ' group_cancellation_form':  group_cancellation_form,
              }
   return render(request, 'group_sessions/group_booking_cancellation.html', context)
+
+
+# category search
+def searchByCategory(request, slug):
+  # get post with unique slug
+  categories = Category.objects.all() 
+  category = get_object_or_404(Category, slug=slug)
+
+  available_group_sessions = GroupBooking.objects.filter(category=category)
+
+  current_date = datetime.now().date()  
+  current_time = datetime.now().time()
+
+  context = {
+    'categories': categories,
+    'category': category,
+    'current_date': current_date,
+    'current_time': current_time,
+    'available_group_sessions': available_group_sessions
+  }
+  return render(request, 'group_sessions/category_search_results.html', context)
+
+# text search
+def searchByText(request):
+  current_date = datetime.now().date()  
+  current_time = datetime.now().time()
+  categories = Category.objects.all()
+  q = request.GET.get('q') if request.GET.get('q') != None else ''
+  # Search for groups
+  available_group_sessions = GroupBooking.objects.filter(
+     Q(group_name__icontains=q) |                                                                              
+     Q(description__icontains=q)
+    ) 
   
+  context = {
+    'current_date': current_date,
+    'current_time': current_time,
+    'available_group_sessions': available_group_sessions,
+    'categories': categories,
+
+  }
+  return render(request, 'group_sessions/text_search_results.html', context)
+
+
+
+

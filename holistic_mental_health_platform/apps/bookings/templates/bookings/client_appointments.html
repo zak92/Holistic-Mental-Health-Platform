@@ -23,9 +23,13 @@
       
       <p>Date: {{ my_booking.date }}</p>
       <p>Time: {{ my_booking.time }}</p>
-      <p>Service provider: <a href="{% url 'service-provider-profile' my_booking.service_provider %}">{{ my_booking.service_provider.first_name }} {{ my_booking.service_provider.last_name }}</a></p>
+      <p>Service provider: <a href="{% url 'service-provider-profile' my_booking.service_provider %}">
+        {{ my_booking.service_provider.first_name }} {{ my_booking.service_provider.last_name }}</a>
+      </p>
+      <p>Event ID: {{ my_booking.id }}</p>
       {% if my_booking.confirmed == True %}
         <p>Confirmed</p>
+        <a href="{% url 'lobby' %}">Join Call</a>
       {% else %}
         <p>Pending</p>
       {% endif %}

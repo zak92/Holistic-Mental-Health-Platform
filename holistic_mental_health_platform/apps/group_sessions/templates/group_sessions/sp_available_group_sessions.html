@@ -24,8 +24,10 @@
     <p>{{ available_group_session.time }}</p>
     <p>{{ available_group_session.duration }} min</p>
     <p>Current members joined: {{ available_group_session.total_members }}</p>
+    <p>Event ID: {{ available_group_session.id }}</p>
     <a href="{% url 'group-session-cancellation' available_group_session.id %}">Cancel</a>
     <a href="{% url 'edit-group-session' available_group_session.id %}">Edit</a>
+    <a href="{% url 'lobby' %}">Host Call</a>
   <hr>
   {% endif %}
 {% endif %}

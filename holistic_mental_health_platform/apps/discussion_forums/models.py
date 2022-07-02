@@ -34,6 +34,11 @@ class Category(models.Model):
         return reverse("blog-category-search", kwargs={
             "slug":self.slug
         })
+
+    def get_url_group_sessions(self):
+        return reverse("group-sessions-category-search", kwargs={
+            "slug":self.slug
+        })
   
   
 

@@ -29,8 +29,10 @@
       <p>Date: {{ available_booking.date }}</p>
       <p>Time: {{ available_booking.time }}</p>
       <p>Client: @<a href="{% url 'client-profile'  available_booking.client %}">{{ available_booking.client }}</a></p>
+      <p>Event ID: {{ available_booking.id }}</p>
       {% if available_booking.confirmed == True %}
         <p>Confirmed</p>
+        <a href="{% url 'lobby' %}">Host Call</a>
       {% else %}
         <p>Pending</p>
       {% endif %}
@@ -41,6 +43,7 @@
   {% endif %}
   {% endfor %}
 
+  
 
 
 <h2>Cancelled Appointments</h2>

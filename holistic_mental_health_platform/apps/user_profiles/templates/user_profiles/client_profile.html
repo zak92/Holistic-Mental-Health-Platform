@@ -2,18 +2,25 @@
 
 {% block content %}
 
-<h1>Client Profile page</h1>
+<h1>Client Profile</h1>
 
-<h4>{{user.username}}</h4>
+<h4>@{{user.username}}</h4>
+<img style="border-radius: 50%;" src="{{user.profile_picture.url}}" alt="profile picture" width="200" height="200"/>
 
 <a href="{% url 'client-profile' request.user.username %}">Profile</a>
 <a href="{% url 'client-appointments' request.user.username %}">My Appointments</a>
 <a href="{% url 'client-group-sessions' request.user.username %}">Live Group Sessions</a>
 
+<a href="{% url 'edit-client-profile' request.user.username %}">Edit Profile</a>
+
 <h4>{{user.email}}</h4>
+
+<p>{{ user.city }}, {{ user.country.name }}</p>
 
 <h3>Bio</h3>
 <p>{{ client.bio }}</p>
+<h5>Status</h5>
+<p>{{ client.status }}</p>
 
 
 {% if messages %}

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'ckeditor',
+    'django_countries',
 
     # Add our new applications
     'crispy_forms',
@@ -149,4 +150,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user_accounts.User'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
 

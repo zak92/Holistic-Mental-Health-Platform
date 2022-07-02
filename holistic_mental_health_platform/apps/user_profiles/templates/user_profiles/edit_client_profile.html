@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Edit Client Profile</h1>
+
+<a href="{% url 'client-profile' request.user.username %}">Profile</a>
+<a href="{% url 'change-password'  %}">Password and Security</a>
+
+<form method="POST" action="" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ update_user_profile_form.as_p }}
+  {{ update_client_profile_form.as_p }}
+  
+  <input type="submit" value="Save" />
+</form>
+
+{% endblock content %}
