@@ -1,43 +1,66 @@
 {% load static %}
 
+  <nav class="navbar">
+    <a id="logo" href="{% url 'home' %}">Holistic Mental Health</a>
+    <ul>
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="">Services</a></li>
+    <li><a href="{% url 'forum-home' %}">Discussion Forums</a></li>
+    <li><a href="{% url 'blog-home' %}">Blog</a></li>
+    <li><a id="client-signup" href="{% url 'registration' %}">Client Sign Up</a></li>
+    <li><a id="sp-apply" href="{% url 'application' %}">Apply to Become a Service Provider</a></li>
 
+    {% if request.user.is_authenticated and request.user.is_staff or request.user.is_superuser %}
+    <div class="dropdown">
+      <li>
+        <img style="border-radius: 50%;" src="{{user.profile_picture.url}}" alt="profile picture" width="40" height="40"/>
+        <i style="color:white" class="fa fa-chevron-down" aria-hidden="true"></i>
+      </li>
+      <div class="dropdown-content">
+        <ul>
+        <li><a href="{% url 'service-provider-profile' request.user.username %}">My Profile</a></li>
+        <li><a href="{% url 'edit-service-provider-profile' request.user.username %}">Edit Profile</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+      </div>
+    </div>
 
+    {% elif request.user.is_authenticated and request.user.is_client %}
+    <div class="dropdown">
+      <li>
+        <img style="border-radius: 50%;" src="{{user.profile_picture.url}}" alt="profile picture" width="40" height="40"/>
+        <i style="color:white" class="fa fa-chevron-down" aria-hidden="true"></i>
+        
+      </li>
+      <div class="dropdown-content">
+        <ul>
+        <li><a href="{% url 'client-profile' request.user.username %}">My Profile</a></li>
+        <li><a href="{% url 'edit-client-profile' request.user.username %}">Edit Profile</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+      </div>
+    </div>
+    
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-     
-    </ul>
-  </div>
-
-  <a href="{% url 'home' %}">Home</a>
-  <a href="{% url 'registration' %}">Client Sign Up</a>
-  <a href="{% url 'application' %}">Apply to become a service provider</a>
-  <a href="{% url 'forum-home' %}">Discussion Forums</a>
-  <a href="{% url 'blog-home' %}">Blog</a>
-
-  {% if request.user.is_authenticated and request.user.is_client %}
-  <h4>{{request.user}}</h4>
-  <a href="{% url 'client-profile' request.user.username %}">My Profile</a>
-  <a href="{% url 'logout' %}">Logout</a>
-  {% elif request.user.is_authenticated and request.user.is_service_provider %}
-  <h4>{{request.user}}</h4>
-  <a href="{% url 'service-provider-profile' request.user.username %}">My Profile</a>
-  <a href="{% url 'logout' %}">Logout</a>
-  {% elif request.user.is_authenticated and request.user.is_staff or request.user.is_superuser %}
-  <h4>{{request.user}}</h4>
-  <a href="{% url 'service-provider-profile' request.user.username %}">My SP Profile</a>
-  <a href="{% url 'client-profile' request.user.username %}">My Client Profile</a><br>
-  <a href="{% url 'logout' %}">Logout</a>
-  {% else %}
-
-  <a href="{% url 'login' %}">Login</a>
-
-  {% endif %}
+    {% elif request.user.is_authenticated and request.user.is_service_provider %}
+    <div class="dropdown">
+      <li>
+        <img style="border-radius: 50%;" src="{{user.profile_picture.url}}" alt="profile picture" width="40" height="40"/>
+        <i style="color:white" class="fa fa-chevron-down" aria-hidden="true"></i>
+        
+      </li>
+      <div class="dropdown-content">
+        <ul>
+        <li><a href="{% url 'service-provider-profile' request.user.username %}">My Profile</a></li>
+        <li><a href="{% url 'edit-service-provider-profile' request.user.username %}">Edit Profile</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      </ul>
+      </div>
+    </div>
+    {% else %}
+    <li><a href="{% url 'login' %}">Login</a></li>
+    {% endif %}
+  </ul>
  
 
 </nav>

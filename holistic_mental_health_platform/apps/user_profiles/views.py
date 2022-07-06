@@ -17,31 +17,26 @@ from django.contrib.auth import update_session_auth_hash
 
 
 # Create your views here.
-# @login_required(login_url='/accounts/login/client')  UNCOMMENT LATER
+
+#---------------------------client profile page ----------------------------
 def clientProfile(request, username):
-   # get user object
+  # get user object
   user = User.objects.get(username=username)
+  # get client object with user id
   client = Client.objects.get(user=user.id)
-
-  context = {'user':user, 'client':client,
-            
-            }
-
+  context = { 'user':user, 'client':client }
   return render(request, 'user_profiles/client_profile.html', context)
 
-
-
-# @login_required(login_url='/accounts/login/service-provider')
+#-------------------service provider profile page----------------------------
 def serviceProviderProfile(request, username):
+  # get user object
   user = User.objects.get(username=username)
+  # get service_provider object with user id
   service_provider = ServiceProvider.objects.get(user=user.id)
-  context = {'user':user, 
-            'service_provider': service_provider
-           
-            }
-
+  context = {'user':user, 'service_provider': service_provider }
   return render(request, 'user_profiles/service_provider_profile.html', context)
 
+#------------------- update client profile page-------------------------------
 def updateClientProfile(request, username):
   user = User.objects.get(username=username)
   client = Client.objects.get(user=user.id)
@@ -67,7 +62,7 @@ def updateClientProfile(request, username):
 
 
 
-
+#-------------------update service provider profile page----------------------------
 def updateServiceProviderProfile(request, username):
   user = User.objects.get(username=username)
   service_provider = ServiceProvider.objects.get(user=user.id)
@@ -90,6 +85,7 @@ def updateServiceProviderProfile(request, username):
   return render(request, 'user_profiles/edit_service_provider_profile.html', context)
 
 
+#--------------------------------change password page-------------------------------
 def changePassword(request):
   
 

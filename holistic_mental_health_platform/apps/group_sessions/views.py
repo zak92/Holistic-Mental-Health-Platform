@@ -66,7 +66,7 @@ def availableGroupSessions(request, username):
   current_date = datetime.now().date()  
   current_time = datetime.now().time() 
 
-  available_group_sessions = GroupBooking.objects.filter(service_provider=request.user)
+  available_group_sessions = GroupBooking.objects.filter(service_provider=user)#replaced request.user
   context = {'user':user,
             'current_date': current_date,
             'current_time': current_time,

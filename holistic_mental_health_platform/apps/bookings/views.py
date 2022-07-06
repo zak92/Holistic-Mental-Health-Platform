@@ -22,7 +22,7 @@ def individualBooking(request, username):
             }
   return render(request, 'bookings/booking_individual.html', context)
 
-def bookingConfirmation(request, pk):
+def bookingConfirmationByClient(request, pk):
   
   booking = Booking.objects.get(id=pk)
 
@@ -43,7 +43,7 @@ def bookingConfirmation(request, pk):
              }
   return render(request, 'bookings/booking_confirmation.html', context)
 
-def bookingConfirmationSP(request, pk):
+def bookingConfirmationBySP(request, pk):
   
   booking = Booking.objects.get(id=pk)
 
@@ -62,7 +62,7 @@ def bookingConfirmationSP(request, pk):
              }
   return render(request, 'bookings/service_provider_booking_confirmation.html', context)
 
-def bookingCancellationSP(request, pk):
+def bookingCancellationBySP(request, pk):
   booking = Booking.objects.get(id=pk)
 
 
@@ -81,7 +81,7 @@ def bookingCancellationSP(request, pk):
   return render(request, 'bookings/service_provider_cancel_booking.html', context)
 
 
-def bookingCancellation(request, pk):
+def bookingCancellationByClient(request, pk):
   booking = Booking.objects.get(id=pk)
 
 
@@ -134,7 +134,7 @@ def serviceProviderScheduleAppointments(request, username):
       booking.service_provider = request.user
       booking.save()
 
-      return redirect('service-provider-profile', username)
+      return redirect('schedule-appointments', username)
 
   available_bookings = Booking.objects.filter(service_provider=request.user)
 

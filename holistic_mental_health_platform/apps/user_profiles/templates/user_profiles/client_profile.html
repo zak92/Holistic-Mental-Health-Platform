@@ -1,17 +1,30 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <h1>Client Profile</h1>
 
 <h4>@{{user.username}}</h4>
-<img style="border-radius: 50%;" src="{{user.profile_picture.url}}" alt="profile picture" width="200" height="200"/>
+<div class="parent">
+<img class="client-profile-background-image" src="{% static 'assets/x.jpg' %}" alt="profile picture"  /> 
+<img class="profile-image" style="border-radius: 50%;" src="{{user.profile_picture.url}}" alt="profile picture" width="200" height="200"/>
+</div>
+<nav class="profile-navbar">
+  <ul>
+    
+    {% if request.user == user %}
+    <li><a href="{% url 'client-profile' request.user.username %}">Profile</a></li>
+    <li><a href="{% url 'client-appointments' request.user.username %}">My Appointments</a></li>
+    <li><a href="{% url 'client-group-sessions' request.user.username %}">Live Group Sessions</a></li>
+    <li> <a href="{% url 'edit-client-profile' request.user.username %}">Edit Profile</a></li>
+    {% endif %}
+  </ul>
+</nav>
 
-<a href="{% url 'client-profile' request.user.username %}">Profile</a>
-<a href="{% url 'client-appointments' request.user.username %}">My Appointments</a>
-<a href="{% url 'client-group-sessions' request.user.username %}">Live Group Sessions</a>
 
-<a href="{% url 'edit-client-profile' request.user.username %}">Edit Profile</a>
+
+
+
 
 <h4>{{user.email}}</h4>
 

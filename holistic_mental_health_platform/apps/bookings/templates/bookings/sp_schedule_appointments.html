@@ -32,6 +32,7 @@
       
       <th scope="col">Date</th>
       <th scope="col">Time</th>
+      <th scope="col">Duration (min)</th>
       
       <th scope="col">Availability Status</th>
       <th scope="col">Confirmation Status</th>
@@ -45,12 +46,13 @@
     <tr>
       <td>{{ available_booking.date }}</td>
       <td>{{ available_booking.time }}</td>
+      <td>TODO this + enable delete button</td>
       
      
       {% if available_booking.booked == True %}
-      <td>Booked</td>
+      <td>Booked  <a href="{% url 'cancel-booking-sp' available_booking.id %}">Cancel</a></td>
       {% else %}
-      <td>Available</td>
+      <td>Available <a href="">Delete</a></td>
       {% endif %}
 
       {% if available_booking.confirmed == True %}
