@@ -9,14 +9,14 @@ from ckeditor.fields import RichTextField
 
 
 class Article(models.Model):
-  author = models.ForeignKey(User, default=None,  on_delete=models.DO_NOTHING)
+  author = models.ForeignKey(User, default=None, on_delete=models.DO_NOTHING)
   title = models.CharField(max_length=100)
   slug = models.SlugField(max_length=100, unique=True, blank=True)
-  body = RichTextField(blank=True, null=True)
+  body = RichTextField(null=True)
   category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
   date_created = models.DateTimeField(auto_now_add=True)
   date_updated = models.DateTimeField(auto_now=True)
-  thumbnail_image = models.ImageField(default="test.jpg", null=True)
+  thumbnail_image = models.ImageField(null=True)
   
   def __str__(self):
     return self.title

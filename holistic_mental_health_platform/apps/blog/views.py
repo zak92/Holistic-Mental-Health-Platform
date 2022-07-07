@@ -19,7 +19,7 @@ def createBlogPost(request):
       return redirect('blog-home')
 
   context = {'form':form}
-  return render(request, 'blog/create-blog-post.html', context)
+  return render(request, 'blog/create_blog_post.html', context)
 
 def blogHome(request):
   articles = Article.objects.all()

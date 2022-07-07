@@ -23,7 +23,9 @@
 </ul>
 {% endfor %}
 
+{% if request.user.is_approved_blogger %}
 <h3><a href="{% url 'create-blog-post' %}">Create Blog Post</a></h3>
+{% endif %}
 <div class="articles">
   {% for article in articles %}
     <div class="article">

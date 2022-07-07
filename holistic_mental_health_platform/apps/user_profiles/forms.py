@@ -14,6 +14,14 @@ class UpdateUserProfileForm(ModelForm):
     model = User
     fields = ['first_name', 'last_name', 'username', 'email', 'country', 'city', 'profile_picture']
 
+  # def clean(self):
+  #   '''https://simpleisbetterthancomplex.com/tutorial/2017/02/06/how-to-implement-case-insensitive-username.html'''
+  #   cleaned_data = super(UpdateClientProfileForm, self).clean()
+  #   username = cleaned_data.get('username')
+  #   if username and User.objects.filter(username__iexact=username).exists():
+  #       self.add_error('username', 'A user with that username already exists.')
+  #   return cleaned_data
+
 class UpdateClientProfileForm(ModelForm):
   class Meta:
     model = Client

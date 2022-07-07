@@ -6,10 +6,6 @@ from ...forms import *
 import json
 
 class UpdateClientProfileViewTest(TestCase):
-  user = None
-  client_user = None
-  good_url = ''
-  bad_url = ''
   
   def setUp(self):
     self.factory = RequestFactory()
@@ -50,7 +46,7 @@ class UpdateClientProfileViewTest(TestCase):
     self.assertEqual(response.status_code, 200)
 
   def test_logged_in_uses_correct_template(self):
-    login = self.client.login(username='kristy', password='12test12')
+    self.client.login(username='kristy', password='12test12')
     response = self.client.get(self.good_url, format='json')
     # Check our user is logged in
     self.assertEqual(str(response.context['user']), 'kristy')
@@ -60,7 +56,7 @@ class UpdateClientProfileViewTest(TestCase):
     self.assertTemplateUsed(response, 'user_profiles/edit_client_profile.html')
 
   def test_correct_response(self):
-    login = self.client.login(username='kristy', password='12test12')
+    self.client.login(username='kristy', password='12test12')
     response = self.client.get(self.good_url, format='json')
     self.assertEqual(response.status_code, 200)
     # check if csrf token is present
@@ -73,21 +69,25 @@ class UpdateClientProfileViewTest(TestCase):
     response = self.client.get(self.bad_url, format='json')
     self.assertEqual(response.status_code, 404)
 
-  def test_update_profile_POST(self):
-    data = {
-      'first_name': '',
-      'last_name': '',
-      'username': 'kristy',
-      'email': 'kristy@gmail.com',
-      'country': 'Spain',
-      'city': 'Madrid',
-      'profile_picture': 'kristy_mRGZ79I.jpg',
-      'bio': 'My name is Kristy!',
-      'status': 'In a meeting!'
-    }
-    request = self.factory.post('/profiles/edit-client-profile/kristy/', data=data, content_type='application/json')
-    request.user = self.user 
-    response = updateClientProfile(request, 'kristy')
+## ADD MORE TESTS HERE
+
+
+
+  # def test_update_profile_POST(self):
+  #   data = {
+  #     'first_name': '',
+  #     'last_name': '',
+  #     'username': 'kristy',
+  #     'email': 'kristy@gmail.com',
+  #     'country': 'Spain',
+  #     'city': 'Madrid',
+  #     'profile_picture': 'kristy_mRGZ79I.jpg',
+  #     'bio': 'My name is Kristy!',
+  #     'status': 'In a meeting!'
+  #   }
+  #   request = self.factory.post('/profiles/edit-client-profile/kristy/', data=data, content_type='application/json')
+  #   request.user = self.user 
+  #   response = updateClientProfile(request, 'kristy')
     
     
     

@@ -4,7 +4,9 @@ from django.contrib.auth.models import AnonymousUser
 from ...views import *  
 import json
 
-
+# https://www.valentinog.com/blog/testing-django/
+# https://www.oreilly.com/library/view/test-driven-development-with/9781449365141/ch11.html
+# For forms - https://fossies.org/linux/Django/tests/auth_tests/test_forms.py
 # https://www.youtube.com/watch?v=qwypH3YvMKc&list=PLbpAWbHbi5rMF2j5n6imm0enrSD9eQUaM
 # https://docs.djangoproject.com/en/4.0/topics/testing/tools/#overview-and-a-quick-example
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing
@@ -23,6 +25,7 @@ class ClientProfileViewTest(TestCase):
       country='Spain',
       city='Madrid'
     )
+    self.user.is_client = True
     self.user.save()
     self.client_user = Client.objects.create(
       user=self.user,
@@ -52,6 +55,7 @@ class ClientProfileViewTest(TestCase):
     self.assertEqual(response.status_code, 200)
 
   def test_url_exists_anonymous_user(self):
+    '''Anonymous user can view this page'''
     request = self.factory.get('/profiles/client/kristy')
     # anonymous user
     request.user = AnonymousUser()
@@ -59,6 +63,7 @@ class ClientProfileViewTest(TestCase):
     self.assertEqual(response.status_code, 200)
 
   def test_uses_correct_template(self):
+    '''Test that the correct template is used'''
     response = self.client.get(self.good_url, format='json')
     self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'user_profiles/client_profile.html')

@@ -35,7 +35,7 @@ def clientsRegistration(request):
   
       
   context = {'client_registration_form': client_registration_form }
-  return render(request, 'users/clients-registration.html', context)
+  return render(request, 'user_accounts/clients_registration.html', context)
 
 # https://www.youtube.com/watch?v=3aVqWaLjqS4&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=7
 def userLogin(request):
@@ -48,13 +48,7 @@ def userLogin(request):
     password = request.POST.get('password')
 
 
-    
-    try:
-      user = User.objects.get(username=username)
-    except:
-      messages.error(request, 'User does not exist - Please create an account')  # flash messages
-
-    #if user.is_client or user.is_superuser:  # only service providers can use the service provider login
+   
     user = authenticate(request, username=username, password=password)
     current_user = request.user
     if user is not None:
@@ -68,7 +62,7 @@ def userLogin(request):
 
   
   context = {}
-  return render(request, 'users/login.html', context)
+  return render(request, 'user_accounts/login.html', context)
 
 def userLogout(request):
 	logout(request)
@@ -95,7 +89,7 @@ def serviceProviderApplication(request):
   context = {'service_provider_application_form': service_provider_application_form
             
             }
-  return render(request, 'users/service-providers-registration-application.html', context)
+  return render(request, 'user_accounts/service_providers_registration_application.html', context)
 
 
 

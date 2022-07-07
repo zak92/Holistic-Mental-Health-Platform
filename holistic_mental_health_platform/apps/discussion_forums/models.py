@@ -62,7 +62,7 @@ class DiscussionForumPost(models.Model):
   title = models.CharField(max_length=80, null=True) 
   slug = models.SlugField(max_length=80, unique=True, blank=True)
   category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)# NULL=fALSE
-  discussion_post = RichTextField(blank=True, null=True)
+  discussion_post = RichTextField(null=True)
   comments = models.ManyToManyField(Comment, related_name="comments", blank=True)
   flagged = models.BooleanField(default=False)
   date_created = models.DateTimeField(auto_now_add=True)

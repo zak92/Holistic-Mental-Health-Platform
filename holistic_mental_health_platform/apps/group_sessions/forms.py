@@ -7,9 +7,6 @@ from .models import *
 from django.db import transaction
 
 
-
-
-
 class DatePickerInput(forms.DateInput):
     input_type = 'date'
 
