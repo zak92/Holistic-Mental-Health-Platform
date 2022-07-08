@@ -13,8 +13,8 @@ urlpatterns = [
    
     path('client/my-appointments/<str:username>/', views.clientAppointments, name='client-appointments'),#show client appointments
 
-      path('service-provider/schedule-appointments/<str:username>/', views.serviceProviderScheduleAppointments, name='schedule-appointments'), 
-      path('service-provider/booked/<str:username>/', views.serviceProviderBookedAppointments, name='booked-appointments'),   
+    path('service-provider/schedule-appointments/<str:username>/', views.serviceProviderScheduleAppointments, name='schedule-appointments'), 
+    path('service-provider/booked/<str:username>/', views.serviceProviderBookedAppointments, name='booked-appointments'),   
 
 ]
   

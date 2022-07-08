@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 
 # Create your views here.
-@login_required(login_url='/accounts/login/client')
+@login_required(login_url='/accounts/login')
 def createBlogPost(request):
 
   form = CreateArticleForm(initial = {'category': 1 })
@@ -70,7 +70,7 @@ def searchByText(request):
 def deleteBlogPost(request, pk):
   article = Article.objects.get(id=pk)
   if request.user != article.author:  # if user is not the creator of message - they cannot delete it
-    return HttpResponse('You cannot delete since you did not create the article')
+   return redirect('blog-home')
   if request.method == 'POST':
     article.delete()
     return redirect('blog-home')
@@ -81,11 +81,11 @@ def updateBlogPost(request, pk):
   article = Article.objects.get(id=pk)
   form = CreateArticleForm(instance=article) # the form will be pre-filled with data
   if request.user != article.author:  # if user is not the creator - they cannot update it
-    return HttpResponse('You cannot update since you did not create the article')
+    return redirect('blog-home')
   if request.method == 'POST': # if user sent info
     form = CreateArticleForm(request.POST, request.FILES, instance=article)  # populated with the data that the user sent - update a group, do not create a new one
     if form.is_valid(): # validate the data
       form.save()
       return redirect('blog-home')
   context = {'form': form, 'article': article}
-  return render(request, 'blog/create-blog-post.html', context)
+  return render(request, 'blog/create_blog_post.html', context)

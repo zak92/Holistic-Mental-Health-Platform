@@ -3,7 +3,9 @@
 {% block content %}
 
 <h1>Discussions</h1>
-<a href="{% url 'create-discussion-post' %}"><h5>Start New Discussion</h5></a>
+{% if request.user.is_authenticated %}
+<h5><a href="{% url 'create-discussion-post' %}">Start New Discussion</a></h5>
+{% endif %}
 
 <form method="GET" action="{% url 'discussion-post-text-search' %}">
   {% csrf_token %}  

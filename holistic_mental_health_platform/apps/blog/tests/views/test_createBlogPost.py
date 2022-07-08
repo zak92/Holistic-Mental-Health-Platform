@@ -23,7 +23,7 @@ class CreateBlogPostViewTest(TestCase):
 
     self.client_user = Client.objects.create(
       user=self.user,
-      bio="My name is Jane and I am a therapist.",
+      bio="My name is Jane.",
       status='Busy!'
     )
     self.client_user.save()

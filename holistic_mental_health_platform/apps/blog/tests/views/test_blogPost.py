@@ -54,7 +54,8 @@ class BlogPostViewTest(TestCase):
       body='This is the body of the article!',
       thumbnail_image=SimpleUploadedFile(self.upload_file.name, self.upload_file.read())
       )
-
+    self.blog.save()
+    
     self.good_url = reverse('blog-post', kwargs={'slug': 'nutrition-for-mental-health'})
     self.bad_url = '/blog-post/'
 

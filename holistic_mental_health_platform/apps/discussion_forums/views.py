@@ -14,7 +14,7 @@ def forumHome(request):
   context = {
     'discussion_list': discussion_list,
     'categories': categories,
-    #'discussion_list_by_category': discussion_list_by_category
+   
   }
 
   return render(request, 'discussion_forums/forum_home.html', context)
