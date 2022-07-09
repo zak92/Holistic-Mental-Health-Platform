@@ -57,7 +57,7 @@ class DeleteBlogPostViewTest(TestCase):
     self.assertEqual(response.status_code, 200)
 
   def test_update_unavailable_for_all_logged_out_users(self):
-    '''Update article option not available for all logged out users'''
+    '''Update article not available for all logged out users'''
     response = self.client.get(self.good_url)
     # users get redirected to blog home page - code 302
     self.assertEqual(response.status_code, 302)

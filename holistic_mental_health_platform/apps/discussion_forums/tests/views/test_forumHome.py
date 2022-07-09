@@ -44,6 +44,7 @@ class ForumHomeViewTest(TestCase):
     response = self.client.get(self.good_url)
     self.assertEqual(response.status_code, 200)
 
+
   def test_url_exists_at_location(self):
     response = self.client.get('/forums/')
     self.assertEqual(response.status_code, 200)

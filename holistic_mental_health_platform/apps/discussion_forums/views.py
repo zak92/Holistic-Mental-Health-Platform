@@ -26,25 +26,36 @@ def discussionPost(request, slug):
   post = get_object_or_404(DiscussionForumPost, slug=slug)
 
   if "comment-form" in request.POST:
-    comment = request.POST.get("comment")
-    new_comment, created = Comment.objects.get_or_create(author=request.user, comment=comment)
-    post.comments.add(new_comment.id)
-    return redirect('discussion-post', slug)
+    if request.user.is_authenticated:
+      comment = request.POST.get("comment")
+      new_comment, created = Comment.objects.get_or_create(author=request.user, comment=comment)
+      post.comments.add(new_comment.id)
+      return redirect('discussion-post', slug)
+    else: 
+      return redirect('login')
   
+
   flag_discussion_post_form = FlagDiscussionPostForm(instance=post)
   if "flag-discussion-post-form" in request.POST:
-    flag_discussion_post_form = FlagDiscussionPostForm(request.POST, instance=post)
-    if flag_discussion_post_form.is_valid():
-      flag_discussion = flag_discussion_post_form.save()
-      flag_discussion.save()
-      return redirect('discussion-post', slug)
+    if request.user.is_authenticated:
+      flag_discussion_post_form = FlagDiscussionPostForm(request.POST, instance=post)
+      if flag_discussion_post_form.is_valid():
+        flag_discussion = flag_discussion_post_form.save()
+        flag_discussion.save()
+        return redirect('discussion-post', slug)
+    else: 
+      return redirect('login')
 
 
   if "flag-comment-form" in request.POST:
+    if request.user.is_authenticated:
       comment_id = Comment.objects.get(pk=request.POST.get('comment_id'))
       comment_id.flagged = True
       comment_id.save()
       return redirect('discussion-post', slug)
+    else: 
+      return redirect('login')
+   
   
   context = { 'post': post, 'categories': categories,
               'flag_discussion_post_form':flag_discussion_post_form,
@@ -52,7 +63,7 @@ def discussionPost(request, slug):
             } 
   return render(request, 'discussion_forums/discussion_post.html', context)
 
-
+@login_required(login_url='/accounts/login')
 def createDiscussionPost(request):
   create_discussion_post_form = CreateDiscussionPostForm(initial = {'category': 1 })
 
@@ -108,7 +119,7 @@ def searchByText(request):
 def deleteDiscussionPost(request, pk):
   post = DiscussionForumPost.objects.get(id=pk)
   if request.user != post.author:  # if user is not the creator of message - they cannot delete it
-    return HttpResponse('You cannot delete since you did not create the post')
+    return redirect('forum-home')
   if request.method == 'POST':
     post.delete()
     return redirect('forum-home')
@@ -121,7 +132,7 @@ def updateDiscussionPost(request, pk):
   post = DiscussionForumPost.objects.get(id=pk)
   create_discussion_post_form = CreateDiscussionPostForm(instance=post) # the form will be pre-filled with data
   if request.user != post.author:  # if user is not the creator - they cannot update it
-    return HttpResponse('You cannot update since you did not create the post')
+    return redirect('forum-home')
   if request.method == 'POST': # if user sent info
     create_discussion_post_form = CreateDiscussionPostForm(request.POST, instance=post)  # populated with the data that the user sent - update a group, do not create a new one
     if create_discussion_post_form.is_valid(): # validate the data
@@ -136,12 +147,10 @@ def deleteComment(request, pk):
   comment = Comment.objects.get(id=pk)
   
   if request.user != comment.author:  # if user is not the creator of message - they cannot delete it
-    return HttpResponse('You cannot delete since you did not create the comment')
+    return redirect('forum-home')
   if request.method == 'POST':
     comment.delete()
-    next = request.POST.get('next', '/')
-    return HttpResponseRedirect(next)
+    return redirect('forum-home')
     
-
   context = {'comment': comment, 'type': 'comment'}
   return render(request, 'discussion_forums/delete.html', context )

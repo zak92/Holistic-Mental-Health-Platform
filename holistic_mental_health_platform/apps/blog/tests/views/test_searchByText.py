@@ -4,7 +4,7 @@ from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from django.contrib.auth.models import AnonymousUser
 from ...views import *  
-import json
+from django.db.models import Q
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 class SearchByTextViewTest(TestCase):
@@ -29,6 +29,7 @@ class SearchByTextViewTest(TestCase):
     self.client_user.save()
     self.upload_file = open('static/assets/test_image.jpg', 'rb')
     self.blog = Article.objects.create(
+      id=1,
       author=self.user,
       title='Importance of mental health',
       category=Category.objects.create(title='Mental Health'),
@@ -72,3 +73,14 @@ class SearchByTextViewTest(TestCase):
     '''Test fails on incorrect url'''
     response = self.client.get(self.bad_url, format='json')
     self.assertEqual(response.status_code, 404)
+
+  def test_search_function(self):
+    '''Test if the search function gives the correct results'''
+    response = self.client.get(self.good_url)
+    self.assertEqual(response.status_code, 200)
+    article_list = Article.objects.filter(
+     Q(title__icontains='mental health') |                                                                              
+     Q(body__icontains='mental health')
+    ) 
+    self.assertEqual(article_list[0].id, 1)
+    self.assertEqual(article_list[0].title, 'Importance of mental health')

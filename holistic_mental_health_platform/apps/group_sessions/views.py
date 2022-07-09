@@ -7,9 +7,11 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from datetime import datetime
 from django.db.models import F
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Q
+
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 
@@ -60,13 +62,16 @@ def updateGroupSession(request, pk):
 
   return render(request, 'group_sessions/sp_schedule_group_sessions.html', context)
 
+@login_required(login_url='/accounts/login')
 def availableGroupSessions(request, username):
 
   user = User.objects.get(username=username)
+  if request.user != user:
+    return redirect('home')
   current_date = datetime.now().date()  
   current_time = datetime.now().time() 
 
-  available_group_sessions = GroupBooking.objects.filter(service_provider=user)#replaced request.user
+  available_group_sessions = GroupBooking.objects.filter(service_provider=user)
   context = {'user':user,
             'current_date': current_date,
             'current_time': current_time,
@@ -74,12 +79,14 @@ def availableGroupSessions(request, username):
             }
 
   return render(request, 'group_sessions/sp_available_group_sessions.html', context)
-  
+
+@login_required(login_url='/accounts/login')
 def clientGroupSessions(request, username):
 
   user = User.objects.get(username=username)
   client = Client.objects.get(user=user.id)
-
+  if request.user != user:
+    return redirect('home')
   current_date = datetime.now().date()  
   current_time = datetime.now().time() 
 
@@ -123,13 +130,21 @@ def groupSignUpConfirmation(request, pk):
 
   return render(request, 'group_sessions/group_signup_confirmation.html', context)
 
-
+@login_required(login_url='/accounts/login')
 def clientLeaveGroup(request, pk):
   client_leave_group = GroupBooking.objects.get(id=pk) # get_object_or_404(GroupBooking, id=pk, )
+  try:
+    # returns a queryset
+    client = client_leave_group.members.all().filter(username=request.user.username)[0:1].get()
+    client_id = client.id
+    user = User.objects.get(id=client_id)
+  except ObjectDoesNotExist: # if user is not current user
+    return redirect('home')
+  
 
   if request.method == 'POST': # if user sent info
-      client_leave_group.members.remove(request.user)
-      return redirect('client-group-sessions', request.user)
+    client_leave_group.members.remove(request.user)
+    return redirect('client-group-sessions', request.user)
 
   context = {
     'client_leave_group': client_leave_group,
