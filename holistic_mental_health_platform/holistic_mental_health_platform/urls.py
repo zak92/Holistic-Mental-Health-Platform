@@ -20,10 +20,14 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.conf.urls.static import static
 
+from rest_api import api
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('api/', include('rest_api.urls')),
    
     path('', include('apps.main.urls')),
     path('accounts/', include('apps.user_accounts.urls')),
