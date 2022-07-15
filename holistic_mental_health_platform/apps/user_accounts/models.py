@@ -18,7 +18,7 @@ class User(AbstractUser):
   is_approved_blogger = models.BooleanField(default=False)
   city = models.CharField(max_length=1024, null=True, blank=True)
   country = CountryField(blank_label='Select country', blank=True, null=True)
-  profile_picture = models.ImageField(null=True, default='user.png')
+  profile_picture = models.ImageField(null=True, default='user.png', upload_to='images/profile')
 
   def __str__(self):
     return self.username

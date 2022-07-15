@@ -4,9 +4,9 @@ from django.urls import reverse
 from django.urls import reverse_lazy
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import APITestCase
-from ..serializers import *
+from ...serializers import *
 
-class ClientUserTest(APITestCase):
+class UserTest(APITestCase):
   
   def setUp(self):
     self.user = User.objects.create_user( 
@@ -34,39 +34,7 @@ class ClientUserTest(APITestCase):
   def tearDown(self):
     self.user.delete()
     self.client_user.delete()
-   
-
-#--------------------------------------------------------SERIALIZERS---------------------------------------------------------#
-  def test_client_user_serializer_has_correct_fields(self):
-    '''check if all the necessary fields are correct'''
-    data = self.UserSerializer.data 
-    self.assertEqual(set(data.keys()), set( 
-      [
-      'username', 'first_name', 'last_name', 'email', 'city', 'country', 'is_client', 
-      'is_service_provider', 'profile_picture', 'client', 'service_provider'
-      ]
-    ))
-  
-  def test_client_user_serializer_has_correct_field_values(self):
-    '''check if all the the fields contain correct values'''
-    data = self.UserSerializer.data
-    # check if data is correct
-    self.assertEqual(data['username'], 'kristy')
-    self.assertEqual(data['first_name'], '')
-    self.assertEqual(data['last_name'], '')
-    self.assertEqual(data['email'], 'test@example.com')
-    self.assertEqual(data['city'], 'Madrid')
-    self.assertEqual(data['is_client'], True)
-    self.assertEqual(data['is_service_provider'], False)
-    self.assertEqual(data['profile_picture'], '/media/user.png')
-    self.assertEqual(data['client']['bio'], 'My name is Kristy')
-    self.assertEqual(data['service_provider'], None)
     
-
-#---------------------------------------------------------------------------------------------------------------------------#
-
-
-#--------------------------------------------------------ENDPOINTS---------------------------------------------------------#
 
   def test_endpoint_accessible_on_good_url(self):
     '''test for 200 response code for user endpoint'''
@@ -105,5 +73,3 @@ class ClientUserTest(APITestCase):
     self.assertEqual(data['client']['bio'], 'My name is Kristy')
     self.assertEqual(data['client']['status'], 'Busy!')
     
-
-#---------------------------------------------------------------------------------------------------------------------------#

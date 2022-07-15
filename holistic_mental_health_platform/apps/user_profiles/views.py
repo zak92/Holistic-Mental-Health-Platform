@@ -21,19 +21,19 @@ from django.contrib.auth import update_session_auth_hash
 #---------------------------client profile page ----------------------------
 def clientProfile(request, username):
   # get user object
-  user = User.objects.get(username=username)
+  client_user = User.objects.get(username=username)
   # get client object with user id
-  client = Client.objects.get(user=user.id)
-  context = { 'user':user, 'client':client }
+  client = Client.objects.get(user=client_user.id)
+  context = { 'client_user': client_user, 'client':client }
   return render(request, 'user_profiles/client_profile.html', context)
 
 #-------------------service provider profile page----------------------------
 def serviceProviderProfile(request, username):
   # get user object
-  user = User.objects.get(username=username)
+  service_provider_user = User.objects.get(username=username)
   # get service_provider object with user id
-  service_provider = ServiceProvider.objects.get(user=user.id)
-  context = {'user':user, 'service_provider': service_provider }
+  service_provider = ServiceProvider.objects.get(user=service_provider_user.id)
+  context = {'service_provider_user': service_provider_user, 'service_provider': service_provider }
   return render(request, 'user_profiles/service_provider_profile.html', context)
 
 #------------------- update client profile page-------------------------------

@@ -27,7 +27,7 @@ from rest_api import api
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('api/', include('rest_api.urls')),
+   
    
     path('', include('apps.main.urls')),
     path('accounts/', include('apps.user_accounts.urls')),
@@ -40,6 +40,10 @@ urlpatterns = [
 
 ]
 
+urlpatterns += [
+    path('api/', include('rest_api.urls')),
+    path('api-auth/', include('rest_framework.urls')), # login/logout system
+]
 # user uploaded images
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

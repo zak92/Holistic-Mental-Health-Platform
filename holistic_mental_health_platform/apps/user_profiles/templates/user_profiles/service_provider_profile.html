@@ -5,13 +5,13 @@
 <h1>Service Provider Profile</h1>
 
 
-<h4>{{user.first_name}}  {{user.last_name}}</h4>
-<h6>@{{ user.username }}</h6>
-<img style="border-radius: 50%;" src="{{user.profile_picture.url}}" alt="profile picture" width="200" height="200"/>
+<h4>{{service_provider_user.first_name}}  {{service_provider_user.last_name}}</h4>
+<h6>@{{ service_provider_user.username }}</h6>
+<img style="border-radius: 50%;" src="{{service_provider_user.profile_picture.url}}" alt="profile picture" width="200" height="200"/>
 
 
 <a href="{% url 'service-provider-profile' user %}">Profile</a>
-{% if request.user == user %}
+{% if request.user == service_provider_user %}
 <a href="{% url 'schedule-appointments' user%}">Schedule Appointments</a>
 <a href="{% url 'booked-appointments' user %}">Booked Appointments</a>
 <a href="{% url 'schedule-group-sessions' user %}">Schedule Live Group Sessions</a>
@@ -21,11 +21,11 @@
 
 
 
-<h4>{{user.email}}</h4>
+<h4>{{service_provider_user.email}}</h4>
 
-<p>{{ user.city }}, {{ user.country.name }}</p>
+<p>{{ service_provider_user.city }}, {{ service_provider_user.country.name }}</p>
 
-<h4><a href="{%  url 'client-booking' user %}">Book Now</a></h4>
+<h4><a href="{%  url 'client-booking' service_provider_user %}">Book Now</a></h4>
 <!-- # https://pypi.org/project/django-countries/#installation -->
 <h3>About</h3>
 <p>{{ service_provider.about | safe }}</p>

@@ -12,12 +12,13 @@ from django.http import HttpResponse
 # Create your views here.
 
 def individualBooking(request, username):
-  user = User.objects.get(username=username) # get user 
-  available_bookings = Booking.objects.filter(service_provider=user)
+  service_provider = User.objects.get(username=username) # get user - do not use 'user' because it causes a bug with profile pic
+  
+  available_bookings = Booking.objects.filter(service_provider=service_provider)
   current_date = datetime.now().date()  
   current_time = datetime.now().time()  
   context = {'available_bookings': available_bookings, 
-            'user': user, 
+            'service_provider': service_provider, 
             'current_date': current_date,
             'current_time': current_time,
             }
@@ -27,9 +28,8 @@ def individualBooking(request, username):
 def bookingConfirmationByClient(request, pk):
   
   booking = Booking.objects.get(id=pk)
-
   booking_form = ClientBookingForm(instance=booking)
-  if request.user != booking.client:  # if user is not the creator - they cannot update it
+  if request.user == booking.service_provider:  # a sp cannot make appointment with himself
     return redirect('home')
   if request.method == 'POST': # if user sent info
     booking_form = ClientBookingForm(request.POST, instance=booking)
