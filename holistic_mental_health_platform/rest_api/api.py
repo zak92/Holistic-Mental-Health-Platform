@@ -114,7 +114,7 @@ class AllBookingsByServiceProvider(generics.ListAPIView):
     return Booking.objects.filter(service_provider=self.request.user).filter(date__gte=current_date)
 
 # only the logged in and current user (request.user) can access their information
-class ClientBookings(generics.ListAPIView, CustomUserPermission):
+class ClientBookings(generics.ListAPIView):
   #lookup_field = 'username'
   serializer_class = BookingSerializer
   permission_classes = [permissions.IsAuthenticated]
