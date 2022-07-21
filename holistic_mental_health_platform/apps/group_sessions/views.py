@@ -14,11 +14,12 @@ from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
-
+@login_required(login_url='/accounts/login')
 def scheduleGroupSessions(request, username):
 
   user = User.objects.get(username=username)
- 
+  if request.user != user:
+    return redirect('home')
 
   group_booking_form = GroupBookingForm(initial = {'category': 1 })
 
@@ -39,11 +40,13 @@ def scheduleGroupSessions(request, username):
 
   return render(request, 'group_sessions/sp_schedule_group_sessions.html', context)
 
-
+@login_required(login_url='/accounts/login')
 def updateGroupSession(request, pk):
 
-  # user = User.objects.get(username=username)
   group_booking = GroupBooking.objects.get(id=pk)
+  group_booking_service_provider = group_booking.service_provider
+  if request.user != group_booking_service_provider:
+    return redirect('home')
 
   group_booking_form = GroupBookingForm(instance=group_booking)
 
@@ -116,7 +119,7 @@ def liveSessionsList(request):
   return render(request, 'group_sessions/group_signup.html', context)
 
 
-
+@login_required(login_url='/accounts/login')
 def groupSignUpConfirmation(request, pk):
   group_signup = GroupBooking.objects.get(id=pk) # get_object_or_404(GroupBooking, id=pk )
 
@@ -155,10 +158,13 @@ def clientLeaveGroup(request, pk):
 
  
  
-
-
+@login_required(login_url='/accounts/login')
 def groupBookingCancellation(request, pk):
   group_booking = GroupBooking.objects.get(id=pk)
+  group_booking_service_provider = group_booking.service_provider
+
+  if request.user != group_booking_service_provider:
+    return redirect('home')
 
   group_cancellation_form = CancelGroupBookingForm(instance=group_booking)
   if request.method == 'POST': # if user sent info

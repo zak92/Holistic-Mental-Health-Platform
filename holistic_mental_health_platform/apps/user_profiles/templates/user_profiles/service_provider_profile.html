@@ -1,23 +1,39 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
+
+
+
+<div class="parent">
+<img class="client-profile-background-image" src="{% static 'assets/sp-profile-banner.jpg' %}" alt="profile picture"  /> 
+<img class="profile-image-sp" src="{{service_provider_user.profile_picture.url}}" alt="profile picture" />
+<div class="profile-header-info-sp">
+  <h1>{{service_provider_user.first_name}}  {{service_provider_user.last_name}}</h1>
+  <p>@{{ service_provider_user.username }}</p>
+  <a class="book-button" href="{%  url 'client-booking' service_provider_user %}">Book Now</a>
+</div>
+
+</div>
+<nav class="profile-navbar">
+  <ul>
+    
+    {% if request.user == service_provider_user %}
+    <li><a href="{% url 'service-provider-profile' user %}">Profile</a></li>
+    <li> <a href="{% url 'edit-service-provider-profile' user%}">Edit Profile</a></li>
+    <li><a href="{% url 'schedule-appointments' user%}">Schedule Appointments</a></li>
+    <li><a href="{% url 'booked-appointments' user %}">Booked Appointments</a></li>
+    <li><a href="{% url 'schedule-group-sessions' user %}">Schedule Live Group Sessions</a></li>
+    
+    {% endif %}
+    <li><a href="{% url 'available-group-sessions' user %}">Live Group Sessions</a></li>
+  </ul>
+</nav>
 
 <h1>Service Provider Profile</h1>
 
 
 <h4>{{service_provider_user.first_name}}  {{service_provider_user.last_name}}</h4>
 <h6>@{{ service_provider_user.username }}</h6>
-<img style="border-radius: 50%;" src="{{service_provider_user.profile_picture.url}}" alt="profile picture" width="200" height="200"/>
-
-
-<a href="{% url 'service-provider-profile' user %}">Profile</a>
-{% if request.user == service_provider_user %}
-<a href="{% url 'schedule-appointments' user%}">Schedule Appointments</a>
-<a href="{% url 'booked-appointments' user %}">Booked Appointments</a>
-<a href="{% url 'schedule-group-sessions' user %}">Schedule Live Group Sessions</a>
-{% endif %}
-<a href="{% url 'available-group-sessions' user %}">Live Group Sessions</a>
-
 
 
 
@@ -25,7 +41,7 @@
 
 <p>{{ service_provider_user.city }}, {{ service_provider_user.country.name }}</p>
 
-<h4><a href="{%  url 'client-booking' service_provider_user %}">Book Now</a></h4>
+
 <!-- # https://pypi.org/project/django-countries/#installation -->
 <h3>About</h3>
 <p>{{ service_provider.about | safe }}</p>

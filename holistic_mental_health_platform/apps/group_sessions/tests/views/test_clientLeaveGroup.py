@@ -56,7 +56,8 @@ class ClientGroupSessionsViewTest(TestCase):
       duration=60
       )
     self.group_booking.save()
-    self.group_booking.members.add(self.user_2.id)
+    self.group_booking.members.add(self.user_2)
+    self.group_booking.save()
 
     self.good_url = reverse('leave-group', kwargs={ 'pk': 1})
     self.bad_url = '/leave-group/1/'
@@ -105,12 +106,15 @@ class ClientGroupSessionsViewTest(TestCase):
     self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'group_sessions/client_leave_group.html')
 
-####################### FIX ###########
-# remove not delete
-  # def test_leave_group_POST(self):
-  #   self.client.login(username='jane26', password='12test1@1542')
-  #   response = self.client.remove(self.good_url, follow=True)
-  #   self.assertEqual(response.status_code, 200)
+
+  def test_leave_group_POST(self):
+    '''Test if client leaves group successfully'''
+    self.client.login(username='jane26', password='12test1@1542')
+    self.group_booking.members.remove(self.user_2)
+    self.group_booking.save()
+    response = self.client.post(self.good_url,  self.group_booking.__dict__, follow=True)
+    self.assertEqual(response.status_code, 200)
+    self.assertEqual(self.group_booking.members.count(), 0)
 
 
 

@@ -1,6 +1,30 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
+
+
+
+<div class="parent">
+<img class="client-profile-background-image" src="{% static 'assets/sp-profile-banner.jpg' %}" alt="profile picture"  /> 
+<img class="profile-image-sp" src="{{user.profile_picture.url}}" alt="profile picture" />
+<div class="profile-header-info-sp">
+  <h1>{{user.first_name}}  {{user.last_name}}</h1>
+  <p>@{{ user.username }}</p>
+  <a class="book-button" href="{%  url 'client-booking' user %}">Book Now</a>
+</div>
+
+</div>
+<nav class="profile-navbar">
+  <ul>
+    <li><a href="{% url 'service-provider-profile' user %}">Profile</a></li>
+    <li> <a href="{% url 'edit-service-provider-profile' user%}">Edit Profile</a></li>
+    <li><a href="{% url 'schedule-appointments' user%}">Schedule Appointments</a></li>
+    <li><a href="{% url 'booked-appointments' user %}">Booked Appointments</a></li>
+    <li><a href="{% url 'schedule-group-sessions' user %}">Schedule Live Group Sessions</a></li>
+    
+    <li><a href="{% url 'available-group-sessions' user %}">Live Group Sessions</a></li>
+  </ul>
+</nav>
 
 <a href="{% url 'service-provider-profile' request.user.username %}">Profile</a>
 <a href="{% url 'schedule-appointments' request.user.username %}">Schedule Appointments</a>

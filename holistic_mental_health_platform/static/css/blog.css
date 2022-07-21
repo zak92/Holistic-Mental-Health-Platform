@@ -1,0 +1,93 @@
+/* ******search functionalities - also applies to discussion forums ***************/
+.search-functionalities {
+  font-size: 1.2em;
+  grid-area: searching;
+  padding-top: 2em;
+  font-family: 'Julius Sans One', sans-serif;
+}
+
+.search-bar {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 1em
+}
+.search-bar input[type=text] {
+  font-size: 0.95em;
+  padding: 0.25em;
+  border-radius: 0.25em;
+  border: none;
+}
+
+.search-bar input[type="text"]::placeholder {
+  color: grey
+}
+.search-bar button {
+  border-radius: 0.25em;
+  color: white;
+  margin-right: 2em;
+  background: var(--secondary-color);
+  
+  border: none;
+  cursor: pointer;
+}
+
+.results-heading {
+  grid-area: heading;
+}
+.create-post{
+  grid-area: create;
+}
+.main-content {
+  display: grid;
+  grid-template-areas: 
+  'searching create create'
+  'searching heading heading'
+  'searching article article'
+  'searching article article'
+  'searching article article';
+  gap: 10px;
+}
+
+.articles {
+  grid-area: article;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0.1em 1em 3em 1em;
+  
+}
+
+.categories {
+  padding: 1.2em;
+ 
+}
+.categories > h4 {
+  font-family: 'Julius Sans One', sans-serif;
+ 
+}
+.categories > ul {
+  list-style-type: none;
+  padding-left: 0.25em;
+  
+  
+}
+.categories > ul > li > a {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight:500;
+ 
+  
+}
+.categories > ul > li > a:hover{
+  text-decoration: none;
+  color: black;
+}
+
+
+
+/* **********************************************************************/
+
+.article {
+  padding: 2em
+}
+

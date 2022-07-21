@@ -7,7 +7,7 @@ from ...views import *
 import json
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-class DeleteBlogPostViewTest(TestCase):
+class UpdateBlogPostViewTest(TestCase):
   def setUp(self):
     self.factory = RequestFactory()
     self.user = User.objects.create_user(  

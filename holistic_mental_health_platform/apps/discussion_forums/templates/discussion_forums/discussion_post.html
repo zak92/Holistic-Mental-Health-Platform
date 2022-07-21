@@ -1,88 +1,102 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h1>Discussions</h1>
-{% if request.user.is_authenticated %}
-<h5><a href="{% url 'create-discussion-post' %}">Start New Discussion</a></h5>
-{% endif %}
-<form method="GET" action="{% url 'discussion-post-text-search' %}">
-  {% csrf_token %}  
- 
-  <input type="text"  name="q" placeholder="Search "/>
-  <input type="submit" value="Search">
 
-</form>
+<div class="main-content-discussion">
+<div class="search-functionalities">
 
-
-<h4>Categories</h4>
-<ul>
-  <a href="{% url 'forum-home' %}"><li>All</li></a>
-</ul>
-{% for category in categories %}
-<ul>
-  <a href="{{ category.get_url_forums }}"><li>{{ category.title }}</li></a>
-</ul>
-{% endfor %}
-
-<div>
-  <h5>{{post.title }}</h5>
-  <p>{{ post.date_created }}</p>
-  <p>{{ post.author.username }}</p>
-  <p>{{ post.category.title }}</p>
-  <div>
-    {{ post.discussion_post|safe}}
+  <div class="search-bar">
+    <form method="GET" action="{% url 'discussion-post-text-search' %}">
+      {% csrf_token %}  
+      <input type="text"  name="q" placeholder="Search discussions"/>
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
   </div>
-  {% if post.flagged == False %}
-  <form method="POST" action="">
-    {% csrf_token %}
-    {{ flag_discussion_post_form.as_p }}
-    <input type="submit" value="Flag" name="flag-discussion-post-form"/>
-  </form>
-  {% else %}
-  <small style="color:red">This post has been flagged!</small>
+
+  <div class="categories">
+    <h4>Categories</h4>
+    <ul>
+      <li><a href="{% url 'blog-home' %}">All</a></li>
+    </ul>
+    {% for category in categories %}
+    <ul>
+      <li><a href="{{ category.get_url_forums }}">{{ category.title }}</a></li>
+    </ul>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="create-post">
+  {% if request.user.is_authenticated %}
+  <h5><a href="{% url 'create-discussion-post' %}">Start New Discussion</a></h5>
   {% endif %}
 </div>
 
-{% if request.user == post.author %}
-    <a href="{% url 'update-discussion-post' post.id %}">Edit</a>
-    <a href="{% url 'delete-discussion-post' post.id %}">Delete</a>
-    
-{% endif %}
-
-<h4>Replies</h4>
-  
-  <form action="" method="POST">
-      {% csrf_token %}
-      <div class="comment-area hide" id="comment-area">
-          <textarea name="comment" id=""></textarea>
-          <input type="submit" value="REPLY" name="comment-form">
-      </div>
-  </form>
- 
-
-<div>
-  {% for comment in post.comments.all %}
-  <div class="username"><a href="">@{{comment.author.username}}</a></div>
-    <p>{{ comment.comment|safe }}</p>
-    <p>{{ comment.date|date }}</p>
-
-    {% if comment.flagged == False %}
+  <div>
+    <h5>{{post.title }}</h5>
+    <p>{{ post.date_created }}</p>
+    <p>{{ post.author.username }}</p>
+    <p>{{ post.category.title }}</p>
+    <div>
+      {{ post.discussion_post|safe}}
+    </div>
+    {% if post.flagged == False %}
     <form method="POST" action="">
       {% csrf_token %}
-     
-      <input type="hidden" name="comment_id" value="{{comment.id}}">
-      <input type="submit" value="Flag" name="flag-comment-form" />
+      {{ flag_discussion_post_form.as_p }}
+      <input type="submit" value="Flag" name="flag-discussion-post-form"/>
     </form>
     {% else %}
-    <small style="color:red">This comment has been flagged!</small>
+    <small style="color:red">This post has been flagged!</small>
     {% endif %}
-    {% if request.user == comment.author %}
+  </div>
+  
+  {% if request.user == post.author %}
+      <a href="{% url 'update-discussion-post' post.id %}">Edit</a>
+      <a href="{% url 'delete-discussion-post' post.id %}">Delete</a>
+      
+  {% endif %}
+  
+  <h4>Replies</h4>
     
-    <a href="{% url 'delete-comment' comment.id %}">Delete</a>
-    
-   {% endif %}
-  {% endfor %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="comment-area hide" id="comment-area">
+            <textarea name="comment" id=""></textarea>
+            <input type="submit" value="REPLY" name="comment-form">
+        </div>
+    </form>
+   
+  
+  <div>
+    {% for comment in post.comments.all %}
+    <div class="username"><a href="">@{{comment.author.username}}</a></div>
+      <p>{{ comment.comment|safe }}</p>
+      <p>{{ comment.date|date }}</p>
+  
+      {% if comment.flagged == False %}
+      <form method="POST" action="">
+        {% csrf_token %}
+       
+        <input type="hidden" name="comment_id" value="{{comment.id}}">
+        <input type="submit" value="Flag" name="flag-comment-form" />
+      </form>
+      {% else %}
+      <small style="color:red">This comment has been flagged!</small>
+      {% endif %}
+      {% if request.user == comment.author %}
+      
+      <a href="{% url 'delete-comment' comment.id %}">Delete</a>
+      
+     {% endif %}
+    {% endfor %}
+
+
 </div>
 
+</div>
 
 {% endblock content %}
+
+
+

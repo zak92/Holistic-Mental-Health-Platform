@@ -3,31 +3,38 @@
 {% load static %}
 {% block content %}
 
-<form method="GET" action="{% url 'blog-text-search' %}">
-  {% csrf_token %}  
- 
-  <input type="text"  name="q" placeholder="Search "/>
-  <input type="submit" value="Search">
+<div class="main-content">
+<div class="search-functionalities">
 
-</form>
+  <div class="search-bar">
+    <form method="GET" action="{% url 'blog-text-search' %}">
+      {% csrf_token %}  
+      <input type="text"  name="q" placeholder="Search articles"/>
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
 
-<h1>Article List</h1>
+  <div class="categories">
+    <h4>Categories</h4>
+    <ul>
+      <li><a href="{% url 'blog-home' %}">All</a></li>
+    </ul>
+    {% for category in categories %}
+    <ul>
+      <li><a href="{{ category.get_url_blog }}">{{ category.title }}</a></li>
+    </ul>
+    {% endfor %}
+  </div>
+</div>
 
-<h4>Categories</h4>
-<ul>
-  <a href="{% url 'blog-home' %}"><li>All</li></a>
-</ul>
-{% for category in categories %}
-<ul>
-  <a href="{{ category.get_url_blog }}"><li>{{ category.title }}</li></a>
-</ul>
-{% endfor %}
+<div class="create-post">
+  {% if request.user.is_approved_blogger %}
+  <h3><a href="{% url 'create-blog-post' %}">Create Blog Post</a></h3>
+  {% endif %}
+</div>
 
-{% if request.user.is_approved_blogger %}
-<h3><a href="{% url 'create-blog-post' %}">Create Blog Post</a></h3>
-{% endif %}
-
-{{ category }}
+<h1 class="results-heading">Search results</h1>
+<div class="articles">
 {% if article_list %}
 <div class="articles">
   {% for article in article_list %}
@@ -40,8 +47,12 @@
     </div>
   {% endfor %}
   {% else %}
-  <p>No results found</p>
+  <p>No results</p>
 {% endif %}
 </div>
 
+</div>
+
 {% endblock content %}
+
+

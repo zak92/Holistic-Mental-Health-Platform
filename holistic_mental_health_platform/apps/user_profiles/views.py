@@ -18,7 +18,7 @@ from django.contrib.auth import update_session_auth_hash
 
 # Create your views here.
 
-#---------------------------client profile page ----------------------------
+#---------------------------client profile page ----------------------------#
 def clientProfile(request, username):
   # get user object
   client_user = User.objects.get(username=username)
@@ -37,9 +37,13 @@ def serviceProviderProfile(request, username):
   return render(request, 'user_profiles/service_provider_profile.html', context)
 
 #------------------- update client profile page-------------------------------
+@login_required(login_url='/accounts/login') 
 def updateClientProfile(request, username):
   user = User.objects.get(username=username)
   client = Client.objects.get(user=user.id)
+
+  if request.user != client.user:  # if user is not the creator - they cannot access it
+    return redirect('home')
 
   update_user_profile_form = UpdateUserProfileForm(instance=request.user)
   update_client_profile_form = UpdateClientProfileForm(instance=client)
@@ -54,7 +58,8 @@ def updateClientProfile(request, username):
 
   context = {
               'update_client_profile_form': update_client_profile_form,
-              'update_user_profile_form': update_user_profile_form
+              'update_user_profile_form': update_user_profile_form,
+              'user':user, 'client':client,
             
             }
 
@@ -63,6 +68,7 @@ def updateClientProfile(request, username):
 
 
 #-------------------update service provider profile page----------------------------
+@login_required(login_url='/accounts/login') 
 def updateServiceProviderProfile(request, username):
   user = User.objects.get(username=username)
   service_provider = ServiceProvider.objects.get(user=user.id)

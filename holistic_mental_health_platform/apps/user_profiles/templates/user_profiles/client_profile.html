@@ -2,12 +2,12 @@
 {% load static %}
 {% block content %}
 
-<h1>Client Profile</h1>
 
-<h4>@{{client_user.username}}</h4>
+
 <div class="parent">
-<img class="client-profile-background-image" src="{% static 'assets/x.jpg' %}" alt="profile picture"  /> 
+<img class="client-profile-background-image" src="{% static 'assets/client-profile-banner.jpg' %}" alt="profile picture"  /> 
 <img class="profile-image" style="border-radius: 50%;" src="{{client_user.profile_picture.url}}" alt="profile picture" width="200" height="200"/>
+<p class="profile-username">@{{client_user.username}}</p>
 </div>
 <nav class="profile-navbar">
   <ul>

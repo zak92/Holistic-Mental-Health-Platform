@@ -105,7 +105,7 @@ class ConfirmBookingBySPViewTest(TestCase):
     self.client.login(username='tom45', password='12test1@1542')
     self.booking.confirm = True
     self.booking.save()
-    response = self.client.post(self.good_url,  self.booking.__dict__, follow=True)
+    response = self.client.post(self.good_url, self.booking.__dict__, follow=True)
     self.booking.refresh_from_db()
     self.assertEqual(response.status_code, 200)
     self.assertEqual(self.booking.confirm,  True)

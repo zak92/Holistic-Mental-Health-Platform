@@ -1,0 +1,105 @@
+/* ----------------- Profile Header and Navigation Bar ------------------*/
+.profile-navbar {
+  background-color: var(--secondary-color);
+  padding-left: 1em;
+  padding-right: 1.5em;
+  
+}
+.profile-navbar > ul {
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-navbar ul > li {
+  display: inline-block;
+  padding: 0.5em;
+  font-size: 1.2em;
+
+}
+
+.profile-navbar ul > li > a {
+  text-decoration: none;
+  color: black;
+
+}
+
+.profile-navbar ul > li > a:hover {
+  text-decoration: none;
+  color: white;
+
+}
+
+.client-profile-background-image {
+width: 100%;
+height: 17em;
+position: relative;
+  top: 0;
+  left: 0;
+  background: #d53369;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #cbad6d, #ff5d5d);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #cbad6d, #ff5d5d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.profile-image {
+  
+  position: absolute;
+  top: 50%;  
+  left: 50%; 
+  transform: translate(-50%, -50%);
+ 
+}
+.profile-image-sp {
+  width: 25%;
+  height: 17em;
+  position: absolute;
+  top: 50%;  
+  left: 0%; 
+  transform: translate(0%, -50%); 
+ 
+}
+.profile-username {
+  padding: 1.5em;
+  font-size: 1.25em;
+  color: black;
+  position: absolute;
+  top: 90%;  
+  left: 50%; 
+  transform: translate(-50%, -45%);
+ 
+}
+.profile-header-info-sp {
+  padding: 1.5em;
+  font-size: 1.25em;
+  color:  black;
+  position: absolute;
+  top: 25%;  
+  left: 25%; 
+  transform: translate(0%, -45%);
+  
+ 
+}
+.parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.book-button {
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  border-radius: 0.5em;
+  background-color: var(--primary-color);
+  padding: 0.45em;
+  
+}
+.book-button:hover{
+  font-weight: bold;
+  color: white;
+  
+  
+}
+/* -------------------------------------------------------------*/

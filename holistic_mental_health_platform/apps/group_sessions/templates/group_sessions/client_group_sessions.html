@@ -1,10 +1,21 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
-<a href="{% url 'client-profile' request.user.username %}">Profile</a>
-<a href="{% url 'client-group-sessions' request.user.username %}">Live Group Sessions</a>
-<a href="{% url 'client-appointments' request.user.username %}">My Appointments</a>
+<div class="parent">
+  <img class="client-profile-background-image" src="{% static 'assets/client-profile-banner.jpg' %}" alt="profile picture"  /> 
+  <img class="profile-image" style="border-radius: 50%;" src="{{user.profile_picture.url}}" alt="profile picture" width="200" height="200"/>
+  <p class="profile-username">@{{user.username}}</p>
+</div>
+
+<nav class="profile-navbar">
+  <ul>
+    <li><a href="{% url 'client-profile' request.user.username %}">Profile</a></li>
+    <li><a href="{% url 'client-appointments' request.user.username %}">My Appointments</a></li>
+    <li><a href="{% url 'client-group-sessions' request.user.username %}">Live Group Sessions</a></li>
+    <li><a href="{% url 'edit-client-profile' request.user.username %}">Edit Profile</a></li>
+  </ul>
+</nav>
 
 <h1>My Live Group Sessions</h1>
 
