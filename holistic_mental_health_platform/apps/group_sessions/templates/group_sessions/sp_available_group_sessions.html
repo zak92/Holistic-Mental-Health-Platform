@@ -17,45 +17,40 @@
 <nav class="profile-navbar">
   <ul>
     <li><a href="{% url 'service-provider-profile' user %}">Profile</a></li>
-    <li> <a href="{% url 'edit-service-provider-profile' user%}">Edit Profile</a></li>
+    {% if request.user == user %}
+    <li><a href="{% url 'edit-service-provider-profile' user%}">Edit Profile</a></li>
     <li><a href="{% url 'schedule-appointments' user%}">Schedule Appointments</a></li>
     <li><a href="{% url 'booked-appointments' user %}">Booked Appointments</a></li>
     <li><a href="{% url 'schedule-group-sessions' user %}">Schedule Live Group Sessions</a></li>
-    
+    {% endif %}
     <li><a href="{% url 'available-group-sessions' user %}">Live Group Sessions</a></li>
   </ul>
 </nav>
 
-<a href="{% url 'service-provider-profile' user %}">Profile</a>
-{% if request.user == user %}
-<a href="{% url 'schedule-appointments' user%}">Schedule Appointments</a>
-<a href="{% url 'booked-appointments' user %}">Booked Appointments</a>
-<a href="{% url 'schedule-group-sessions' user %}">Schedule Live Group Sessions</a>
 
-{% endif %}
-<a href="{% url 'available-group-sessions' user %}">Live Group Sessions</a>
+<h2 class="heading">Available Group Sessions</h2>
 
-<h1>Available Group Sessions</h1>
 {% for available_group_session in available_group_sessions %}
 {% if current_date < available_group_session.date or current_date == available_group_session.date and current_time < available_group_session.time %}
   {% if available_group_session.cancelled == False %}
-    <h2>Category: {{ available_group_session.category }}</h2>
-    <h3>Group Name</h3>
+    <div class="current-group-sessions">
+    <p style="color:#FF5C5C">{{ available_group_session.category }}</p>
+    <h3 style="color:#FF5C5C">Group Name</h3>
     <p>{{ available_group_session.group_name }}</p>
-    <h3>Host</h3>
-    <p>{{ available_group_session.service_provider }}</p>
-    <h3>Description</h3>
+    <h3 style="color:#FF5C5C">Description</h3>
     <p>{{ available_group_session.description }}</p>
+    <p>Date: {{ available_group_session.date }}</p>
+    <p>Time: {{ available_group_session.time }}</p>
+    <p>Duration: {{ available_group_session.duration }} min</p>
     <p>Maximum number of members: {{ available_group_session.max_members }}</p>
-    <p>{{ available_group_session.date }}</p>
-    <p>{{ available_group_session.time }}</p>
-    <p>{{ available_group_session.duration }} min</p>
     <p>Current members joined: {{ available_group_session.total_members }}</p>
     <p>Event ID: {{ available_group_session.id }}</p>
-    <a href="{% url 'group-session-cancellation' available_group_session.id %}">Cancel</a>
-    <a href="{% url 'edit-group-session' available_group_session.id %}">Edit</a>
-    <a href="{% url 'lobby' %}">Host Call</a>
-  <hr>
+    <div class="app-controls">
+    <a class="cancel-app" href="{% url 'group-session-cancellation' available_group_session.id %}">Cancel</a>
+    <a class="edit-group-session" href="{% url 'edit-group-session' available_group_session.id %}">Edit</a>
+    <a class="join-call" href="{% url 'lobby' %}">Host Call</a>
+    </div>
+  </div>
   {% endif %}
 {% endif %}
 {% endfor %}
@@ -66,23 +61,22 @@
 
 
 
-<h2>Cancelled Group Sessions</h2>
+<h2 class="heading">Cancelled Group Sessions</h2>
 {% for available_group_session in available_group_sessions %}
 {% if current_date < available_group_session.date or current_date == available_group_session.date and current_time < available_group_session.time %}
   {% if available_group_session.cancelled == True %}
-    <h2>Category: {{ available_group_session.category }}</h2>
-    <h3>Group Name</h3>
+  <div class="current-group-sessions">
+    <p style="color:#FF5C5C">{{ available_group_session.category }}</p>
+    <h3 style="color:#FF5C5C">Group Name</h3>
     <p>{{ available_group_session.group_name }}</p>
-    <h3>Host</h3>
-    <p>{{ available_group_session.service_provider }}</p>
-    <h3>Description</h3>
+    <h3 style="color:#FF5C5C">Description</h3>
     <p>{{ available_group_session.description }}</p>
+    <p>Date: {{ available_group_session.date }}</p>
+    <p>Time: {{ available_group_session.time }}</p>
+    <p>Duration: {{ available_group_session.duration }} min</p>
     <p>Maximum number of members: {{ available_group_session.max_members }}</p>
-    <p>{{ available_group_session.date }}</p>
-    <p>{{ available_group_session.time }}</p>
-    <p>{{ available_group_session.duration }} min</p>
     <p>Current members joined: {{ available_group_session.total_members }}</p>
-  <hr>
+  </div>
  {% endif %}
 {% endif %}
 {% endfor %}

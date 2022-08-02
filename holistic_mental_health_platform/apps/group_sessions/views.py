@@ -121,7 +121,7 @@ def liveSessionsList(request):
 
 @login_required(login_url='/accounts/login')
 def groupSignUpConfirmation(request, pk):
-  group_signup = GroupBooking.objects.get(id=pk) # get_object_or_404(GroupBooking, id=pk )
+  group_signup = GroupBooking.objects.get(id=pk) 
 
   if request.method == 'POST':
      group_signup.members.add(request.user)

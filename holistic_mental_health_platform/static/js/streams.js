@@ -13,7 +13,7 @@ let UID = Number(sessionStorage.getItem('UID'))
 let NAME = sessionStorage.getItem('name')
 
 
-// 1. create a local client object
+// create a local client object
 const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
 
 // stores local audio and video tracks
@@ -21,7 +21,7 @@ let localTracks = []
 // stores local audio and video tracks for remote users that join a specific stream
 let remoteUsers = {}
 
-// 2. get users audio and video tracks and display this to the screen
+//  get users audio and video tracks and display this to the screen
 let joinAndDisplayLocalStream = async () => {
   document.getElementById('room-name').innerText = CHANNEL // get room name
 
@@ -31,7 +31,7 @@ let joinAndDisplayLocalStream = async () => {
   client.on('user-left', handleUserLeft)
 
   try{
-    // 3. the join method enables a user to join a specific channel
+    // the join method enables a user to join a specific channel
       UID = await client.join(APP_ID, CHANNEL, TOKEN, UID)
   }catch(error){
       // if an error occurs, a user will get redirected to another page
@@ -39,7 +39,7 @@ let joinAndDisplayLocalStream = async () => {
       window.open('/', '_self') 
   }
   
-  // 4. Creates an audio track and a video track
+  //  Creates an audio track and a video track
   localTracks = await AgoraRTC.createMicrophoneAndCameraTracks()
 
   let member = await createMember()
@@ -55,7 +55,7 @@ let joinAndDisplayLocalStream = async () => {
   // play the video track
   localTracks[1].play(`user-${UID}`) 
 
-  // 7) Publishes local audio and video tracks to a channel and now in users 
+  // Publishes local audio and video tracks to a channel and now in users 
   /// in that channel will have access to the tracks
   await client.publish([localTracks[0], localTracks[1]])
 }

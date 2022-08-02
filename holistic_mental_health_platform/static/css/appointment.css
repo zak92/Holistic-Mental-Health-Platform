@@ -1,0 +1,96 @@
+.heading {
+  font-family: 'Julius Sans One', sans-serif;
+  padding: 2em 1em 0 1em;
+}
+
+.appointments-container {
+  padding: 2em 0;
+}
+
+.valid-appointments {
+  display: flex;
+  padding: 2em 3em;
+
+  
+}
+
+.current-appointment {
+  border-radius: 1em;
+  border: 1px solid black;
+  margin: 1.5em;
+  padding: 1em;
+  font-size: 1.35em;
+  font-family: 'Julius Sans One', sans-serif;
+  width: 25%;
+}
+
+.cancelled-appointments{
+  display: flex;
+  padding: 2em 3em;
+}
+
+.sp-app-details {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.name-handle {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.5em;
+}
+
+.handle {
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  font-size: 0.75em;
+}
+
+.app-controls > a{
+  text-decoration: none;
+}
+
+.app-controls {
+  display: flex;
+  flex-direction: column;
+}
+
+.join-call {
+  color: white;
+  background-color: #99CC66;
+  padding: 0.25em;
+  border-radius: 1em;
+  width: 100%;
+  text-align: center;
+  margin-top: 0.5em;
+}
+
+.cancel-app {
+  color: white;
+  background-color: #FF8C8C;
+  padding: 0.25em;
+  border-radius: 1em;
+  width: 100%;
+  text-align: center;
+ 
+}
+
+.confirmed-appointment {
+  color: green
+  
+}
+
+.pending-appointment {
+  color: red;
+}
+
+.sp-confirm-app {
+  color: white;
+  background-color: var(--primary-color);
+  padding: 0.25em;
+  border-radius: 1em;
+  width: 100%;
+  text-align: center;
+  margin-top: 0.5em;
+}

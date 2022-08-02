@@ -9,23 +9,24 @@
 .search-bar {
   padding-top: 1em;
   padding-bottom: 1em;
-  padding-left: 1em
+  padding-left: 0.5em;
+  
 }
 .search-bar input[type=text] {
   font-size: 0.95em;
-  padding: 0.25em;
-  border-radius: 0.25em;
-  border: none;
+  padding: 0.35em;
+  border-radius: 1em;
+  border: 1px solid black;
 }
 
 .search-bar input[type="text"]::placeholder {
-  color: grey
+  color: grey;
 }
 .search-bar button {
   border-radius: 0.25em;
-  color: white;
-  margin-right: 2em;
-  background: var(--secondary-color);
+  color: var(--secondary-color);
+  margin-left: -2.5em;
+  background: transparent;
   
   border: none;
   cursor: pointer;
@@ -33,38 +34,47 @@
 
 .results-heading {
   grid-area: heading;
+  font-family: 'Julius Sans One', sans-serif;
 }
 .create-post{
   grid-area: create;
-}
-.main-content {
-  display: grid;
-  grid-template-areas: 
-  'searching create create'
-  'searching heading heading'
-  'searching article article'
-  'searching article article'
-  'searching article article';
-  gap: 10px;
-}
-
-.articles {
-  grid-area: article;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 0.1em 1em 3em 1em;
+  font-family: 'Julius Sans One', sans-serif;
+  padding-top: 2em;
+  text-align: center;
   
 }
 
+.create-post > h3 > a {
+  text-decoration: none;
+  border-radius: 1em;
+  color: white;
+  background-color: var(--primary-color);
+  padding: 0.25em 8em;
+  margin-left: -8em
+  
+}
+
+.main-content {
+  display: grid;
+  grid-template-areas: 
+  'searching create create create create'
+  'searching heading heading heading heading'
+  'searching article article article article'
+  'searching article article article article'
+  'searching article article article article';
+  grid-template-columns: 1.3fr 1.2fr 1.2fr 1.2fr 1.2fr;
+  gap: 20px;
+}
+
+
+
+
+
 .categories {
-  padding: 1.2em;
+  padding: 1em;
  
 }
-.categories > h4 {
-  font-family: 'Julius Sans One', sans-serif;
- 
-}
+
 .categories > ul {
   list-style-type: none;
   padding-left: 0.25em;
@@ -85,9 +95,87 @@
 
 
 
-/* **********************************************************************/
 
+.articles {
+  padding: 0.5em;
+  grid-area: article;
+
+ 
+}
 .article {
-  padding: 2em
+  
+  display: inline-block;
+  margin: 2em;
+  border-radius: 1em;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 22%;
+  
+}
+
+.article > a > img {
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  overflow: visible;
+}
+
+.article-container {
+  padding: 1em 1em;
+  line-height: 0.5em;
+}
+
+.article-title > a{
+  text-decoration: none;
+  color: black;
+}
+.article-category  {
+  color: var(--primary-color);
+}
+
+.no-results {
+  font-family: 'Julius Sans One', sans-serif;
+}
+
+/********************************* Article page **********************************/
+
+.article-blog-post {
+  padding: 4em;
+  
+}
+
+.blog-article-category {
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.article-blog-post > h1 {
+  font-family: 'Julius Sans One', sans-serif;
+  text-align: center;
+  
+}
+
+.author-date {
+  font-family: 'Julius Sans One', sans-serif;
+  text-align: center;
+}
+
+.article-blog-post-image {
+  border-radius: 1em;
+  display:block;
+  margin:auto;
+
+}
+
+.blog-article-content {
+  padding: 3em;
+}
+
+.article-delete {
+  text-decoration: none;
+  background-color: var(--primary-color);
+}
+
+.article-edit {
+  text-decoration: none;
 }
 

@@ -18,54 +18,76 @@
 </nav>
 
 
-
 {% if request.user == user %}
-<h2>My Appointments</h2>
-{% for my_booking in my_bookings %}
-<div>
-  {% if current_date < my_booking.date or current_date == my_booking.date and current_time < my_booking.time %}
-  {% if my_booking.booked == True %}
-  <a href="{% url 'cancel-booking' my_booking.id %}">Cancel</a>
-  <p>Confirmation Status: {{ my_booking.confirmed }}</p>
-      
-      <p>Date: {{ my_booking.date }}</p>
-      <p>Time: {{ my_booking.time }}</p>
-      <p>Service provider: <a href="{% url 'service-provider-profile' my_booking.service_provider %}">
-        {{ my_booking.service_provider.first_name }} {{ my_booking.service_provider.last_name }}</a>
-      </p>
-      <p>Event ID: {{ my_booking.id }}</p>
-      {% if my_booking.confirmed == True %}
-        <p>Confirmed</p>
-        <a href="{% url 'lobby' %}">Join Call</a>
-      {% else %}
-        <p>Pending</p>
-      {% endif %}
-      <hr>
-      {% endif %}
-  {% endif %}
+
+<h2 class="heading">My Appointments</h2>
+
+<div class="valid-appointments">
+  {% for my_booking in my_bookings %}
+  
+    {% if current_date < my_booking.date or current_date == my_booking.date and current_time < my_booking.time %}
+    {% if my_booking.booked == True %}
+    <div class="current-appointment">
+      <div class="sp-app-details">
+        <div><img style="border-radius: 50%;margin-bottom: 1em;" src="{{my_booking.service_provider.profile_picture.url}}" alt="profile picture" width="60" height="60"/></div>
+        <div class="name-handle">
+          <h4>{{ my_booking.service_provider.first_name }} {{ my_booking.service_provider.last_name }}</h4>
+        <a class="handle" href="{% url 'service-provider-profile' my_booking.service_provider %}">@{{ my_booking.service_provider.username }} </a>
+        </div>
+      </div>
+        
+        <p>Date: {{ my_booking.date }}</p>
+        <p>Time: {{ my_booking.time }}</p>
+        <p>Duration: 60 min</p>
+        <p>Event ID: {{ my_booking.id }}</p>
+
+        {% if my_booking.confirmed == True %}
+          <p class="confirmed-appointment">Confirmed</p>
+          <div class="app-controls">
+          <a class="cancel-app" href="{% url 'cancel-booking' my_booking.id %}">Cancel</a>
+          <a class="join-call" href="{% url 'lobby' %}">Join Call</a>
+        </div>
+        {% else %}
+          <p class="pending-appointment">Pending</p>
+          <div class="app-controls">
+          <a class="cancel-app" href="{% url 'cancel-booking' my_booking.id %}">Cancel</a>
+          </div>
+        {% endif %}
+      </div>
+        {% endif %}
+    {% endif %}
+  
+  {% endfor %}
 </div>
-{% endfor %}
 
 
-<h2>Cancelled Appointments</h2>
+<h2 class="heading">Cancelled Appointments</h2>
+<div class="valid-appointments">
   {% for my_booking in my_bookings %}
     {% if current_date < my_booking.date or current_date == my_booking.date and current_time < my_booking.time %}
-  <div>
     {% if my_booking.cancelled == True %}
-      <p>Date: {{ my_booking.date }}</p>
-      <p>Time: {{ my_booking.time }}</p>
-      <p> Service provider: <a href="{% url 'service-provider-profile' my_booking.service_provider %}">{{ my_booking.service_provider.first_name }} {{ my_booking.service_provider.last_name }}</a></p>
-      
-      <hr>
+    <div class="current-appointment">
+      <div class="sp-app-details">
+        <div><img style="border-radius: 50%;margin-bottom: 1em;" src="{{my_booking.service_provider.profile_picture.url}}" alt="profile picture" width="60" height="60"/></div>
+        <div class="name-handle">
+          <h4>{{ my_booking.service_provider.first_name }} {{ my_booking.service_provider.last_name }}</h4>
+        <a class="handle" href="{% url 'service-provider-profile' my_booking.service_provider %}">@{{ my_booking.service_provider.username }} </a>
+        </div>
+      </div>
+        
+        <p>Date: {{ my_booking.date }}</p>
+        <p>Time: {{ my_booking.time }}</p>
+        <p>Duration: 60 min</p>
+      </div>
     {% endif %}
     
     
-  </div>
+
   {% endif %}
   {% endfor %}
-
+</div>
 {% endif %}
 
-
+</div>
 
 {% endblock content %}

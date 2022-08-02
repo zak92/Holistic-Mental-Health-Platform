@@ -26,64 +26,77 @@
   </ul>
 </nav>
 
-<h1>Service Provider Profile page</h1>
-
-<h4>{{user.first_name}}  {{user.last_name}}</h4>
-
-<a href="{% url 'service-provider-profile' request.user.username %}">Profile</a>
-<a href="{% url 'schedule-appointments' request.user.username %}">Schedule Appointments</a>
-<a href="{% url 'booked-appointments' request.user.username %}">Booked Appointments</a>
-<a href="{% url 'schedule-group-sessions' request.user.username %}">Schedule Live Group Sessions</a>
-<a href="{% url 'available-group-sessions' request.user.username %}">Live Group Sessions</a>
-
 
 {% if request.user == user %}
 <div>
 
 
-  <h2>Booked Appointments</h2>
+  <h2 class="heading">Booked Appointments</h2>
+  <div class="valid-appointments">
   {% for available_booking in available_bookings %}
-  <div>
+
     {% if current_date < available_booking.date or current_date == available_booking.date and current_time < available_booking.time %}
       {% if available_booking.booked == True %}
-      <a href="{% url 'confirm-booking-sp' available_booking.id %}">Confirm</a>
-      <a href="{% url 'cancel-booking-sp' available_booking.id %}">Cancel</a>
-      <p>Confirmation Status: {{ available_booking.confirmed }}</p>
+      <div class="current-appointment">
+        <div class="sp-app-details">
+          <div><img style="border-radius: 50%;margin-bottom: 1em;" src="{{available_booking.client.profile_picture.url}}" alt="profile picture" width="60" height="60"/></div>
+          <div class="name-handle">
+          <a style="text-decoration:none; color:black" class="name" href="{% url 'client-profile' available_booking.client %}">{{ available_booking.client.username }} </a>
+          </div>
+        </div>
       
-      <p>Date: {{ available_booking.date }}</p>
-      <p>Time: {{ available_booking.time }}</p>
-      <p>Client: @<a href="{% url 'client-profile'  available_booking.client %}">{{ available_booking.client }}</a></p>
-      <p>Event ID: {{ available_booking.id }}</p>
+        <p>Date: {{ available_booking.date }}</p>
+        <p>Time: {{ available_booking.time }}</p>
+        <p>Duration: 60 min</p>
+        <p>Event ID: {{ available_booking.id }}</p>
+
       {% if available_booking.confirmed == True %}
-        <p>Confirmed</p>
-        <a href="{% url 'lobby' %}">Host Call</a>
+      <p class="confirmed-appointment">Confirmed</p>
+      <div class="app-controls">
+        <a class="cancel-app" href="{% url 'cancel-booking-sp' available_booking.id %}">Cancel</a>
+        <a class="join-call" href="{% url 'lobby' %}">Host Call</a>
+      </div>
       {% else %}
-        <p>Pending</p>
+      <p class="pending-appointment">Pending</p>
+      <div class="app-controls">
+        <a class="cancel-app" href="{% url 'cancel-booking-sp' available_booking.id %}">Cancel</a>
+        <a class="sp-confirm-app" href="{% url 'confirm-booking-sp' available_booking.id %}">Confirm</a>
+      </div>
       {% endif %}
-      <hr>
+    </div>
     {% endif %}
-    
-  </div>
+
   {% endif %}
   {% endfor %}
+</div>
 
   
 
 
-<h2>Cancelled Appointments</h2>
+<h2 class="heading">Cancelled Appointments</h2>
+<div class="valid-appointments">
   {% for available_booking in available_bookings %}
   {% if current_date < available_booking.date or current_date == available_booking.date and current_time < available_booking.time %}
-  <div>
+
     {% if available_booking.cancelled == True %}
+    <div class="current-appointment">
+      <div class="sp-app-details">
+        <div><img style="border-radius: 50%;margin-bottom: 1em;" src="{{available_booking.client.profile_picture.url}}" alt="profile picture" width="60" height="60"/></div>
+        <div class="name-handle">
+        <a style="text-decoration:none; color:black" class="name" href="{% url 'client-profile' available_booking.client %}">{{ available_booking.client.username }} </a>
+        </div>
+      </div>
+    
       <p>Date: {{ available_booking.date }}</p>
       <p>Time: {{ available_booking.time }}</p>
-      <p>Client: <a href="{% url 'client-profile'  available_booking.client %}">{{ available_booking.client }}</a></p>
-      <hr>
+      <p>Duration: 60 min</p>
+      <p>Event ID: {{ available_booking.id }}</p>
+    </div>
     {% endif %}
     
-  </div>
   {% endif %}
   {% endfor %}
+</div>
 {% endif %}
 
 {% endblock content %}

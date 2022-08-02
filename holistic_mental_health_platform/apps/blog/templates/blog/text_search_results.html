@@ -29,7 +29,7 @@
 
 <div class="create-post">
   {% if request.user.is_approved_blogger %}
-  <h3><a href="{% url 'create-blog-post' %}">Create Blog Post</a></h3>
+  <h3><a href="{% url 'create-blog-post' %}">Create New Blog Post</a></h3>
   {% endif %}
 </div>
 
@@ -38,16 +38,16 @@
 {% if article_list %}
 <div class="articles">
   {% for article in article_list %}
-    <div class="article">
-      <a href="{{ article.get_url }}"><img src="{{ article.thumbnail_image.url }}" alt="blog thumbnail image" width="300" height="300"></a>
-      <h2><a href="{{ article.get_url }}">{{ article.title }}</a></h2>
-      <p>{{ article.category }}</p>
-      <p>{{ article.date_created }}</p>
-      <p>{{ article.author }}</p>
+  <div class="article">
+    <a href="{{ article.get_url }}"><img src="{{ article.thumbnail_image.url }}" height=300 alt="blog thumbnail image" style="width:100%"></a>
+    <div class="article-container">
+      <p class="article-category">{{ article.category }}</p>
+      <h3 class="article-title"><a href="{{ article.get_url }}">{{ article.title }}</a></h3>
     </div>
+  </div>
   {% endfor %}
   {% else %}
-  <p>No results</p>
+  <h4 class="no-results">No results: Please enter a new search query.</h4>
 {% endif %}
 </div>
 

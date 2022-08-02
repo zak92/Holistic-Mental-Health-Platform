@@ -25,7 +25,7 @@ class ServiceProviderApplicationViewTest(TestCase):
     self.assertEqual(response.status_code, 200)
     self.assertTemplateUsed(response, 'user_accounts/service_providers_registration_application.html')
 
-  def test_fail_bad_url(self):
+  def test_fail_bad_url(self): 
     '''Test fails on incorrect url'''
     response = self.client.get(self.bad_url, format='json')
     self.assertEqual(response.status_code, 404)

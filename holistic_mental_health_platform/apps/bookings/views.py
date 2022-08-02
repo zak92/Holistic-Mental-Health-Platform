@@ -62,10 +62,10 @@ def bookingConfirmationBySP(request, pk):
       sp_book.save()
       return redirect('service-provider-profile', booking.service_provider)
       
-  context = {'booking': booking,
-        
+  context = {
+             'booking': booking,
              'service_provider_booking_form':  service_provider_booking_form
-             }
+            }
   return render(request, 'bookings/service_provider_booking_confirmation.html', context)
 
 @login_required(login_url='/accounts/login')
@@ -133,10 +133,12 @@ def clientAppointments(request, username):
 @login_required(login_url='/accounts/login') 
 def serviceProviderScheduleAppointments(request, username):
   user = User.objects.get(username=username)
-  form = BookingForm()
   service_provider = ServiceProvider.objects.get(user=user.id)
-  if request.user != service_provider.user:  # if user is not the creator - they cannot access it
+  if request.user != service_provider.user:  # if user is not the creator - they cannot access the page
     return redirect('home')
+
+  form = BookingForm()
+  # get the current date and time
   current_date = datetime.now().date()  
   current_time = datetime.now().time()  
 
@@ -151,14 +153,11 @@ def serviceProviderScheduleAppointments(request, username):
 
   available_bookings = Booking.objects.filter(service_provider=request.user)
 
-
-    
   context = {'user':user, 
-          'form':form,
-          'available_bookings': available_bookings,
-          'current_date': current_date,
-          'current_time': current_time,
-          
+            'form':form,
+            'available_bookings': available_bookings,
+            'current_date': current_date,
+            'current_time': current_time,  
           }
 
   return render(request, 'bookings/sp_schedule_appointments.html', context)

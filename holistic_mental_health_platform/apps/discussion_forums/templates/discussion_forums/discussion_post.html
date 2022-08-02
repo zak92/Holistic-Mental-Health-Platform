@@ -3,35 +3,8 @@
 {% block content %}
 
 <div class="main-content-discussion">
-<div class="search-functionalities">
 
-  <div class="search-bar">
-    <form method="GET" action="{% url 'discussion-post-text-search' %}">
-      {% csrf_token %}  
-      <input type="text"  name="q" placeholder="Search discussions"/>
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-  </div>
-
-  <div class="categories">
-    <h4>Categories</h4>
-    <ul>
-      <li><a href="{% url 'blog-home' %}">All</a></li>
-    </ul>
-    {% for category in categories %}
-    <ul>
-      <li><a href="{{ category.get_url_forums }}">{{ category.title }}</a></li>
-    </ul>
-    {% endfor %}
-  </div>
-</div>
-
-<div class="create-post">
-  {% if request.user.is_authenticated %}
-  <h5><a href="{% url 'create-discussion-post' %}">Start New Discussion</a></h5>
-  {% endif %}
-</div>
-
+<div class="discussion-content">
   <div>
     <h5>{{post.title }}</h5>
     <p>{{ post.date_created }}</p>
@@ -92,6 +65,7 @@
     {% endfor %}
 
 
+  </div>
 </div>
 
 </div>

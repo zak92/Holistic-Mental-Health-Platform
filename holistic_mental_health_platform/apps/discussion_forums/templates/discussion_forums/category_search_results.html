@@ -1,45 +1,75 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
-<h1>Discussions</h1>
-{% if request.user.is_authenticated %}
-<h5><a href="{% url 'create-discussion-post' %}">Start New Discussion</a></h5>
-{% endif %}
+<div class="main-content">
+<div class="search-functionalities">
 
-<form method="GET" action="{% url 'discussion-post-text-search' %}">
-  {% csrf_token %}  <!-- prevent against malicious attacks -->
- 
-  <input type="text"  name="q" placeholder="Search "/>
-  <input type="submit" value="Search">
-
-</form>
-
-<h4>Categories</h4>
-<ul>
-  <a href="{% url 'forum-home' %}"><li>All</li></a>
-</ul>
-{% for category in categories %}
-<ul>
-  <a href="{{ category.get_url_forums }}"><li>{{ category.title }}</li></a>
-</ul>
-{% endfor %}
-
-
-<h5>{{ category }}</h5>
-
-{% if discussion_list %}
-  {% for discussion in discussion_list %}
-  <div>
-    <a href="{{ discussion.get_url }}"><h5>{{discussion.title }}</h5></a>
-    <p>{{ discussion.date_created }}</p>
-    <p>{{ discussion.author.username }}</p>
-  
-    <p>{{ discussion.category.title }}</p>  
+  <div class="search-bar">
+    <form method="GET" action="{% url 'discussion-post-text-search' %}">
+      {% csrf_token %}  
+      <input type="text"  name="q" placeholder="Search discussions"/>
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
   </div>
-  {% endfor %}
-{% else %}
-  <p>No results for {{ category }}</p>
-{% endif %}
 
-{% endblock content %}
+  <div class="categories">
+    <h4>Categories</h4>
+    <ul>
+      <li><a href="{% url 'forum-home' %}">All</a></li>
+    </ul>
+    {% for category in categories %}
+    <ul>
+      <li><a href="{{ category.get_url_forums }}">{{ category.title }}</a></li>
+    </ul>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="create-post">
+  {% if request.user.is_authenticated %}
+  <h3><a href="{% url 'create-discussion-post' %}">Start New Discussion</a></h3>
+  {% endif %}
+</div>
+
+
+<h1 class="results-heading">{{ category }}</h1>
+
+<div class="articles">
+  {% if discussion_list %}
+    {% for discussion in discussion_list %}
+    <div class="article">
+      <div class="article-container">
+  
+      <img style="border-radius: 50%;margin-bottom: 1em;" src="{{discussion.author.profile_picture.url}}" alt="profile picture" width="40" height="40"/>
+      {% if discussion.author.is_client %}
+      <p><a style="color:black" href="{% url 'client-profile'  discussion.author.username  %}">@{{ discussion.author.username }}</a></p>
+      {% elif discussion.author.is_service_provider %}
+      <p><a style="color:black" href="{% url 'service-provider-profile'  discussion.author.username  %}">@{{ discussion.author.username }}</a></p>
+      {% endif %}
+      <p>{{ discussion.date_created |date:"M d, Y" }}</p>
+      <p class="article-category">{{ discussion.category.title }}</p>  
+      <h3 class="article-title"><a href="{{ discussion.get_url }}">{{discussion.title }}</a></h3>
+      
+      <div style="line-height: 1em">{{  discussion.discussion_post | slice:":30" | safe}}...</div>
+     
+    </div>
+     
+      
+    </div>
+    {% endfor %}
+  {% else %}
+  <h4 class="no-results">No results for {{ category }} category search</h4>
+  {% endif %}
+  
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  {% endblock content %}
+

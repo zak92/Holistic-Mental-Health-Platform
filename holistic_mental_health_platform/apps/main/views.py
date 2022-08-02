@@ -8,8 +8,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home(request):
- context = {'title': 'HOME',
-              }
+ context = {'title': 'HOME'}
  return render(request, 'main/home.html', context)
 
 def serviceProviderList(request):

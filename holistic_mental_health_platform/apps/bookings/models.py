@@ -15,7 +15,5 @@ class Booking(models.Model):
   confirmed = models.BooleanField(default=False)
   cancelled = models.BooleanField(default=False)
   
-  
-
   class Meta:
     ordering = ['date']

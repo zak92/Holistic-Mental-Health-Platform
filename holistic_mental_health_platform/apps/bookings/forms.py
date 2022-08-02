@@ -16,6 +16,7 @@ class TimePickerInput(forms.TimeInput):
 class DateTimePickerInput(forms.DateTimeInput):
     input_type = 'datetime'
 
+# service provider will use this form to schedule available bookings
 class BookingForm(ModelForm):
   class Meta:
     model = Booking
@@ -25,8 +26,8 @@ class BookingForm(ModelForm):
       'time':  TimePickerInput(),
     }
 
+# clients will use this from to book appointments with service providers
 class ClientBookingForm(ModelForm):
-  
   class Meta:
     model = Booking
     fields = ['booked']
@@ -40,6 +41,7 @@ class ClientBookingForm(ModelForm):
     user.save() 
     return user
 
+# clients can cancel bookings
 class ClientCancelBookingForm(ModelForm):
   
   class Meta:
@@ -56,6 +58,7 @@ class ClientCancelBookingForm(ModelForm):
     user.save() 
     return user
 
+# service providers will confirm the booking made by the client
 class ConfirmBookingForm(ModelForm):
   
   class Meta:
@@ -70,6 +73,7 @@ class ConfirmBookingForm(ModelForm):
     user.save() 
     return user
 
+# service providers can cancel client bookings
 class CancelBookingForm(ModelForm):
   
   class Meta:

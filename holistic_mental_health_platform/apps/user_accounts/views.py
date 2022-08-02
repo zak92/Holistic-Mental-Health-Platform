@@ -7,9 +7,6 @@ from apps.user_profiles import views
 
 from apps.main import views
 # Create your views here.
-# https://www.youtube.com/watch?v=bTFRbAuU5Uo##############################
-
-
 
 def clientsRegistration(request):
 
@@ -37,29 +34,22 @@ def clientsRegistration(request):
   context = {'client_registration_form': client_registration_form }
   return render(request, 'user_accounts/clients_registration.html', context)
 
-# https://www.youtube.com/watch?v=3aVqWaLjqS4&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=7
 def userLogin(request):
-  current_user = request.user
-  if request.user.is_authenticated:  # cant go to login page
+  # cant go to login page if the user is already logged in
+  if request.user.is_authenticated:  
     return redirect('home')
-    #return redirect('client-profile', pk=current_user.id)
   if request.method == 'POST': # if user sent info
     username = request.POST.get('username').lower()  # populated with the data that the user sent
     password = request.POST.get('password')
 
-
-   
     user = authenticate(request, username=username, password=password)
-    current_user = request.user
+
     if user is not None:
-      login(request, user)
+      login(request, user) # activate session - user logged in 
       messages.success(request, 'You are successfully logged in as' + username)
       return redirect('home')
-      #return redirect('client-profile', pk=current_user.id) 
     else:
       messages.info(request, 'Username or password is incorrect')
-  
-
   
   context = {}
   return render(request, 'user_accounts/login.html', context)
@@ -68,7 +58,6 @@ def userLogout(request):
 	logout(request)
 	return redirect('login')
 
-# https://stackoverflow.com/questions/27968417/django-form-with-fields-from-two-different-models
 def serviceProviderApplication(request):
   service_provider_application_form = ServiceProviderRegistrationApplicationForm()
  

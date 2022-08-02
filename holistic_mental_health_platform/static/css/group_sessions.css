@@ -1,0 +1,31 @@
+.current-group-sessions {
+  padding: 2em 3em;
+  border-radius: 1em;
+  border: 1px solid black;
+  font-size: 1.3em;
+  font-family: 'Julius Sans One', sans-serif;
+  margin: auto;
+  width: 50%;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.edit-group-session {
+  color: white;
+  background-color: var(--primary-color);
+  padding: 0.25em;
+  border-radius: 1em;
+  width: 100%;
+  text-align: center;
+  margin-top: 0.5em;
+}
+
+.leave-group {
+  color: white;
+  background-color: var(--primary-color);
+  padding: 0.25em;
+  border-radius: 1em;
+  width: 100%;
+  text-align: center;
+  margin-top: 0.5em;
+}
