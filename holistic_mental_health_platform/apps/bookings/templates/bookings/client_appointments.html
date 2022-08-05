@@ -38,7 +38,7 @@
         
         <p>Date: {{ my_booking.date }}</p>
         <p>Time: {{ my_booking.time }}</p>
-        <p>Duration: 60 min</p>
+        <p>Duration: {{ my_booking.duration }} min</p>
         <p>Event ID: {{ my_booking.id }}</p>
 
         {% if my_booking.confirmed == True %}
@@ -77,7 +77,7 @@
         
         <p>Date: {{ my_booking.date }}</p>
         <p>Time: {{ my_booking.time }}</p>
-        <p>Duration: 60 min</p>
+        <p>Duration: {{ my_booking.duration }} min</p>
       </div>
     {% endif %}
     

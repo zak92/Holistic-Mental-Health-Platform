@@ -1,0 +1,13 @@
+.join-session {
+  color: white;
+  background-color: var(--primary-color);
+  padding: 0.25em;
+  border-radius: 1em;
+  width: 100%;
+  text-align: center;
+}
+
+.join-session:hover {
+  color: white;
+ 
+}

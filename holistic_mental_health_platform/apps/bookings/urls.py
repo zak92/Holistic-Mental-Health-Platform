@@ -16,5 +16,6 @@ urlpatterns = [
     path('service-provider/schedule-appointments/<str:username>/', views.serviceProviderScheduleAppointments, name='schedule-appointments'), 
     path('service-provider/booked/<str:username>/', views.serviceProviderBookedAppointments, name='booked-appointments'),   
 
+    path('delete-available-booking/<str:pk>/', views.deleteAvailableBooking, name='delete-available-booking'), 
 ]
   

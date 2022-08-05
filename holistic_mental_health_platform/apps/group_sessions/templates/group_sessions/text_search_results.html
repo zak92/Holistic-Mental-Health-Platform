@@ -3,58 +3,63 @@
 {% block content %}
 
 
-<h1>Live Group Sessions</h1>
+<div class="search-functionalities">
 
-<form method="GET" action="{% url 'group-sessions-text-search' %}">
-  {% csrf_token %}  <!-- prevent against malicious attacks -->
- 
-  <input type="text"  name="q" placeholder="Search "/>
-  <input type="submit" value="Search">
+  <div style="width: 30%;" class="search-bar">
+    <form style="display:flex;" method="GET" action="{% url 'group-sessions-text-search' %}">
+      {% csrf_token %}  
+      <input type="text"  name="q" placeholder="Search"/>
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
 
-</form>
+  <div style="display:flex;font-size: 1.2em;" class="categories">
+    <h4 style="margin-right:1em;margin-top:0.2em">Categories</h4>
+    <ul>
+      <li style="padding-right:1em;"><a href="{% url 'group-signup' %}">All</a></li>
+    </ul>
+    {% for category in categories %}
+    <ul>
+      <li style="padding-right:1em;"><a href="{{ category.get_url_group_sessions }}">{{ category.title }}</a></li>
+    </ul>
+    {% endfor %}
+  </div>
+</div>
 
-<h4>Categories</h4>
-<ul>
-  <a href="{% url 'group-signup' %}"><li>All</li></a>
-</ul>
-{% for category in categories %}
-<ul>
-  <a href="{{ category.get_url_group_sessions }}"><li>{{ category.title }}</li></a>
-</ul>
-{% endfor %}
+<h1 class="heading">Search Results</h1>
 
 
 {% if available_group_sessions %}
 {% for available_group_session in available_group_sessions %}
 {% if current_date < available_group_session.date or current_date == available_group_session.date and current_time < available_group_session.time %}
 {% if available_group_session.cancelled == False %}
-  <h2>Category: {{ available_group_session.category }}</h2>
-
-  <h3>Group Name</h3>
+ 
+<div class="current-group-sessions">
+  <p style="color:#FF5C5C">{{ available_group_session.category }}</p>
+  <h3 style="color:#FF5C5C">Group Name</h3>
   <p>{{ available_group_session.group_name }}</p>
-  <h3>Host</h3>
-  <p>{{ available_group_session.service_provider }}</p>
-  <h3>Description</h3>
+  <h3 style="color:#FF5C5C">Description</h3>
   <p>{{ available_group_session.description }}</p>
+  <p>Date: {{ available_group_session.date }}</p>
+  <p>Time: {{ available_group_session.time }}</p>
+  <p>Duration: {{ available_group_session.duration }} min</p>
   <p>Maximum number of members: {{ available_group_session.max_members }}</p>
-  <p>{{ available_group_session.date }}</p>
-  <p>{{ available_group_session.time }}</p>
-  <p>{{ available_group_session.duration }} min</p>
   <p>Current members joined: {{ available_group_session.total_members }}</p>
   {% if available_group_session.total_members < available_group_session.max_members %}
-  <a href="{% url 'group-signup-confirmation' available_group_session.id %}">Join This Session</a>
+  <div class="app-controls">
+    <a class="join-session" href="{% url 'group-signup-confirmation' available_group_session.id %}">Join This Session</a>
+  </div>
   {% else %}
-  <p>This group is full!</p>
+  <p style="text-align: center;">This group is full!</p>
   {% endif %}
- <hr>
+</div>
 
 
  {% endif %}
 {% endif %}
 {% endfor %}
 
-{% else %}
-  <p>No results</p>
+
 {% endif %}
 
 

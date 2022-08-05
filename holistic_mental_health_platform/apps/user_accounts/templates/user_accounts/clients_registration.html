@@ -1,28 +1,30 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 {% load crispy_forms_tags %}
-  <h1>Client User Registration Form</h1>
 
-  <div class="d-flex justify-content-center form_container">
-  <form method="POST" action="">
-    {% csrf_token %}
-    <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Join Today</legend>
+<div class="split left">
+  <img src="{% static 'assets/client-sign-up.jpg' %}" alt="pink flowers">
+  <div class="centered">
+    <h1 class="image-text">Client Sign Up</h1>
+  </div>
+</div> 
+
+<div class="split right">
+  <div class="centered">
+    <form class="sign-up-form" method="POST" action="">
+      {% csrf_token %}
       {{ client_registration_form|crispy}}
-    </fieldset>
-    <div class="d-flex justify-content-center mt-3 login_container">
-      <button class="btn login_btn" type="submit">Register Account</button>
-    </div>
-  </form>
+     
+      <div class="submit-btn">
+        <button type="submit">Sign Up</button>
+      </div>
+    </form>
+    <p>Already Have An Account? <a class="need-account" href="{% url 'login' %}">Login</a></p>
+    </p>
   </div>
-
-  <div class="d-flex justify-content-center links">
-    <small class="text-muted">
-      Already Have An Account? <a class="ml-2" href="{% url 'login' %}" >Client Login</a>
-    </small>
-  </div>
+</div>
 
   {% if messages %}
     {% for message in messages %}

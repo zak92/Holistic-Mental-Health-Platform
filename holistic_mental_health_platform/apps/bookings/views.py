@@ -28,6 +28,7 @@ def individualBooking(request, username):
 def bookingConfirmationByClient(request, pk):
   
   booking = Booking.objects.get(id=pk)
+  
   booking_form = ClientBookingForm(instance=booking)
   if request.user == booking.service_provider:  # a sp cannot make appointment with himself
     return redirect('home')
@@ -183,3 +184,14 @@ def serviceProviderBookedAppointments(request, username):
 
   return render(request, 'bookings/sp_booked_appointments.html', context)
  
+
+def deleteAvailableBooking(request, pk):
+  booking = Booking.objects.get(id=pk)
+  service_provider = booking.service_provider.username
+  if request.user != booking.service_provider: 
+    # if user is not the creator of message - they cannot delete it
+   return redirect('home')
+  if request.method == 'POST':
+    booking.delete()
+    return redirect('schedule-appointments', service_provider)
+  return render(request, 'bookings/sp-delete.html', {'booking': booking})

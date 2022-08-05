@@ -9,8 +9,15 @@ class CreateDiscussionPostForm(ModelForm):
   category = forms.ModelChoiceField(queryset = Category.objects.all())
   class Meta:
     model = DiscussionForumPost
-    fields = ['title', 'discussion_post', 'category']
-    
+    fields = ['title', 'category', 'discussion_post']
+
+  def __init__(self,*args,**kwargs):
+    super(CreateDiscussionPostForm,self).__init__(*args,**kwargs)
+
+    self.fields["title"].label="Title"
+    self.fields["title"].widget=forms.TextInput(attrs={"class":"form-control", 
+    "style": "width:60%;padding:0.5em;"})
+
 
 class FlagDiscussionPostForm(ModelForm):
   

@@ -26,22 +26,18 @@
   </ul>
 </nav>
 
-<a href="{% url 'service-provider-profile' request.user.username %}">Profile</a>
-<a href="{% url 'schedule-appointments' request.user.username %}">Schedule Appointments</a>
-<a href="{% url 'booked-appointments' request.user.username %}">Booked Appointments</a>
-<a href="{% url 'schedule-group-sessions' request.user.username %}">Schedule Live Group Sessions</a>
-<a href="{% url 'available-group-sessions' request.user.username %}">Live Group Sessions</a>
-<h1>Schedule Group Sessions</h1>
+
 
 {% if request.user == user %}
-<h3>Schedule Available Group Bookings</h3>
+<h1 class="heading">Schedule Group Sessions</h1>
 
-<div>
+<div style="width:50%;padding:2em;margin-bottom: 2em;margin-top: 0.5em;font-size: 1.25em;">
   <form method="POST" action="">
     {% csrf_token %}  <!-- prevent against malicious attacks -->
-    
     {{ group_booking_form.as_p }} <!-- wraps p tag around every paragraph-->
-    <input type="submit" value="Submit" />
+    <div class="submit-btn">
+      <button style="width:40%;" type="submit">Schedule</button>
+    </div>
   </form>
 </div>
 

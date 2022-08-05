@@ -2,13 +2,16 @@
 
 {% block content %}
 
-<h1>Create a blog post</h1>
+
+<h1 class="heading">Create a Blog Post</h1>
 <div>
-  <form method="POST" action="", enctype="multipart/form-data">
+  <form method="POST" action="", enctype="multipart/form-data" style="width:80%;padding:2em;margin-bottom: 2em;margin-top: 0.5em;font-size: 1.25em;">
     {% csrf_token %}  <!-- prevent against malicious attacks -->
     {{  form.as_p }}<!-- wraps p tag around every paragraph-->
     {{  form.media }}
-    <input type="submit" value="Submit" />
+    <div class="submit-btn">
+      <button style="width:40%;" type="submit">POST</button>
+    </div>
   </form>
 </div>
 

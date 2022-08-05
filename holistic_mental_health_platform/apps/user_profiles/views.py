@@ -93,10 +93,10 @@ def updateServiceProviderProfile(request, username):
 
 #--------------------------------change password page-------------------------------
 def changePassword(request):
-  password_change_form = PasswordChangeForm(user=request.user)
+  password_change_form = UserPasswordChangeForm(user=request.user)
 
   if request.method == 'POST':
-    password_change_form = PasswordChangeForm(user=request.user, data=request.POST)
+    password_change_form = UserPasswordChangeForm(user=request.user, data=request.POST)
     if password_change_form.is_valid():
       password_change_form.save()
       # remain logged in after password has changed

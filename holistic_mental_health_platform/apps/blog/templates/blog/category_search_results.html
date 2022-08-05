@@ -9,7 +9,7 @@
   <div class="search-bar">
     <form method="GET" action="{% url 'blog-text-search' %}">
       {% csrf_token %}  
-      <input type="text"  name="q" placeholder="Search articles"/>
+      <input type="text"  name="q" placeholder="Search"/>
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
   </div>
@@ -34,6 +34,7 @@
 </div>
 
 <h1 class="results-heading">{{ category }}</h1>
+
 <div class="articles">
 {% if article_list %}
 <div class="articles">

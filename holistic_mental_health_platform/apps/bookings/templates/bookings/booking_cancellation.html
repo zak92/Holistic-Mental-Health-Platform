@@ -2,18 +2,23 @@
 
 {% block content %}
 
-<h1>Cancellation of Booking page</h1>
+<div class="box">
+  <h4 class="heading"> Are you sure you want to cancel your booking with {{ booking.service_provider.first_name }} {{ booking.service_provider.last_name }}?</h3>
+    <div class="info">
+      <p>Date: {{booking.date }}</p>
+      <p>Time: {{booking.time}}</p>
+      <p>Duration: {{ booking.duration }} min</p>
+    </div>
+
+  <form method="POST" action="">
+    {% csrf_token %}
+    {{ client_booking_form.as_p }}
+  
+    <div class="submit-btn">
+      <button style="font-size:1.3em;background-color:white;color: black;" type="submit">YES</button>
+    </div>
+  </form>
 
 
-<h2>For Clients</h2>
-<h3> Cancel booking with {{ booking.service_provider.first_name }} {{ booking.service_provider.last_name }}</h3></h3>
-  <p>Date {{booking.date }}</p>
-  <p>Time {{booking.time}}</p>
-
-<form method="POST" action="">
-  {% csrf_token %}
-  {{ client_booking_form.as_p }}
-  <input type="submit" value="Cancel Booking with SP" />
-</form>
-
+</div>
 {% endblock content %}

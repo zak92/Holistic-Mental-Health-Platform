@@ -65,7 +65,6 @@ class SearchByTextViewTest(TestCase):
     response = self.client.get(self.good_url)
     self.assertEqual(response.status_code, 200)
     # response contains author, title and category of blog article
-    self.assertIn(b'jane26', response.content)
     self.assertIn(b'Importance of mental health', response.content)
     self.assertIn(b'Mental Health', response.content)
 

@@ -1,33 +1,35 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 {% load crispy_forms_tags %}
-  <h1>User Login Form</h1>
-  
-  <div class="d-flex justify-content-center form_container">
-  <form method="POST" action="">
-    {% csrf_token %}
-    <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Login</legend>
-    
-    </fieldset>
-    <div class="input-group mb-3">
-      <input type="text" name="username" placeholder="Username..." class="form-control">
-    </div>
 
-        <input type="password" name="password" placeholder="Password..." class="form-control" >
-    </div>
-    <div class="d-flex justify-content-center mt-3 login_container">
-      <button class="btn login_btn" type="submit">Login</button>
-    </div>
-  </form>
+<div class="split left">
+  <img src="{% static 'assets/login.jpg' %}" alt="pink flowers">
+  <div class="centered">
+    <h1 class="image-text">Login</h1>
   </div>
+</div> 
 
-  <div class="d-flex justify-content-center links">
-    <small class="text-muted">
-      Need An Account? <a class="ml-2" href="{% url 'registration' %}">Sign Up Now</a>
-    </small>
+<div class="split right">
+  <div class="centered">
+    <form class="login-form" method="POST" action="">
+      {% csrf_token %}
+      <div class="input-text">
+        <input type="text" name="username" placeholder="Username" class="">
+      </div>
+      <div class="input-text">
+        <input type="password" name="password" placeholder="Password" class="" >
+      </div>
+      <div class="submit-btn">
+        <button type="submit">Login</button>
+      </div>
+    </form>
+    <p>Don't have an account? <a class="need-account" href="{% url 'registration' %}">Client Sign Up</a></p>
+    <p>Apply to become a service provider? <a class="need-account" href="{% url 'application' %}">Apply Now</a>
+    </p>
   </div>
+</div>
+
   {% if messages %}
   {% for message in messages %}
     <div class="alert alert-{{ message.tags}}">

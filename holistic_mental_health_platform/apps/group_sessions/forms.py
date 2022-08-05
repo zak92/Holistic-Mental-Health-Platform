@@ -26,6 +26,32 @@ class GroupBookingForm(ModelForm):
       'date': DatePickerInput(),
       'time':  TimePickerInput(),
     }
+  def __init__(self,*args,**kwargs):
+      super(GroupBookingForm,self).__init__(*args,**kwargs)
+
+      self.fields["description"].label="Description"
+      self.fields["description"].widget=forms.Textarea(attrs={"class":"form-control", 
+        "style": "width:98%;height:150px;overflow-y: scroll;background-color: #FFC3C3;color: white;border-radius: 1em;margin-left:1em;"})
+
+      self.fields["date"].label="Date"
+      self.fields["date"].widget=DatePickerInput(attrs={"class":"form-control", 
+      "style": "width:50%;margin-bottom:1.25em; background-color: #FFC3C3;color: white;border-radius: 1em;margin-bottom:1em;margin-left:1em;"})
+
+      self.fields["time"].label="Time"
+      self.fields["time"].widget=TimePickerInput(attrs={"class":"form-control", 
+       "style": "width:40%;margin-bottom:1.25em; background-color: #FFC3C3;color: white;border-radius: 1em;margin-bottom:1em;margin-left:1em;"})
+
+      # self.fields["category"].label="Category"
+      # self.fields["category"].widget=forms.Select(attrs={"class":"form-control", 
+      #  "style": "margin-bottom:1.25em; background-color: #FFC3C3;color: white;border-radius: 1em;margin-bottom:1em;margin-left:1em;"})
+
+      self.fields["duration"].label="Duration"
+      self.fields["duration"].widget=forms.NumberInput(attrs={"class":"form-control", 
+       "style": "width:30%;margin-bottom:1.25em; background-color: #FFC3C3;color: white;border-radius: 1em;margin-bottom:1em;margin-left:1em;"})
+
+      self.fields["max_members"].label="Maximum members"
+      self.fields["max_members"].widget=forms.NumberInput(attrs={"class":"form-control", 
+       "style": "width:30%;margin-bottom:1.25em; background-color: #FFC3C3;color: white;border-radius: 1em;margin-bottom:1em;margin-left:1em;"})
 
 
 class CancelGroupBookingForm(ModelForm):

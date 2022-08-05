@@ -9,7 +9,8 @@ class TestForms(TestCase):
     ''' Check if form is valid '''
     data = {
       'date': 'July 17, 2022',
-      'time': '14:06:00'
+      'time': '14:06:00',
+      'duration':'60'
       }
     form = BookingForm(data)
     # check if the form is valid
@@ -22,7 +23,7 @@ class TestForms(TestCase):
     # check if the form is not valid
     self.assertFalse(form.is_valid())
      # check that the total errors is 2
-    self.assertEquals(len(form.errors), 2)
+    self.assertEquals(len(form.errors), 3)
 
   def test_client_booking_form_is_valid(self):
     ''' Check if form is valid '''

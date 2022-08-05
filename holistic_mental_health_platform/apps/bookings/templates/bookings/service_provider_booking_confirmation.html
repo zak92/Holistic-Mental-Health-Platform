@@ -2,18 +2,21 @@
 
 {% block content %}
 
-<h1>Confirmation of Booking page</h1>
 
-
-<h2>For SPs</h2>
-<h3> Confirm booking with {{ booking.client.username }}</h3>
-  <p>Date {{booking.date }}</p>
-  <p>Time {{booking.time}}</p>
+<div class="box">
+<h4 class="heading"> Confirm booking with {{ booking.client.username }}</h4>
+<div class="info">
+  <p>Date: {{booking.date }}</p>
+  <p>Time: {{booking.time}}</p>
+  <p>Duration: {{ booking.duration }} min</p>
+</div>
 
 <form method="POST" action="">
   {% csrf_token %}
   {{ service_provider_booking_form.as_p }}
-  <input type="submit" value="Confirm Booking with client" />
+  <div class="submit-btn">
+    <button style="font-size:1.3em;background-color:white;color: black;" type="submit">Confirm</button>
+  </div>
 </form>
-
+</div>
 {% endblock content %}

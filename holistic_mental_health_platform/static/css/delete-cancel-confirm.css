@@ -1,0 +1,17 @@
+.box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary-color);
+  padding: 1.75em;
+  border-radius: 1em;
+  
+}
+
+
+.info {
+  font-size: 1.1em;
+  padding: 0.5em 1.5em;
+  font-family: 'Roboto', sans-serif;
+}

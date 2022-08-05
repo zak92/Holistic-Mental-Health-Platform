@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h1>Individual Bookings page</h1>
+<h1 class="heading">Book with <a href="{% url 'service-provider-profile' service_provider %}">{{ service_provider.first_name }} {{ service_provider.last_name }}</a></h1>
 
-<a href="{% url 'service-provider-profile' service_provider %}">{{ service_provider.first_name }} {{ service_provider.last_name }}</a><br>
+
 
 <table class="table">
   <thead>
@@ -12,6 +12,7 @@
       
       <th scope="col">Date</th>
       <th scope="col">Time</th>
+      <th scope="col">Duration (min)</th>
       <th>Book an appointment</th>
       
     </tr>
@@ -24,8 +25,9 @@
           <tr>
             <td>{{ available_booking.date }}</td>
             <td>{{ available_booking.time }}</td>
+            <td>{{ available_booking.duration }}</td>
             <td>
-              <a href="{% url 'confirm-booking' available_booking.id %}">Book</a></td>
+              <a class="client-booked" href="{% url 'confirm-booking' available_booking.id %}">Book</a></td>
           </tr>
           {% endif %}
         {% endif %}

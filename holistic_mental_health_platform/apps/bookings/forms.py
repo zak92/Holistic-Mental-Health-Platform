@@ -20,12 +20,27 @@ class DateTimePickerInput(forms.DateTimeInput):
 class BookingForm(ModelForm):
   class Meta:
     model = Booking
-    fields = ['date', 'time']
+    fields = ['date', 'time', 'duration']
     widgets = {
       'date': DatePickerInput(),
       'time':  TimePickerInput(),
     }
 
+  def __init__(self,*args,**kwargs):
+      super(BookingForm,self).__init__(*args,**kwargs)
+
+      self.fields["date"].label="Date"
+      self.fields["date"].widget=DatePickerInput(attrs={"class":"form-control", 
+      "style": "margin-bottom:1.25em; background-color: #FFC3C3;color: white;border-radius: 1em;margin-left:1em; width: 40%"})
+
+      self.fields["time"].label="Time"
+      self.fields["time"].widget=TimePickerInput(attrs={"class":"form-control", 
+       "style": "margin-bottom:1.25em; background-color: #FFC3C3;color: white;border-radius: 1em;margin-left:1em; width: 30%"})
+
+      self.fields["duration"].label="Duration"
+      self.fields["duration"].widget=forms.NumberInput(attrs={"class":"form-control", 
+       "style": "width:30%;margin-bottom:1.25em; background-color: #FFC3C3;color: white;border-radius: 1em;margin-bottom:1em;margin-left:1em;"})
+       
 # clients will use this from to book appointments with service providers
 class ClientBookingForm(ModelForm):
   class Meta:

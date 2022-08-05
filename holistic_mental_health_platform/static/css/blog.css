@@ -12,6 +12,11 @@
   padding-left: 0.5em;
   
 }
+
+.search-bar > form {
+  display: flex;
+  
+}
 .search-bar input[type=text] {
   font-size: 0.95em;
   padding: 0.35em;
@@ -20,11 +25,11 @@
 }
 
 .search-bar input[type="text"]::placeholder {
-  color: grey;
+  color: black;
 }
 .search-bar button {
   border-radius: 0.25em;
-  color: var(--secondary-color);
+  color: black;
   margin-left: -2.5em;
   background: transparent;
   

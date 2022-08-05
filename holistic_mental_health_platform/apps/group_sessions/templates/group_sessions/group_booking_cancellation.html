@@ -2,17 +2,21 @@
 
 {% block content %}
 
-<h1>Cancellation of Group Session By SP</h1>
 
-
-<h3> Cancel booking with {{ group_booking.group_name }}</h3>
-  <p>Date {{group_booking.date }}</p>
-  <p>Time {{group_booking.time}}</p>
+<div class="box">
+<h4 class="heading"> Are you sure you want to cancel the group session {{ group_booking.group_name }} ?</h4>
+<div class="info">
+  <p>Date: {{group_booking.date }}</p>
+  <p>Time: {{group_booking.time}}</p>
+</div>
 
 <form method="POST" action="">
   {% csrf_token %}
   {{ group_cancellation_form.as_p }}
-  <input type="submit" value="Cancel Group Session" />
+  <div class="submit-btn">
+    <button style="font-size:1.3em;background-color:white;color: black;" type="submit">YES</button>
+  </div>
 </form>
 
+</div>
 {% endblock content %}

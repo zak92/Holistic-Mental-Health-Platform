@@ -64,7 +64,6 @@ class SearchByCategoryViewTest(TestCase):
     response = self.client.get(self.good_url)
     self.assertEqual(response.status_code, 200)
     # response contains author, title and category of blog article
-    self.assertIn(b'jane26', response.content)
     self.assertIn(b'Nutrition for mental health', response.content)
     self.assertIn(b'Nutrition', response.content)
 

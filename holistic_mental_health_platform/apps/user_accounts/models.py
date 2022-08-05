@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from ckeditor.fields import RichTextField
 from django_countries.fields import CountryField
 
+
 # Create your models here.
 class CustomUserManager(UserManager):
   # usernames  must be lower case

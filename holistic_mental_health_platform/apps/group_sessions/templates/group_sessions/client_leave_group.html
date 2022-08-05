@@ -3,16 +3,20 @@
 
 {% block content %}
 
-<h1>Leave group</h1>
+<div class="box">
 
-
-<h3> Are you sure you want to leave the group  - {{ client_leave_group.group_name }}</h3>
-  <p>Date {{client_leave_group.date }}</p>
-  <p>Time {{client_leave_group.time}}</p>
+<h4 class="heading"> Are you sure you want to leave the group  - {{ client_leave_group.group_name }} ?</h4>
+<div class="info">
+  <p>Date: {{client_leave_group.date }}</p>
+  <p>Time: {{client_leave_group.time}}</p>
+</div>
 
 <form method="POST" action="">
   {% csrf_token %}
-  <input type="submit" value="Yes" />
+  <div class="submit-btn">
+    <button style="font-size:1.3em;background-color:white;color: black;" type="submit">YES</button>
+  </div>
 </form>
 
+</div>
 {% endblock content %}

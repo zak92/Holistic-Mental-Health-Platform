@@ -3,16 +3,20 @@
 {% block content %}
 
 
-<h1>Confirm Group Sign Up</h1>
-
-<h3> Confirm Group Session with {{ group_signup.group_name }}</h3>
+<div class="box">
+<h4 class="heading"> You have joined the group session -{{ group_signup.group_name }} ?</h4>
+<div class="info">
   <p>Date {{group_signup.date }}</p>
   <p>Time {{group_signup.time}}</p>
+</div>
 
 <form method="POST" action="">
   {% csrf_token %}
  
-  <input type="submit" value="Confirm" />
+  <div class="submit-btn">
+    <button style="font-size:1.3em;background-color:white;color: black;" type="submit">Confirm</button>
+  </div>
 </form>
 
+</div>
 {% endblock content %}

@@ -29,3 +29,15 @@
   text-align: center;
   margin-top: 0.5em;
 }
+
+.main-content-sessions {
+  display: grid;
+  grid-template-areas: 
+  'searching sessions'
+  'searching sessions';
+  grid-template-columns: 0.5fr 1fr;
+}
+
+.current-group-sessions {
+  grid-area: sessions;
+}

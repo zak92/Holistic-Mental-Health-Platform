@@ -3,14 +3,16 @@
 {% block content %}
 
 
-<h1>Delete Article</h1>
+<div class="box">
 
-<p>Are you sure you want to delete your article?</p>
+  <h4 class="heading">Are you sure you want to delete your blog post?</h4>
 
-<form method="POST" action="">
-  {% csrf_token %}
-  <a href="{{request.META.HTTP_REFERER}}">Cancel</a>
-  <input type="submit" value="Yes" />
-</form>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <div class="submit-btn">
+      <button style="font-size:1.3em;background-color:white;color: black;" type="submit">YES</button>
+    </div>
+  </form>
 
+</div>
 {% endblock content %}

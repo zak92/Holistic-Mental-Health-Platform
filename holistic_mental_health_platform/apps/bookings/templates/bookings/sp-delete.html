@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="box">
+<h4 class="heading">Are you sure you want to delete this appointment?</h4>
+<div class="info">
+  <p>Date: {{booking.date }}</p>
+  <p>Time: {{booking.time}}</p>
+  <p>Duration: {{ booking.duration }} min</p>
+</div>
+
+
+<form method="POST" action="">
+  {% csrf_token %}
+  <div class="submit-btn">
+    <button style="font-size:1.3em;background-color:white;color: black;" type="submit">Yes</button>
+  </div>
+</form>
+
+</div>
+{% endblock content %}

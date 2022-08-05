@@ -1,0 +1,47 @@
+.sp-list {
+  border: 1px solid black;
+  padding:1em;
+  margin:1em;
+  border-radius: 1em;
+}
+
+.sp-list-container {
+  margin: auto;
+  width: 70%;
+  padding: 1em;
+}
+
+.sp-details {
+  display: flex;
+
+}
+
+.sp-name-book {
+  padding-left: 1em;
+  font-size: 1.5em;
+  font-family: 'Julius Sans One', sans-serif;
+}
+
+.sp-book {
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  border-radius: 0.5em;
+  background-color: var(--primary-color);
+  padding: 0.25em 0.5em;
+  
+  
+  
+}
+.sp-book:hover{
+  font-weight: bold;
+  color: white;
+  
+}
+
+.sp-full-name {
+ 
+  color: black;
+  text-decoration: none;
+  
+}

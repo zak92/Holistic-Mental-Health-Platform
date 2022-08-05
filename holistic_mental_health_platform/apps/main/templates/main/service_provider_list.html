@@ -2,26 +2,26 @@
 
 {% block content %}
 
-<h1>Service Providers</h1>
+<h1 class="heading">Service Providers</h1>
 
+<div class="sp-list-container">
 {% for service_provider in service_providers %}
+{% if service_provider.is_staff == False %}
 
-<div>
-  <ul>
-    <li>
-      <a href="{% url 'service-provider-profile' service_provider %}">{{ service_provider.first_name }} {{ service_provider.last_name }}</a><br>
-      <a href="{%  url 'client-booking' service_provider %}">Book Now</a>
-      <br></li>
-  </ul>
-</div>
-{% endfor %}
-{% if messages %}
-
-{% for message in messages %}
-  <div class="alert alert-{{ message.tags}}">
-    {{ message }}
+<div class="sp-list">
+  <div class="sp-details">
+    <div><img style="border-radius: 1em;" src="{{ service_provider.profile_picture.url}}" alt="profile picture" width="150" height="110"/></div>
+    <div class="sp-name-book">
+      <a class="sp-full-name" href="{% url 'service-provider-profile' service_provider %}">{{ service_provider.first_name }} {{ service_provider.last_name }}</a><br>
+      <a class="sp-book" href="{%  url 'client-booking' service_provider %}">Book</a>
+    </div>
   </div>
-{% endfor %}
+
+</div>
+
 {% endif %}
+{% endfor %}
+</div>
+
 
 {% endblock content %}

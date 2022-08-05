@@ -70,6 +70,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        
+        'allowedContent': True
+    }
+}
+
 ROOT_URLCONF = 'holistic_mental_health_platform.urls'
 
 TEMPLATES = [

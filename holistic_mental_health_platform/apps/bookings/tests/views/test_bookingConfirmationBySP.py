@@ -48,6 +48,7 @@ class ConfirmBookingBySPViewTest(TestCase):
         service_provider = self.user_2,
         date = '2023-08-15',
         time = '14:06:00',
+        duration = '60',
         client = self.user
     )
 

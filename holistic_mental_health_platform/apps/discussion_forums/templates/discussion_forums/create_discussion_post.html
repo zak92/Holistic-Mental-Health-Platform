@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
+{% load crispy_forms_tags %}
 
-<h1>Start a New Discussion</h1>
+<h1 class="heading">Start a New Discussion</h1>
 
-<form method="POST" action="">
+
+<form style="width:80%;padding:2em;margin-bottom: 2em;margin-top: 0.5em;font-size: 1.25em;" method="POST" action="">
   {% csrf_token %}
   {{ create_discussion_post_form.media }}
   {{ create_discussion_post_form.as_p }}
-  <input type="submit" value="POST" />
+  <div class="submit-btn">
+    <button  style="width:40%;" type="submit">POST</button>
+  </div>
 </form>
+
 
 
 {% endblock content %}
