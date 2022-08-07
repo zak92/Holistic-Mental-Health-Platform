@@ -3,43 +3,19 @@
 {% block content %}
 
 
-  <div class="search-functionalities">
-
-    <div class="search-bar">
-      <form method="GET" action="{% url 'blog-text-search' %}">
-        {% csrf_token %}  
-        <input type="text"  name="q" placeholder="Search articles"/>
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
-    </div>
-
-    <div class="categories">
-      <h4>Categories</h4>
-      <ul>
-        <li><a href="{% url 'blog-home' %}">All</a></li>
-      </ul>
-      {% for category in categories %}
-      <ul>
-        <li><a href="{{ category.get_url_blog }}">{{ category.title }}</a></li>
-      </ul>
-      {% endfor %}
-    </div>
-
-  </div>
-
-
 
   <div class="article-blog-post">
-    <h1>{{ article.title }}</h1>
-    <p class="blog-article-category">{{ article.category }}</p>
-    <p class="author-date">By {{ article.author }} | {{ article.date_created |date:"M d, Y" }}</p>
-    <img class="article-blog-post-image" src="{{ article.thumbnail_image.url }}" alt="blog thumbnail image" width="500" height="400">
-    <p class="blog-article-content">{{ article.body | safe }}</p>
-    
-    <div>
+    <h1 class="heading">{{ article.title }}</h1>
+    <div class="article-content">
+      <p class="blog-article-category">{{ article.category }}</p>
+      <p class="author-date">By {{ article.author }} | {{ article.date_created |date:"M d, Y" }}</p>
+      <img class="article-blog-post-image" src="{{ article.thumbnail_image.url }}" alt="blog thumbnail image" width="800" height="400">
+      <div style="font-size: 1.2em;padding-left:10em;padding-right:10em;" class="blog-article-content">{{ article.body | safe }}</div>
+    </div>
+    <div style="padding-left:10em;"class="edit-delete-post">
       {% if request.user == article.author %}
-          <a class="article-delete" href="{% url 'delete-blog-post' article.id %}">Delete</a>
-          <a class="article-edit" href="{% url 'update-blog-post' article.id %}">Edit</a>
+      <a class="post-edit" href="{% url 'update-blog-post' article.id %}">Edit</a>
+      <a class="post-delete" href="{% url 'delete-blog-post' article.id %}">Delete</a>
       {% endif %}
      
     </div>

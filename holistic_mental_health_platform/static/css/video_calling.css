@@ -1,0 +1,28 @@
+
+.video-call {
+  background-color: var(--secondary-color-2);
+}
+
+.video-controls {
+  background-color: var(--secondary-color-2);
+ 
+}
+
+.video-streams {
+  padding: 2em 4em 6em 4em;
+ 
+}
+
+.leave {
+  padding:1em;
+  font-size: 1.2em;
+  margin-top: 12em;
+  
+}
+
+.v-icon > img {
+  border-radius: 1em;;
+  width: 30px;
+  height: 30px;
+ 
+}

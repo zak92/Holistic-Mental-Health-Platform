@@ -3,31 +3,33 @@
 {% block content %}
 
 
-<h1>Lobby</h1>
 
 <main>
 
   <section id="form-container">
-      <form id="form">
-          <div class="field-wrapper">
+    <div class="split left">
+        <img src="{% static 'assets/lobby.jpg' %}" alt="pink flowers">
+        <div class="centered">
+          <h1 class="image-text">Join Video Call</h1>
+        </div>
+      </div> 
+      
+      <div class="split right">
+        <div class="centered">
+          <form id="form" class="login-form" method="POST" action="">
+            <input type="text" name="room" placeholder="Event ID" />
+            <input type="text" name="name" placeholder="Display Name" />
+            <div class="submit-btn">
+              <button type="submit">Join Call Now</button>
+            </div>
+          </form>
+        </div>
+      </div>
 
-              <div class="form-field">
-                  <label>Event ID:</label>
-                  <input name="room" placeholder="Enter the event ID..."  style="text-transform:uppercase"/>
-              </div>
-
-              <div class="form-field">
-                  <label>Name:</label>
-                  <input name="name" placeholder="Enter your name..."  style="text-transform:uppercase"/>
-              </div>
-
-              <div class="form-field">
-                  <input type="submit" value="Join Stream" />
-              </div>
-          </div>
-      </form>
   </section>
 </main>
+
+
 
 <script>
   let form = document.getElementById('form')

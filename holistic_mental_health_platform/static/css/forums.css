@@ -1,3 +1,131 @@
 .discussion-content {
- padding: 2em 4em;
+ padding: 5em 15em;
 }
+
+.d-post {
+  border-radius: 1em;
+  border: 2px solid black;
+  padding: 0 2em 2em 2em;
+  margin-bottom: 5em;
+}
+
+.d-post-replies {
+  border-radius: 1em;
+  border: 2px solid black;
+  padding: 1em 2em;
+  margin-bottom: 2em;
+  
+}
+
+.d-post-details {
+  font-size: 1.2em;
+  padding: 2em;
+}
+
+.flagged {
+  padding-left: 2em;
+}
+
+.flag-status {
+ background-color: #FFE3A9;
+ color: black;
+ padding: 0.25em 2em;
+ border-radius: 1em;
+ margin-right: 40em;
+ font-style: italic;
+ text-align: center;
+
+
+
+}
+
+.flag-form input[type=submit] {
+  background-color: black;
+  border: none;
+  font-size: 1.2em;
+  color: white;
+  border-radius: 1em;
+  padding: 0.25em 4em;
+  font-family: 'Julius Sans One', sans-serif;
+}
+
+.reply-form {
+  padding: 0.5em 2em;
+  margin-bottom: 3em;
+}
+.reply-form input[type=submit] {
+  background-color: black;
+  border: none;
+  font-size: 1.2em;
+  color: white;
+  border-radius: 1em;
+  padding: 0.25em 4em;
+  font-family: 'Julius Sans One', sans-serif;
+}
+
+.reply-form textarea {
+  border-radius: 1em;
+  background-color: var(--secondary-color-2);
+  border: none;
+  padding: 1em;
+  width: 60%;
+  
+  
+
+}
+
+.reply-form textarea:focus {
+  outline: none;
+}
+
+.edit-delete-post {
+  padding-left: 2em;
+  padding-bottom: 2em;
+  font-family: 'Julius Sans One', sans-serif;
+}
+
+.edit-delete-post > a {
+  text-decoration: none;
+  font-size: 1.2em;
+  border-radius: 0.5em;
+  
+}
+
+.edit-delete-post > a:hover {
+ color: white;
+}
+
+.post-edit {
+  background-color: var(--secondary-color);
+  padding: 0.5em 1em;
+  color: white;
+  margin-right: 0.5em;
+}
+
+.post-delete {
+ background-color: red;
+ padding: 0.5em 1em;
+ color: white;
+
+
+}
+
+.post-delete-comments {
+  background-color: red;
+  color: white;
+  text-decoration: none;
+  border-radius: 1em;
+  padding: 0.25em 4em;
+  font-size: 1.25em;
+  margin-top: 1em;
+  font-family: 'Julius Sans One', sans-serif;
+ 
+ }
+
+ .post-delete-comments:hover {
+  color: white;
+ }
+
+ .comments-delete {
+  margin-bottom: 1em;
+ }

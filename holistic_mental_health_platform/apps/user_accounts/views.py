@@ -81,4 +81,3 @@ def serviceProviderApplication(request):
   return render(request, 'user_accounts/service_providers_registration_application.html', context)
 
 
-

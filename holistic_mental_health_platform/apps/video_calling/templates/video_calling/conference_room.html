@@ -3,26 +3,24 @@
 {% block content %}
 
 
-<h1>Video Conferencing Room</h1>
-
-<main>
+<main class="video-call">
   <section id="room-name-wrapper">
-      <p>Event ID: <span id="room-name"></span></p>
+      <h3 class="heading">Event ID: <span id="room-name"></span></h3>
   </section>
 
-  <section id="video-streams"></section>
+  <section id="video-streams" class="video-streams"></section>
 
-  <section id="controls-wrapper">
-      <div class="icon-wrapper">
-          <img class="control-icon"  id="mic-btn" src="{% static 'assets/microphone.svg' %}" />
+  <section id="controls-wrapper" class="video-controls">
+      <div class="v-icon">
+          <img class="control-icon" style="margin-top: 2.5em;" id="mic-btn" src="{% static 'assets/microphone.svg' %}" />
       </div>
 
-      <div class="icon-wrapper">
-          <img class="control-icon" id="camera-btn" src="{% static 'assets/video.svg' %}" />
+      <div class="v-icon">
+          <img class="camera" style="margin-top: 2.5em;" id="camera-btn" src="{% static 'assets/video.svg' %}" />
       </div>
 
-      <div class="icon-wrapper">
-          <img class="control-icon" id="leave-btn" src="{% static 'assets/leave.svg' %}" />
+      <div class="submit-btn">
+          <button class="leave" id="leave-btn" style="margin-top: 2em;" >Leave Call</button>
       </div>
   </section>
 </main>

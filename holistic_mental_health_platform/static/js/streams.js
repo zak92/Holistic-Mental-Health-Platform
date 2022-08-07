@@ -116,10 +116,12 @@ let toggleCamera = async (e) => {
    //  the setMuted function turns the camera on or off
   if(localTracks[1].muted){ // if camera is off
       await localTracks[1].setMuted(false) // turn on camera
-      e.target.style.backgroundColor = '#fff'
+      e.target.style.backgroundColor = '#FFC3C3';
+     
   }else{
       await localTracks[1].setMuted(true) // change camera status
-      e.target.style.backgroundColor = 'rgb(255, 80, 80, 1)' // change button color
+      e.target.style.backgroundColor =  '#FF5D5D;'; // change button color
+    
   }
 }
 
@@ -128,10 +130,11 @@ let toggleMic = async (e) => {
   // the setMuted function mutes or un-mutes the audio
   if(localTracks[0].muted){ // // if audio is muted
       await localTracks[0].setMuted(false) // unmute audio
-      e.target.style.backgroundColor = '#fff'
+      e.target.style.backgroundColor = '#FFC3C3';
   }else{
       await localTracks[0].setMuted(true)
-      e.target.style.backgroundColor = 'rgb(255, 80, 80, 1)'
+      e.target.style.backgroundColor = '#FF5D5D;'
+   
   }
 }
 

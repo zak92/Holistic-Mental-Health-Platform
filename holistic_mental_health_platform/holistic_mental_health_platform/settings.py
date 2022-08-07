@@ -176,4 +176,13 @@ AUTH_USER_MODEL = 'user_accounts.User'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
+# SMTP Config
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # During development only
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'iotplantcare8266@gmail.com' # NEW EMAIL - ALLOW LESS SECURE APPS
+EMAIL_HOST_PASSWORD = 'bgaxwzzspsvmrnpk'
+
+# APP PASSWORD - bgax wzzs psvm rnpk
 

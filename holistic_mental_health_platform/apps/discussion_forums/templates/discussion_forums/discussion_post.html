@@ -2,73 +2,107 @@
 {% load static %}
 {% block content %}
 
-<div class="main-content-discussion">
-
 <div class="discussion-content">
-  <div>
-    <h5>{{post.title }}</h5>
-    <p>{{ post.date_created }}</p>
-    <p>{{ post.author.username }}</p>
-    <p>{{ post.category.title }}</p>
-    <div>
-      {{ post.discussion_post|safe}}
+  <div class="d-post">
+    <h1 class="heading">{{post.title }}</h1>
+    <div class="d-post-details">
+      <div class="sp-app-details">
+      <div><img style="border-radius: 50%;margin-bottom: 1em;" src="{{post.author.profile_picture.url}}" alt="profile picture" width="70" height="70"/></div>
+      <div class="name-handle">
+      {% if post.author.is_client %}
+      <p><a style="color:black;" href="{% url 'client-profile'  post.author.username  %}">@{{ post.author.username }}</a></p>
+      {% elif post.author.is_service_provider %}
+      <p><a style="color:black" href="{% url 'service-provider-profile'  post.author.username  %}">@{{ post.author.username }}</a></p>
+      {% endif %}
+      <p>{{ post.date_created|date:"M d, Y" }}</p>
     </div>
-    {% if post.flagged == False %}
-    <form method="POST" action="">
-      {% csrf_token %}
-      {{ flag_discussion_post_form.as_p }}
-      <input type="submit" value="Flag" name="flag-discussion-post-form"/>
-    </form>
-    {% else %}
-    <small style="color:red">This post has been flagged!</small>
-    {% endif %}
-  </div>
+    </div>
+        {{ post.discussion_post|safe}}
+    </div>
   
+  <div class="edit-delete-post">
   {% if request.user == post.author %}
-      <a href="{% url 'update-discussion-post' post.id %}">Edit</a>
-      <a href="{% url 'delete-discussion-post' post.id %}">Delete</a>
+      <a class="post-edit" href="{% url 'update-discussion-post' post.id %}">Edit</a>
+      <a class="post-delete" href="{% url 'delete-discussion-post' post.id %}">Delete</a>
       
   {% endif %}
+  </div>
+  <div class="flagged">
+    {% if post.flagged == False %}
+    <div class="flag-form">
+      <form method="POST" action="">
+        {% csrf_token %}
+        {{ flag_discussion_post_form.as_p }}
+        <input type="submit" value="Flag this post" name="flag-discussion-post-form"/>
+      </form>
+    </div>
+      {% else %}
+      <div class="flag-status">This post has been flagged!</div>
+      {% endif %}
+
+  </div>
+
+  </div>
   
-  <h4>Replies</h4>
+  <div class="d-post">
+  <h2 class="heading">Replies</h2>
     
+  <div class="reply-form">
     <form action="" method="POST">
         {% csrf_token %}
         <div class="comment-area hide" id="comment-area">
             <textarea name="comment" id=""></textarea>
-            <input type="submit" value="REPLY" name="comment-form">
         </div>
+        <input type="submit" value="REPLY" name="comment-form">
     </form>
-   
+  </div>
   
-  <div>
+  
     {% for comment in post.comments.all %}
-    <div class="username"><a href="">@{{comment.author.username}}</a></div>
-      <p>{{ comment.comment|safe }}</p>
-      <p>{{ comment.date|date }}</p>
+    <div class="d-post-replies">
+      <div class="sp-app-details">
+        <div><img style="border-radius: 50%;margin-bottom: 1em;" src="{{ comment.author.profile_picture.url}}" alt="profile picture" width="70" height="70"/></div>
+        <div class="name-handle">
+        {% if comment.author.is_client %}
+        <p><a style="color:black;font-size:1.2em" href="{% url 'client-profile'  comment.author.username  %}">@{{ comment.author.username }}</a></p>
+        {% elif comment.author.is_service_provider %}
+        <p><a style="color:black;font-size:1.2em" href="{% url 'service-provider-profile'  comment.author.username  %}">@{{ comment.author.username }}</a></p>
+        {% endif %}
+        <p style="font-size:1.2em">{{ comment.date|date }}</p>
+        </div>
+      </div>
+      <p style="font-size:1.2em">{{ comment.comment|safe }}</p>
+      
+
+      {% if request.user == comment.author %}
+      <div class="comments-delete">
+      <a class="post-delete-comments" href="{% url 'delete-comment' comment.id %}">Delete</a>
+      </div>
+     {% endif %}
   
       {% if comment.flagged == False %}
+      <div class="flag-form">
       <form method="POST" action="">
         {% csrf_token %}
        
         <input type="hidden" name="comment_id" value="{{comment.id}}">
-        <input type="submit" value="Flag" name="flag-comment-form" />
+        <input type="submit" value="Flag this comment" name="flag-comment-form" />
       </form>
+    </div>
       {% else %}
-      <small style="color:red">This comment has been flagged!</small>
+      <div class="flag-status">This comment has been flagged!</div>
       {% endif %}
-      {% if request.user == comment.author %}
-      
-      <a href="{% url 'delete-comment' comment.id %}">Delete</a>
-      
-     {% endif %}
+     
+     
+    </div>
     {% endfor %}
 
 
-  </div>
-</div>
 
 </div>
+</div>
+
+
 
 {% endblock content %}
 
