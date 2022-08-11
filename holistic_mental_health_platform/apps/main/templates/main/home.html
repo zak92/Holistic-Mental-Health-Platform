@@ -1,14 +1,6 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-
-<h1>Home page</h1>
-
-<h4><a href="{% url 'service-provider-list' %}">List of service providers</a></h4>
-<h4><a href="{% url 'group-signup' %}">Available Live Group Sessions</a></h4>
-
-
-
 
 {% if messages %}
 {% for message in messages %}
@@ -17,5 +9,90 @@
   </div>
 {% endfor %}
 {% endif %}
+
+<div class="container-image">
+  <img  src="{% static 'assets/home-main.jpg' %}" alt="Ocean" height=500 style="width:100%;">
+  <div class="slogan-container">
+    <h1 class="slogan-heading">The essence of mental health and wellness in one place</h1>
+  </div>
+  <div class="home-call-to-action">
+    <a class="join-now" href="{% url 'registration' %}">Join Now</a>
+    <a class="apply-now" href="{% url 'application' %}">Apply to Become a Service Provider</a>
+  </div>
+  
+</div>
+
+
+<div class="home-btns">
+<a href="{% url 'service-provider-list' %}">Find service providers</a>
+<a href="{% url 'group-signup' %}">Join Live Group Sessions</a>
+</div>
+
+
+<div class="services-container">
+
+  <div class="service">
+    <img src="{% static 'assets/therapy-home.jpg' %}" alt="Person in chair" height=650  style="width:100%;">
+    <div class="service-detail">
+      <h1 class="service-heading">Therapy</h1>
+      <p class="service-description" >Ac tincidunt vitae semper quis lectus. Eu facilisis sed odio morbi quis commodo odio 
+        aenean. Posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis. 
+        Ullamcorper malesuada proin libero nunc consequat interdum varius. 
+        Vel elit scelerisque mauris pellentesque.</p>
+    </div>
+  </div>
+
+  <div class="service">
+    <img src="{% static 'assets/home-nutrition.jpg' %}" alt="Fruit and vegetables" height=650  style="width:100%;">
+    <div class="service-detail">
+      <h1 class="service-heading">Nutrition</h1>
+      <p class="service-description">Ac tincidunt vitae semper quis lectus. Eu facilisis sed odio morbi quis commodo odio 
+        aenean. Posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis. 
+        Ullamcorper malesuada proin libero nunc consequat interdum varius. 
+        Vel elit scelerisque mauris pellentesque.</p>
+    </div>
+  </div>
+
+  <div class="service">
+    <img src="{% static 'assets/fitness.jpg' %}" alt="Person exercising" height=650  style="width:100%;">
+    <div class="service-detail">
+      <h1 class="service-heading">Fitness</h1>
+      <p class="service-description" >Ac tincidunt vitae semper quis lectus. Eu facilisis sed odio morbi quis commodo odio 
+        aenean. Posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis. 
+        Ullamcorper malesuada proin libero nunc consequat interdum varius. 
+        Vel elit scelerisque mauris pellentesque.</p>
+    </div>
+  </div>
+
+  <div class="service">
+    <img src="{% static 'assets/home-yoga.jpg' %}" alt="Person doing yoga" height=650  style="width:100%;">
+    <div class="service-detail">
+      <h1 class="service-heading">Yoga</h1>
+      <p class="service-description" >Ac tincidunt vitae semper quis lectus. Eu facilisis sed odio morbi quis commodo odio 
+        aenean. Posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis. 
+        Ullamcorper malesuada proin libero nunc consequat interdum varius. 
+        Vel elit scelerisque mauris pellentesque.</p>
+    </div>
+  </div>
+
+  <div class="service">
+    <img src="{% static 'assets/home-meditation.jpg' %}" alt="Person meditating" height=650  style="width:100%;">
+    <div class="service-detail">
+      <h1 class="service-heading">Meditation</h1>
+      <p class="service-description" >Ac tincidunt vitae semper quis lectus. Eu facilisis sed odio morbi quis commodo odio 
+        aenean. Posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis. 
+        Ullamcorper malesuada proin libero nunc consequat interdum varius. 
+        Vel elit scelerisque mauris pellentesque.</p>
+    </div>
+  </div>
+
+  
+  
+</div>
+
+
+
+
+
 
 {% endblock content %}

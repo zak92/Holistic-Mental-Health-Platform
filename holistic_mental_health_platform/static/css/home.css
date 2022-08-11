@@ -1,0 +1,103 @@
+.slogan-container {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 50%; 
+  
+ 
+}
+
+.container-image {
+  position: relative;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.slogan-heading {
+  font-family: 'Julius Sans One', sans-serif;
+  text-align: center;
+  font-size: 3em;
+  padding: 1.5em 1em 1em 1em;
+}
+
+.home-call-to-action {
+  font-family: 'Julius Sans One', sans-serif;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 50%; 
+  margin: auto;
+  font-size: 1.55em;
+
+}
+
+.home-call-to-action > a {
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+}
+.join-now {
+  margin-right: 1.25em;
+}
+
+.home-btns {
+  font-family: 'Julius Sans One', sans-serif;
+  background-color: var(--secondary-color);
+  text-align: center;
+  padding-top: 3em;
+  padding-bottom: 3em;
+  background-color: black;
+}
+
+.home-btns > a {
+  font-size: 1.4em;
+  text-decoration: none;
+  border-radius: 0.5em;
+  color: var(--primary-color);
+  background-color: white;
+  padding: 0.5em 1em;
+  margin-right: 1.5em;
+  background-color: var(--secondary-color);
+  color:white;
+}
+
+.home-btns > a:hover{
+  color: var(--primary-color);
+  background-color: white;
+  
+}
+
+.service {
+  position: relative;
+
+}
+
+.service-detail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  
+}
+
+.service-heading {
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  color: var(--primary-color);
+  font-size: 7em;
+}
+
+.service-description {
+  text-align: center;
+  color: white;
+  font-size:1.4em;
+  
+
+}

@@ -10,7 +10,7 @@
       <p class="blog-article-category">{{ article.category }}</p>
       <p class="author-date">By {{ article.author }} | {{ article.date_created |date:"M d, Y" }}</p>
       <img class="article-blog-post-image" src="{{ article.thumbnail_image.url }}" alt="blog thumbnail image" width="800" height="400">
-      <div style="font-size: 1.2em;padding-left:10em;padding-right:10em;" class="blog-article-content">{{ article.body | safe }}</div>
+      <div style="font-size: 1.2em;padding-left:10em;padding-right:10em;padding-top:6em;padding-bottom:4em;" class="blog-article-content">{{ article.body | safe }}</div>
     </div>
     <div style="padding-left:10em;"class="edit-delete-post">
       {% if request.user == article.author %}

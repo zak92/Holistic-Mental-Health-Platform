@@ -2,6 +2,8 @@ from http import client
 from django.shortcuts import render
 
 from django.shortcuts import render, redirect
+from ..blog.models import *
+from ..discussion_forums.models import *
 from .models import *
 from .forms import *
 from ..user_accounts.models import *
@@ -24,7 +26,14 @@ def clientProfile(request, username):
   client_user = User.objects.get(username=username)
   # get client object with user id
   client = Client.objects.get(user=client_user.id)
-  context = { 'client_user': client_user, 'client':client }
+  my_articles = Article.objects.filter(author=client_user)
+  my_discussions = DiscussionForumPost.objects.filter(author=client_user)
+  context = { 
+    'client_user': client_user, 
+    'client':client,
+    'my_articles': my_articles,
+    'my_discussions':  my_discussions
+    }
   return render(request, 'user_profiles/client_profile.html', context)
 
 #-------------------service provider profile page----------------------------
@@ -33,7 +42,15 @@ def serviceProviderProfile(request, username):
   service_provider_user = User.objects.get(username=username)
   # get service_provider object with user id
   service_provider = ServiceProvider.objects.get(user=service_provider_user.id)
-  context = {'service_provider_user': service_provider_user, 'service_provider': service_provider }
+  my_articles = Article.objects.filter(author=service_provider_user)
+  my_discussions = DiscussionForumPost.objects.filter(author=service_provider_user)
+  context = {
+    'service_provider_user': service_provider_user, 
+    'service_provider': service_provider,
+    'my_articles': my_articles,
+    'my_discussions':  my_discussions
+
+     }
   return render(request, 'user_profiles/service_provider_profile.html', context)
 
 #------------------- update client profile page-------------------------------

@@ -47,6 +47,4 @@ class ServiceProviderApplicationViewTest(TestCase):
     }
     response = self.client.post(self.good_url, data, follow=True)
     status_code = response.status_code
-    redirect_path = response.request.get("PATH_INFO")
-    self.assertEqual(redirect_path, reverse('home'))
     self.assertEqual(status_code, 200)

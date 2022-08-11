@@ -23,9 +23,8 @@ def clientsRegistration(request):
       user.username = user.username.lower() # username must be in lowercase
       user.save()
 
-      messages.success(request, 'Account was created for ' + username)
       login(request, user) # log user in immediately
-      messages.success(request, 'You are now  logged in as' + username)
+      messages.success(request, 'You are now  logged in as ' + ' ' + username)
       current_user = request.user
       
       return redirect('home')
@@ -46,7 +45,7 @@ def userLogin(request):
 
     if user is not None:
       login(request, user) # activate session - user logged in 
-      messages.success(request, 'You are successfully logged in as' + username)
+      messages.success(request, 'You are successfully logged in as ' + ' ' + username)
       return redirect('home')
     else:
       messages.info(request, 'Username or password is incorrect')
@@ -72,7 +71,7 @@ def serviceProviderApplication(request):
       user.save()
 
      
-      messages.success(request, 'Application Form Sent!')
+      messages.success(request, 'Congratulations! Your application has been sent.')
       return redirect('home')
 
   context = {'service_provider_application_form': service_provider_application_form

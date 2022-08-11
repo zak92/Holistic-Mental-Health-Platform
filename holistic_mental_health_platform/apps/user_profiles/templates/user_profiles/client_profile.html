@@ -25,23 +25,62 @@
 
 
 
-
-<h4>{{user.email}}</h4>
-
-<p>{{ user.city }}, {{ user.country.name }}</p>
-
-<h3>Bio</h3>
-<p>{{ client.bio }}</p>
-<h5>Status</h5>
-<p>{{ client.status }}</p>
+<div class="profile-content" style="padding:0.5em 7em 0.5em 7em;font-size:1.2em;">
 
 
-{% if messages %}
-{% for message in messages %}
-  <div class="alert alert-{{ message.tags}}">
-    {{ message }}
+<h1 style="text-align: center;color:#FF5D5D" class="heading">Bio</h1>
+<p style="text-align: center;" >{{ client.bio }}</p>
+
+<h1 style="text-align: center;color:#FF5D5D" class="heading">Status</h1>
+<p style="text-align: center;" >{{ client.status }}</p>
+
+<h1 style="text-align: center;color:#FF5D5D" class="heading">Contact</h1>
+  <div style="padding:1em;text-align: center;color:white; background-color: #FF8C8C;border-radius: 1em;width:40%;margin: auto;" >
+  <p>Email: {{user.email}}</p>
+  <p>Country: {{ user.city }}, {{ user.country.name }}</p>
   </div>
-{% endfor %}
+
+{% if my_articles %}
+<h1 class="heading">My Articles</h1>
+<div style="display:flex;">
+  {% for article in my_articles %}
+  <p>{{ my_article.title }}</p>
+  <div class="article">
+    <a href="{{ article.get_url }}"><img src="{{ article.thumbnail_image.url }}" height=300 alt="blog thumbnail image" style="width:100%"></a>
+    <div class="article-container">
+      <p class="article-category">{{ article.category }}</p>
+      <h3 class="article-title"><a href="{{ article.get_url }}">{{ article.title }}</a></h3>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endif %}
 
+{% if my_discussions %}
+<h1 class="heading">My discussions</h1>
+{% for discussion in my_discussions %}
+  <div class="article">
+    <div class="article-container">
+
+    <img style="border-radius: 50%;margin-bottom: 1em;" src="{{discussion.author.profile_picture.url}}" alt="profile picture" width="40" height="40"/>
+    {% if discussion.author.is_client %}
+    <p><a style="color:black" href="{% url 'client-profile'  discussion.author.username  %}">@{{ discussion.author.username }}</a></p>
+    {% elif discussion.author.is_service_provider %}
+    <p><a style="color:black" href="{% url 'service-provider-profile'  discussion.author.username  %}">@{{ discussion.author.username }}</a></p>
+    {% endif %}
+    <p>{{ discussion.date_created |date:"M d, Y" }}</p>
+    <p class="article-category">{{ discussion.category.title }}</p>  
+    <h3 class="article-title"><a href="{{ discussion.get_url }}">{{discussion.title }}</a></h3>
+    
+    <div style="line-height: 1em">{{  discussion.discussion_post | slice:":30" | safe}}...</div>
+   
+  </div>
+   
+    
+  </div>
+  {% endfor %}
+
+  {% endif %}
+
+</div>
 {% endblock content %}

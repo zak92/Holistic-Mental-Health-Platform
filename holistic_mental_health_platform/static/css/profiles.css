@@ -52,7 +52,7 @@ background: linear-gradient(to right, #cbad6d, #ff5d5d); /* W3C, IE 10+/ Edge, F
  
 }
 .profile-image-sp {
-  width: 25%;
+  width: 18%;
   height: 17em;
   position: absolute;
   top: 50%;  
@@ -76,7 +76,7 @@ background: linear-gradient(to right, #cbad6d, #ff5d5d); /* W3C, IE 10+/ Edge, F
   color:  black;
   position: absolute;
   top: 25%;  
-  left: 25%; 
+  left: 18%; 
   transform: translate(0%, -45%);
   
  
