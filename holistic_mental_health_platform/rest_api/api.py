@@ -37,12 +37,6 @@ class UserByUsername(mixins.CreateModelMixin,
   queryset = User.objects.all()
   serializer_class = UserSerializer
 
-  # https://django-filter.readthedocs.io/en/latest/guide/rest_framework.html
-
-  # def get_queryset(self):
-        
-  #       return self.queryset.filter(is_client=True)
-   # This function displays the data to the user in the browsable API interface
   def get(self, request, *args, **kwargs):
       return self.retrieve(request, *args, **kwargs)
         
@@ -105,25 +99,19 @@ class AllBookingsByServiceProvider(generics.ListAPIView):
   permission_classes = [permissions.IsAuthenticated]
 
   def get_queryset(self):
-    #username = self.kwargs['username']
-    #user_id = User.objects.get(username=username)
     current_date = datetime.now().date()  
     current_time = datetime.now().time()  
     # filter by request.user - only show valid bookings 
-    #return Booking.objects.filter(service_provider=user_id.id).filter(date__gte=current_date)
     return Booking.objects.filter(service_provider=self.request.user).filter(date__gte=current_date)
 
 # only the logged in and current user (request.user) can access their information
 class ClientBookings(generics.ListAPIView):
-  #lookup_field = 'username'
   serializer_class = BookingSerializer
   permission_classes = [permissions.IsAuthenticated]
 
   
 
   def get_queryset(self):
-    # username = self.kwargs['username']
-    # user_id = User.objects.get(username=username)
     current_date = datetime.now().date()   
     # filter by request.user - only show valid bookings 
     return Booking.objects.filter(client=self.request.user).filter(date__gte=current_date)
@@ -149,30 +137,24 @@ class GroupSessionsByCategory(generics.ListAPIView):
 
 # only the logged in and current user (request.user) can access their information
 class GroupSessionsByServiceProvider(generics.ListAPIView):
-  #lookup_field = 'username'
   serializer_class = GroupSessionSerializer
   permission_classes = [permissions.IsAuthenticated]
 
 
   def get_queryset(self):
     current_date = datetime.now().date()  
-    # username = self.kwargs['username']
-    # user_id = User.objects.get(username=username)
     current_date = datetime.now().date() 
     # filter by request.user - only show valid bookings 
     return GroupBooking.objects.filter(cancelled=False).filter(service_provider=self.request.user).filter(date__gte=current_date)
 
 # only the logged in and current user (request.user) can access their information
 class ClientGroupSessions(generics.ListAPIView, CustomUserPermission):
-  #lookup_field = 'username'
   serializer_class = GroupSessionSerializer
   permission_classes = [permissions.IsAuthenticated] 
   
 
   def get_queryset(self):
     current_date = datetime.now().date()  
-    # username = self.kwargs['username']
-    # user_id = User.objects.get(username=username)
     current_date = datetime.now().date() 
     # filter by request.user - only show valid bookings 
     return GroupBooking.objects.filter(cancelled=False).filter(members=self.request.user).filter(date__gte=current_date)

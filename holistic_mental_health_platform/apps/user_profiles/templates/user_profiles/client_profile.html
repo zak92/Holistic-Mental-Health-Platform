@@ -22,9 +22,6 @@
 </nav>
 
 
-
-
-
 <div class="profile-content" style="padding:0.5em 7em 0.5em 7em;font-size:1.2em;">
 
 
@@ -36,8 +33,8 @@
 
 <h1 style="text-align: center;color:#FF5D5D" class="heading">Contact</h1>
   <div style="padding:1em;text-align: center;color:white; background-color: #FF8C8C;border-radius: 1em;width:40%;margin: auto;" >
-  <p>Email: {{user.email}}</p>
-  <p>Country: {{ user.city }}, {{ user.country.name }}</p>
+  <p>Email: {{ client.user.email}}</p>
+  <p>Country: {{ client.user.city }}, {{ client.user.country.name }}</p>
   </div>
 
 {% if my_articles %}

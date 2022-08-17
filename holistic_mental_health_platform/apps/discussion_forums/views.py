@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 # Create your views here.
-# https://github.com/SelmiAbderrahim/Django-Community-Forum-Website/tree/main/main
+
 def forumHome(request):
   categories = Category.objects.all()
   discussion_list = DiscussionForumPost.objects.all()
@@ -92,7 +92,7 @@ def searchByCategory(request, slug):
     'discussion_list': discussion_list,
     'categories': categories,
     'category': category
-    #'discussion_list_by_category': discussion_list_by_category
+   
   }
   return render(request, 'discussion_forums/category_search_results.html', context)
 

@@ -10,7 +10,6 @@ urlpatterns = [
     path('article/<slug:slug>', views.blogPost, name='blog-post'), 
     path('blog-category-search/<slug>/', views.searchByCategory, name='blog-category-search'), 
     path('blog-text-search', views.searchByText, name='blog-text-search'),  
-
     path('delete-blog-post/<str:pk>/', views.deleteBlogPost, name="delete-blog-post"), 
     path('update-blog-post/<str:pk>/', views.updateBlogPost, name="update-blog-post"),  
     

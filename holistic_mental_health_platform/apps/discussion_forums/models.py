@@ -5,8 +5,6 @@ from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 # Create your models here.
 
-# https://www.youtube.com/watch?v=YXmsi13cMhw
-
 class Category(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=400, unique=True, blank=True)

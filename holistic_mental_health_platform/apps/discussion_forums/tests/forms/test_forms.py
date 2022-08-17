@@ -35,5 +35,3 @@ class TestForms(TestCase):
     self.assertTrue(form.is_valid())
 
 
-    # 4 extra forms to test
-

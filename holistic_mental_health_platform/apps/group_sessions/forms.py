@@ -1,9 +1,7 @@
 
 from django import forms
 from django.forms import DateInput, ModelForm
-
 from .models import *
-
 from django.db import transaction
 
 
@@ -40,10 +38,6 @@ class GroupBookingForm(ModelForm):
       self.fields["time"].label="Time"
       self.fields["time"].widget=TimePickerInput(attrs={"class":"form-control", 
        "style": "width:40%;margin-bottom:1.25em; background-color: #FFC3C3;color: white;border-radius: 1em;margin-bottom:1em;margin-left:1em;"})
-
-      # self.fields["category"].label="Category"
-      # self.fields["category"].widget=forms.Select(attrs={"class":"form-control", 
-      #  "style": "margin-bottom:1.25em; background-color: #FFC3C3;color: white;border-radius: 1em;margin-bottom:1em;margin-left:1em;"})
 
       self.fields["duration"].label="Duration"
       self.fields["duration"].widget=forms.NumberInput(attrs={"class":"form-control", 

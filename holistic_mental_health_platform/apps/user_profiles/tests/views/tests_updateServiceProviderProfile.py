@@ -5,7 +5,6 @@ from ...views import *
 from ...forms import * 
 import json
 
-
 class UpdateServiceProviderProfileViewTest(TestCase):
   
   def setUp(self):
@@ -69,5 +68,3 @@ class UpdateServiceProviderProfileViewTest(TestCase):
     response = self.client.get(self.bad_url, format='json')
     self.assertEqual(response.status_code, 404)
 
-
-## ADD MORE TESTS HERE

@@ -10,7 +10,6 @@ from django_countries.serializers import CountryFieldMixin
 from rest_framework import serializers
 import django_filters
 
-# https://sunscrapers.com/blog/ultimate-tutorial-django-rest-framework-part-1/
  
 class ClientSerializer(serializers.ModelSerializer):
   class Meta:

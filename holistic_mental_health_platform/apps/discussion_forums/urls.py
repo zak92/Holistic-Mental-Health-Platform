@@ -16,7 +16,4 @@ urlpatterns = [
 
     path('delete-comment/<str:pk>/', views.deleteComment, name='delete-comment'),
     
-
-   
-
 ]

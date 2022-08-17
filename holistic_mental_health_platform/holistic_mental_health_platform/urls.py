@@ -42,7 +42,7 @@ urlpatterns = [
 
 urlpatterns += [
     path('api/', include('rest_api.urls')),
-    path('api-auth/', include('rest_framework.urls')), # login/logout system
+    path('api-auth/', include('rest_framework.urls')), 
 ]
 # user uploaded images
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

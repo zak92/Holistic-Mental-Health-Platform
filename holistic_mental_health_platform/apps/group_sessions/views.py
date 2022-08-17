@@ -51,7 +51,7 @@ def updateGroupSession(request, pk):
   group_booking_form = GroupBookingForm(instance=group_booking)
 
   if request.method == 'POST': # if user sent info
-    group_booking_form = GroupBookingForm(request.POST, instance=group_booking) ## populated with the data that the user sent - update a group, do not create a new one
+    group_booking_form = GroupBookingForm(request.POST, instance=group_booking) # populated with the data that the user sent - update a group, do not create a new one
     if group_booking_form.is_valid():
       group_booking.save()
 
@@ -135,7 +135,7 @@ def groupSignUpConfirmation(request, pk):
 
 @login_required(login_url='/accounts/login')
 def clientLeaveGroup(request, pk):
-  client_leave_group = GroupBooking.objects.get(id=pk) # get_object_or_404(GroupBooking, id=pk, )
+  client_leave_group = GroupBooking.objects.get(id=pk) 
   try:
     # returns a queryset
     client = client_leave_group.members.all().filter(username=request.user.username)[0:1].get()

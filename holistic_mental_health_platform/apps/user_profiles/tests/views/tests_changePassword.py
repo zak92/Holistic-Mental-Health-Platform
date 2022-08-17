@@ -62,17 +62,3 @@ class ChangePasswordViewTest(TestCase):
     response = self.client.get(self.bad_url, format='json')
     self.assertEqual(response.status_code, 404)
 
-
-## ADD MORE TESTS HERE
-
-
-  # def tests_change_password_post(self):
-  #    self.client.login(username='kristy', password='12test12')
-  #    response = self.client.post(self.good_url, {
-  #      'old_password': '12test12',
-  #      'new_password1': 'abcdefg123',
-  #      'new_password2': 'abcdefg123'
-  #    })
-
-  #    #self.assertEqual(response.status_code, 302)
-  #    #self.assertEqual(self.user.password, 'abcdefg123')

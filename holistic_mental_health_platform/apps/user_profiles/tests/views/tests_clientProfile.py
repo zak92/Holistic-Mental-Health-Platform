@@ -4,15 +4,6 @@ from django.contrib.auth.models import AnonymousUser
 from ...views import *  
 import json
 
-# https://www.valentinog.com/blog/testing-django/
-# https://www.oreilly.com/library/view/test-driven-development-with/9781449365141/ch11.html
-# For forms - https://fossies.org/linux/Django/tests/auth_tests/test_forms.py
-# https://www.youtube.com/watch?v=qwypH3YvMKc&list=PLbpAWbHbi5rMF2j5n6imm0enrSD9eQUaM
-# https://docs.djangoproject.com/en/4.0/topics/testing/tools/#overview-and-a-quick-example
-# https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing
-# https://stackoverflow.com/questions/37363218/django-testing-the-html-of-your-homepage-against-the-content-of-a-response
-
-# Models https://www.youtube.com/watch?v=GBgRMdjAx_c&list=PLOLrQ9Pn6cay7t8VZ3wmn6QdAxzTx60F3&index=2
 class ClientProfileViewTest(TestCase):
 
   def setUp(self):
@@ -71,10 +62,6 @@ class ClientProfileViewTest(TestCase):
   def test_correct_response(self):
     response = self.client.get(self.good_url)
     self.assertEqual(response.status_code, 200)
-    #self.assertIn(b'Madrid', response.content)
-    # self.assertIn(b'test@example.com', response.content)
-    # self.assertIn(b'My name is Kristy', response.content)
-    # self.assertIn(b'Busy!', response.content)
     
   def test_fail_bad_url(self):
     response = self.client.get(self.bad_url, format='json')

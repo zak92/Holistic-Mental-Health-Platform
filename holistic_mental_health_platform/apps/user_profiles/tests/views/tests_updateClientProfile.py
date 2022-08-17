@@ -68,47 +68,4 @@ class UpdateClientProfileViewTest(TestCase):
   def test_fail_bad_url(self):
     response = self.client.get(self.bad_url, format='json')
     self.assertEqual(response.status_code, 404)
-
-## ADD MORE TESTS HERE
-
-
-
-  # def test_update_profile_POST(self):
-  #   data = {
-  #     'first_name': '',
-  #     'last_name': '',
-  #     'username': 'kristy',
-  #     'email': 'kristy@gmail.com',
-  #     'country': 'Spain',
-  #     'city': 'Madrid',
-  #     'profile_picture': 'kristy_mRGZ79I.jpg',
-  #     'bio': 'My name is Kristy!',
-  #     'status': 'In a meeting!'
-  #   }
-  #   request = self.factory.post('/profiles/edit-client-profile/kristy/', data=data, content_type='application/json')
-  #   request.user = self.user 
-  #   response = updateClientProfile(request, 'kristy')
-    
-    
-    
-    # request = self.factory.post('/profiles/edit-client-profile/kristy/', data=data, content_type='application/json')
-    # response = updateClientProfile(request, 'kristy')
-    # cat = User.objects.get(user=request.user)
-    # print(cat.email)
-    # Check that we got a response "redirect"
-    # response = self.factory.post("/profiles/edit-client-profile/kristy/", data = {
-    #   'username': 'kristy',
-    #   'email': 'kristy@gmail.com',
-    #   'country': 'Spain',
-    #   'city': 'Madrid',
-    #   'bio': 'My name is Kristy!',
-    #   'status': 'In a meeting!'
-    # })
-
-    #response = updateClientProfile(request, 'kristy')
-    # self.users = User.objects.get(id=1)
-    # print(response)
-    #self.assertEqual(self.user.status, "My name is Kristy!")
-    #self.assertEqual(response.status_code, 302)
-    #self.assertRedirects(response, '/profiles/client/kristy/')
-    #self.assertEqual(cat.username, 'kristy22')
+  

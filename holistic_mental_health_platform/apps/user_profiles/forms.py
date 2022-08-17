@@ -82,9 +82,6 @@ class UpdateServiceProviderProfileForm(ModelForm):
   def __init__(self,*args,**kwargs):
     super(UpdateServiceProviderProfileForm,self).__init__(*args,**kwargs)
 
-    #self.fields["about"].label="About"
-    # self.fields["about"].widget=forms.TextInput(attrs={"placeholder": "About","class":"form-control"})
-
     self.fields["announcements"].label="Announcements"
     self.fields["announcements"].widget=forms.Textarea(attrs={"placeholder": "Announcements","class":"form-control",
      "style": "width:98%;height:90px;overflow-y: scroll;background-color: #FFC3C3;color: white;border-radius: 1em;margin-bottom:1em;margin-left:1em;"})

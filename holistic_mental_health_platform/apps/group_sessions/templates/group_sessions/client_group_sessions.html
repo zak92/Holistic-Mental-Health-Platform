@@ -50,10 +50,6 @@
 
 
 
-
-
-
-
 <h2 class="heading">Cancelled Group Sessions</h2>
 {% for client_group_session in client_group_sessions %}
 {% if current_date < client_group_session.date or current_date == client_group_session.date and current_time < client_group_session.time %}
